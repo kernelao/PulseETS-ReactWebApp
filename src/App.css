@@ -3,7 +3,13 @@ App.jsx est le point d'entrée de l'application.
 On va dire que App.jsx est la page d'Accueil !
 */
 
-div {
-    font-size: 100px;
-    text-align: center;
+
+.accueil_cont{
+background-color: white;
+
+
+
 }
+
+
+
