@@ -15,8 +15,11 @@ const Pomodoro = () => {
 
         </header>
 
-
-         <TimerPom/>
+        <section>
+          
+          <TimerPom/>
+        </section>
+         
 
       </body>
       

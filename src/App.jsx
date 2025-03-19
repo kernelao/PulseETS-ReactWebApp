@@ -1,5 +1,5 @@
-import React from 'react'
-import './App.css'
+import React from 'react'; 
+import './App.css';
 import PageAccueil from './components/layout/Accueil/PageAccueil';
 import PomodoroTimer from './pages/User/Pomodoro/Pomodoro.jsx';
 
