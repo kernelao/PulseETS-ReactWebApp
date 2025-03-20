@@ -1,7 +1,8 @@
 
     .Navmain{
 
-        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
         display: grid;
         background-color: #E3EED9;
         align-content: space-around;

@@ -1,8 +1,27 @@
 import React from 'react'
+import Navbar from '../../../components/layout/Navbar/Navbar' 
+import ProfileMain from '../../../components/layout/Profile/Profile.jsx'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div>
+      
+      <body>
+        <header>
+          <nav>
+            <Navbar/>
+          </nav>
+
+        </header>
+
+
+         <ProfileMain/>
+
+      </body>
+      
+
+
+    </div>
   )
 }
 
