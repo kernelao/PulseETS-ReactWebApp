@@ -5,8 +5,7 @@ import ProfileMain from '../../../components/layout/Profile/Profile.jsx'
 const Profile = () => {
   return (
     <div>
-      
-      <body>
+    
         <header>
           <nav>
             <Navbar/>
@@ -16,8 +15,6 @@ const Profile = () => {
 
 
          <ProfileMain/>
-
-      </body>
       
 
 
