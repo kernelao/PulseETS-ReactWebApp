@@ -1,0 +1,193 @@
+
+/*-------------------------*/
+/*style ici*/
+
+.acc_cont1 h2{
+
+    text-align: center;
+    margin-top: auto;
+    
+    font-size:xx-large;
+    font-family: 'Arial Black';
+}
+.acc_cont1 h5{
+
+    text-align: center;
+    font-size: medium;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    font-family: 'Arial Black';
+   
+}
+.acc_cont1 button{
+    width: 180px;
+    height: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    
+}
+
+.acc_cont2 h2{
+
+    font-family: 'Arial Black';
+    text-align: left;
+    flex-grow: 0.5;
+}
+
+/*-----tableau accueil------*/
+.tg  {
+    
+    border-collapse:separate;
+    border-spacing:50px;
+    margin:0px auto;
+
+    display: flex;
+    
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tg td{
+    border-color:black;
+    border-style:solid;
+    
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    overflow:hidden;
+    word-break:normal;
+    width: 100px; 
+    height: 50px;
+    align-items: center;
+    
+    
+    
+}
+.tg tr{
+
+    height: 130px;
+    WIDTH:830PX;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-self: center;
+    gap: 3em;
+}
+
+.tg .tg-0lax{
+    text-align:CENTER;
+    vertical-align:middle; 
+    height: 130px;
+    width: 220px;
+    align-self: center;
+    display:grid;
+    grid-template-rows: 2fr 1fr 1fr;
+    border-radius: 10px;
+    
+
+    
+    }
+    
+    /*tableau icons*/
+
+    .acctab_icon{
+
+        width: 70px;
+        align-self: center;
+    }
+
+    
+/*--------------------------*/
+
+.acc_cont4 h2{
+
+    text-align: center;
+    padding-top: 5px;
+    font-family: 'Arial Black';
+    
+    
+}
+
+.acc_cont4 p{
+    padding-top: 1px;
+    text-align: center;
+    font-family: 'Arial';
+    font-style: italic;
+    
+}
+
+.acc_cont4 h4{
+
+    text-align: center;
+    font-style: italic;
+    font-family: 'Arial';
+    margin-top: 1px;
+}
+
+
+
+/*-------------------------*/
+/*flex constraints  ici*/
+
+.acc_pcontainer{
+
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   gap: 10px;
+}
+
+
+.acc_cont1{
+    margin-top: 20px;
+    margin-right: 55PX;
+    margin-left: 55px;
+    border-radius: 10px;
+    background-color:#DEECD1;
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 100px);
+    
+    flex-grow: 0.9;
+    
+    
+    margin-bottom: 10px;;
+}
+
+.acc_cont2{
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    margin-top: 20px;
+    margin-right: 80PX;
+    margin-left: 80px;
+    
+    
+}
+
+.acc_cont3{
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    align-items: center;
+    
+
+    margin-right: 80PX;
+    margin-left: 80px;
+   
+    height: 150px;
+    
+}
+
+.acc_cont4{
+    display: grid;
+    margin-right: 30PX;
+    margin-left: 30px;
+    text-align: center;
+   
+   
+    background-color: #c2bebe;
+    border-radius: 10px;
+    flex-grow: 1;
+  
+}
