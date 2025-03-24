@@ -7,20 +7,7 @@ const TimerPom = () => {
     return ( 
 
         <div className="all_timer_container">
-
-            
-            
-            
-          
-
                 <CircleTimer/>
-                  
-            
-
-                
-                
-                
-          
         </div>
 
 

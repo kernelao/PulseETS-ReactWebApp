@@ -54,6 +54,7 @@
    
 }
 .cercle_main{
+    background-color:#EEF1DA;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
