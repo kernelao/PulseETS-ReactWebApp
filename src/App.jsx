@@ -1,7 +1,7 @@
 import React from 'react'; 
 import './App.css';
 import PageAccueil from './components/layout/Accueil/PageAccueil';
-import PomodoroTimer from './pages/User/Pomodoro/Pomodoro.jsx';
+import Pomodoro from './pages/User/Pomodoro/Pomodoro.jsx';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
   <div>
     {/*<PageAccueil/>*/}
 
-      <PomodoroTimer/>
+      <Pomodoro/>
       
   </div>
         

@@ -1,5 +1,73 @@
-.start_btn, .stop_btn {
+.start_btn {
     padding: 10px;
     font-size: 16px;
     margin: 5px;
+    border-radius: 10px;
+    font-family: Arial, black serif;
+}
+.start_btn:active{
+
+    background-color: #D2E3C0;
+}
+
+.timer_btn{
+    font-family:Arial, sans-serif;
+    
+    background-color: #E0EDD4;
+    font-family: Arial, black serif;
+    border-radius: 10px;
+    width: 150px;
+}
+
+.timer_btn:active{
+  background-color: #D2E3C0;
+
+    
+}
+
+.text_cercle{
+
+    font-size: xx-large;
+    font-family: Arial, black serif;
+}
+
+.cercle_box{
+
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+}
+
+
+.btn_timer_container{
+   
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 20px;
+    margin-right: 20px;
+   
+   
+}
+.cercle_main{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    border-style: solid;
+    border-color: black;
+
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+
+.button_srt_container{
+
+    margin-bottom: 10px;
 }

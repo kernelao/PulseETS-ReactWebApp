@@ -7,7 +7,7 @@ const Pomodoro = () => {
   return (
     <div>
       
-      <body>
+      
         <header>
           <nav>
             <Navbar/>
@@ -21,7 +21,6 @@ const Pomodoro = () => {
         </section>
          
 
-      </body>
       
 
 
