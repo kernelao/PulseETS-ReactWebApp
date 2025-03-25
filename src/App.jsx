@@ -1,13 +1,14 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './app.css';
+import AppRouter from './routes/AppRouter';
+import AuthProvider from './context/AuthContext';
 
 function App() {
   return (
-    <div>
-      <div>Mon Application Pulse</div>
-      <p>Let's do it !</p>
-    </div>
-  )
+    <AuthProvider>
+      <AppRouter />
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
