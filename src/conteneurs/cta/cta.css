@@ -19,6 +19,7 @@
     line-height: 30px;
     cursor: pointer;
     color: white;
+    text-align: left;
 }
 
 .cta-contenu h3 {
@@ -38,7 +39,13 @@
 @media screen and (max-width: 650px) {
     .cta {
         flex-direction: column;
+        text-align: center;
     }
+    
+    .cta p {
+        text-align: center;
+    }
+
     .cta-bouton {
         margin: 2rem 0 0;
     }
@@ -51,9 +58,6 @@
     .cta-contenu h3 {
         font-size: 18px;
         line-height: 28px;
-        text-align: center;
-    }
-    .cta-contenu p {
         text-align: center;
     }
     .cta-bouton {

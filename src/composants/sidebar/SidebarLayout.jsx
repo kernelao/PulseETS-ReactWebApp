@@ -11,30 +11,32 @@ const SidebarLayout = ({ data }) => {
 
   return (
     <IconContext.Provider value={{ color: '#fff' }}>
-      {/* Top navbar avec bouton dynamique */}
-      <div className="navbar">
-        <Link to="#" className="menu-bars" onClick={toggleSidebar}>
-          {sidebarOpen ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
-        </Link>
-      </div>
+      <div className="sidebar-layout">
+        {/* Menu Burger ou X */}
+        <div className="sidebar-navbar">
+          <Link to="#" className="menu-bars" onClick={toggleSidebar}>
+            {sidebarOpen ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
+          </Link>
+        </div>
 
-      {/* Sidebar */}
-      <nav className={sidebarOpen ? 'nav-menu active' : 'nav-menu'}>
-        <ul className="nav-menu-items">
-          {data.map((item, index) => (
-            <li key={index} className={item.cName}>
-              <Link to={item.path}>
-                {item.icon}
-                <span>{item.title}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        {/* Sidebar */}
+        <nav className={sidebarOpen ? 'nav-menu active' : 'nav-menu'}>
+          <ul className="nav-menu-items">
+            {data.map((item, index) => (
+              <li key={index} className={item.cName}>
+                <Link to={item.path}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      {/* Contenu principal */}
-      <div className="main-content">
-        <Outlet />
+        {/* Contenu principal */}
+        <div className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
+          <Outlet />
+        </div>
       </div>
     </IconContext.Provider>
   );

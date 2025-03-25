@@ -1,12 +1,25 @@
+.sidebar-layout {
+  display: flex;
+}
+
 .sidebar-navbar {
   background-color: #060b26;
   height: 60px;
   display: flex;
   align-items: center;
   padding: 0 1rem;
-  z-index: 1000;
+  position: absolute; /* pas fixed */
+  top: 0;
+  left: 0;
+  width: 80px; /* même taille que la sidebar fermée */
+  z-index: 1001;
 }
 
+.nav-menu.active + .sidebar-navbar {
+  width: 250px; /* même taille que la sidebar ouverte */
+}
+
+/* Icône du menu */
 .menu-bars {
   font-size: 2rem;
   background: none;
@@ -14,6 +27,7 @@
   cursor: pointer;
 }
 
+/* Sidebar */
 .nav-menu {
   background-color: #060b26;
   width: 80px;
@@ -23,6 +37,7 @@
   left: 0;
   transition: width 350ms ease;
   overflow: hidden;
+  padding-top: 60px; /* Pour ne pas cacher le menu burger */
   z-index: 999;
 }
 
@@ -31,9 +46,9 @@
 }
 
 .nav-menu-items {
-  padding: 0;
-  margin-top: 60px;
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-text {
@@ -53,8 +68,8 @@
 }
 
 .nav-text a svg {
-  font-size: 2rem;       
-  min-width: 32px;       
+  font-size: 2rem;
+  min-width: 32px;
   transition: transform 0.2s ease;
 }
 
@@ -79,16 +94,19 @@
   border-radius: 4px;
 }
 
-.nav-menu:not(.active) .navbar-toggle {
-  display: none;
-}
-
+/* Contenu principal */
 .main-content {
-  margin-left: 80px;
   padding: 2rem;
+  margin-left: 70px;
   transition: margin-left 350ms ease;
+  width: 100%;
 }
 
-.nav-menu.active ~ .main-content {
-  margin-left: 250px;
+.main-content.sidebar-open {
+  margin-left: 250px; /* pour le décaler, commenter pour affichage par dessus */
+}
+
+/* Empêche les paragraphes d'être centrés à cause d'autres CSS globaux */
+.main-content p {
+  text-align: left !important;
 }
