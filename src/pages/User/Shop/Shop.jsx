@@ -1,26 +1,9 @@
 import React from 'react'
-import Navbar from '../../../components/layout/Navbar/Navbar' 
-import Boutique from '../../../components/layout/Boutique/Boutique.jsx'
 
-
-const Profile = () => {
+const Shop = () => {
   return (
-    <div>
-    
-        <header>
-          <nav>
-            <Navbar/>
-          </nav>
-
-        </header>
-
-
-         <Boutique/>
-      
-
-
-    </div>
+    <div>Shop</div>
   )
 }
 
-export default Profile
+export default Shop
