@@ -1,0 +1,82 @@
+{
+  "hash": "1a0b92cc",
+  "configHash": "c344a9a1",
+  "lockfileHash": "df56491a",
+  "browserHash": "82ae1ac9",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "552f97fe",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "56407b0a",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "099f551b",
+      "needsInterop": false
+    },
+    "jwt-decode": {
+      "src": "../../node_modules/jwt-decode/build/esm/index.js",
+      "file": "jwt-decode.js",
+      "fileHash": "b21792cd",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "2c2a3400",
+      "needsInterop": false
+    },
+    "react-icons": {
+      "src": "../../node_modules/react-icons/index.mjs",
+      "file": "react-icons.js",
+      "fileHash": "47d65115",
+      "needsInterop": false
+    },
+    "react-icons/ai": {
+      "src": "../../node_modules/react-icons/ai/index.mjs",
+      "file": "react-icons_ai.js",
+      "fileHash": "5e3ca22b",
+      "needsInterop": false
+    },
+    "@fortawesome/free-solid-svg-icons": {
+      "src": "../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
+      "file": "@fortawesome_free-solid-svg-icons.js",
+      "fileHash": "b7976ac3",
+      "needsInterop": false
+    },
+    "@fortawesome/react-fontawesome": {
+      "src": "../../node_modules/@fortawesome/react-fontawesome/index.es.js",
+      "file": "@fortawesome_react-fontawesome.js",
+      "fileHash": "9207e3d3",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "dc67c95d",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-TKHB4QMX": {
+      "file": "chunk-TKHB4QMX.js"
+    },
+    "chunk-EMCJRAGN": {
+      "file": "chunk-EMCJRAGN.js"
+    },
+    "chunk-YLDSBLSF": {
+      "file": "chunk-YLDSBLSF.js"
+    },
+    "chunk-DC5AMYBS": {
+      "file": "chunk-DC5AMYBS.js"
+    }
+  }
+}
