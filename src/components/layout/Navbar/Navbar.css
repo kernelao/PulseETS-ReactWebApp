@@ -1,0 +1,51 @@
+
+    .Navmain{
+
+        border-radius: 8px;
+        display: grid;
+        background-color: #E3EED9;
+        align-content: space-around;
+        padding: 5px 5px;
+        
+    }
+    .nav_btn{
+        border-radius: 4px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color:#F2F7ED;
+       
+        
+       
+       align-items: center;
+    }
+    .navbtn_icon{
+        width: 25px;
+        align-self: center;
+    }
+
+    .logo_pulse{
+  
+        grid-column-start: 1;
+        grid-column-end: 5;
+        width: 130px;
+       
+       
+        
+        
+    }
+    .btn_container{
+        
+    
+       grid-column-start:10;
+       
+       display: grid;
+      
+       grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+       justify-content: space-around;
+       gap: 5px;
+        
+    
+       
+        
+    }
+    

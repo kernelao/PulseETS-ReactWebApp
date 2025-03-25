@@ -1,11 +1,14 @@
 import React from 'react'
 import './App.css'
+import { ThemeProvider } from "./context/ThemeContext";
+import Settings from './pages/User/Settings/Settings.jsx'
 
 function App() {
   return (
     <div>
-      <div>Mon Application Pulse</div>
-      <p>Let's do it !</p>
+    <ThemeProvider>
+      <Settings />
+    </ThemeProvider>
     </div>
   )
 }
