@@ -35,6 +35,13 @@
     background-color: #4e8733;
 }
 
+.grise {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+
 /* Overlay pour la pop-up */
 .popup-overlay {
     position: fixed;
