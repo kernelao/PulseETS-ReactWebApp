@@ -1,8 +1,16 @@
-import React from 'react'
+
+import TimerPom from "../../composants/timer/TimerPom"
+
 
 const Pomodoro = () => {
   return (
-    <div>Pomodoro</div>
+    <div>
+
+
+      <TimerPom/>
+
+
+    </div>
   )
 }
 
