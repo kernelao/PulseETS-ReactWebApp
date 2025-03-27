@@ -1,58 +1,57 @@
 .article {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    background-color: #e9aa0c;
+  display: flex;
+  flex-direction: column;
+  background-color: #e9aa0c;
 }
 
 .article-conteneur {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .article-conteneur img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .article-contenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    padding: 1rem 1.5rem;
-    height: 100%;
+  padding: 1rem 1.5rem;
+  height: 100%;
 }
 
 .article-contenu p {
-    font-size: 11.65px;
-    font-weight: 700;
-    line-height: 35px;
-    text-align: left;
+  font-size: 11.65px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: left;
 
-    color: black;
+  color: black;
 }
 
 .article-contenu h3 {
-    font-size: 25px;
-    font-weight: 800;
-    line-height: 30px;
-    
-    color: black;
-    margin-bottom: 5rem;
-    cursor: pointer;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 30px;
+
+  color: black;
+  margin-bottom: 5rem;
+  cursor: pointer;
 }
 
 .article-contenu p:last-child {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-
 @media screen and (max-width: 550px) {
-    .article-contenu h3 {
-        font-size: 18px;
-        line-height: 25p;
-    }
+  .article-contenu h3 {
+    font-size: 18px;
+    line-height: 25p;
+  }
 }

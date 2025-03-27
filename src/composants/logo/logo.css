@@ -1,10 +1,9 @@
 .logo {
-    display: flex;
-    align-items: center;
-    margin-top: 2px;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
 }
-  
+
 .logo-img {
-    height: 1rem;
+  height: 1rem;
 }
-  
