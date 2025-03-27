@@ -1,5 +1,5 @@
 import React from 'react'
-import Recompenses from '/src/components/layout/Recompenses/Recompenses.jsx'
+import Recompenses from '/src/composants/Recompenses/Recompenses.jsx'
 import './Profile.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
