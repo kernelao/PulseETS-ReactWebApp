@@ -6,9 +6,6 @@ import Pinceau from "../../assets/pinceau.svg";  //icone de pinceau
 import { ThemeContext } from "../../context/ThemeContext"; //pour le changement de themes
 
 const Reglages = () => {
-  return <div>Reglages</div>
-}
-=======
   const { theme, changeTheme } = useContext(ThemeContext);
   const [pomodoro, setPomodoro] = useState(25);
   const [pauseCourte, setPauseCourte] = useState(5);
@@ -85,6 +82,5 @@ const Reglages = () => {
       </div>
     </div>
   );
-};
-
+}
 export default Reglages

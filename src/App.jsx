@@ -9,9 +9,6 @@ function App() {
       <AppRouter />
     </AuthProvider>
   )
-=======
-    
-  );
 }
 
 export default App
