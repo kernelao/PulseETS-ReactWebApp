@@ -19,29 +19,29 @@ const Reglages = () => {
 
   return (
 
-    <div id="main" className={theme.replace(" ", "-").toLowerCase()}>
+    <div id="mainReglages" className={theme.replace(" ", "-").toLowerCase()}>
 
       <Navbar />
 
-      <div id="parametres">
-        <h2 id="titreMain">Paramètre</h2>
-        <hr />
+      <div id="reglages">
+        <h2 id="titreMainReglages">Paramètre</h2>
+        <hr class="barreReglages"/>
         <form onSubmit={handleSubmit}>
-          <section id="minuteur">
-            <div id="minuteurTitre">
-              <img src={horloge} alt="Paramètres du minuteur" id="horloge" />
-              <h3>Minuteur</h3>
+          <section id="minuteurReglages">
+            <div id="minuteurTitreReglages">
+              <img src={horloge} alt="Paramètres du minuteur" id="horlogeMinuteur" />
+              <h3 class="sousTitreReglages">Minuteur</h3>
             </div>
-            <div id="parametresMinuteur">
+            <div id="reglagesMinuteur">
               {[
                 { label: "Pomodoro", value: pomodoro, setter: setPomodoro },
                 { label: "Pause Courte", value: pauseCourte, setter: setPauseCourte },
                 { label: "Pause Longue", value: pauseLongue, setter: setPauseLongue },
               ].map((item, index) => (
-                <label key={index}>
-                  <span>{item.label}</span>
+                <label key={index} className="labelReglages1">
+                  <span class="spanReglages">{item.label}</span>
                   <input
-                    className="minuteurChoix"
+                    className="minuteurChoixReglages"
                     type="number"
                     value={item.value}
                     onChange={(e) => item.setter(e.target.value)}
@@ -51,17 +51,18 @@ const Reglages = () => {
             </div>
           </section>
 
-          <hr id="ligne2" />
+          <hr id="ligne2Reglages" />
 
-          <section id="theme">
-            <div id="themeTitre">
-              <img src={Pinceau} alt="Changer le thème" id="Pinceau" />
-              <h3>Changer le thème</h3>
+          <section id="themeReglages">
+            <div id="themeTitreReglages">
+              <img src={Pinceau} alt="Changer le thème" id="pinceauReglages" />
+              <h3 class="sousTitreReglages">Changer le thème</h3>
             </div>
-            <label id="nomTheme">
-              <span>Nom :</span>
+            <label id="nomThemeReglages">
+              <span class="spanReglages">Nom :</span>
               <select
-                id="choixTheme"
+                id="choixThemeReglages"
+                class="selectReglages"
                 value={themeChoisi}
                 onChange={(e) => setThemeChoisi(e.target.value)}
               >
@@ -72,8 +73,8 @@ const Reglages = () => {
             </label>
           </section>
 
-          <div id="boutonEnregistrerConteneur">
-            <button type="submit" id="boutonEnregistrer">
+          <div id="boutonEnregistrerConteneurReglages">
+            <button type="submit" id="boutonEnregistrerReglages">
               Enregistrer les changements
             </button>
           </div>

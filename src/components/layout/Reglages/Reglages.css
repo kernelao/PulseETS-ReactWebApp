@@ -1,4 +1,4 @@
-#main {
+#mainReglages {
   background-color:#d8eeba;
   padding: 2rem;
   margin: 0;
@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-#parametres {
+#reglages {
   background-color: #f2f7eb;
   padding: 2rem;
   width: 100%;
@@ -25,7 +25,7 @@
   overflow: auto; 
 }
 
-#parametresMinuteur, #theme {
+#reglagesMinuteur, #themeReglages {
   width: 100%; 
   display: flex;
   flex-wrap: wrap; 
@@ -33,46 +33,46 @@
   gap: 1rem;
 }
   
-#titreMain {
+#titreMainReglages {
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0;
 }
 
-#ligne2 {
+#ligne2Reglages {
   color: gray;
   margin-top: 4rem;
   margin-bottom: 0;
 }
   
-#minuteur,
-#theme {
+#minuteurTitreReglages,
+#themeReglages {
   margin-top: 2rem;
 }
 
-#theme {
+#themeReglages {
   display: flex;
   flex-direction: column; 
 }
   
-#parametresMinuteur {
+#reglagesMinuteur {
   display: flex;
   justify-content: center;
   gap: 9rem;   
 }
 
-#choixTheme {
+#choixThemeReglages {
   width: 200px;
 }
 
-#boutonEnregistrerConteneur {
+#boutonEnregistrerConteneurReglages {
   display: flex;            
   justify-content: flex-end;
   align-items: center;
 }
   
-#boutonEnregistrer {
+#boutonEnregistrerReglages {
   margin-top: 1.5rem;
   padding: 0.3rem 0.3rem;
   border: 0.5px solid black;
@@ -82,24 +82,24 @@
   font-weight: bold;
 }
   
-#boutonEnregistrer:hover {
+#boutonEnregistrerReglages:hover {
   background-color: #dce5c4;;
 }
 
-#nomTheme {
+#nomThemeReglages {
   display: flex; 
   flex-direction: column; 
   align-items: flex-start;
   gap: 8px; 
 }
 
-#Pinceau {
+#pinceauReglages {
   width: 24px;
   height: 24px;
   opacity: 0.5;
 }
 
-#themeTitre {
+#themeTitreReglages {
   display: flex;  
   flex-direction: column; 
   align-items: flex-start;  
@@ -107,13 +107,13 @@
   margin-top: 0;
 }
 
-#horloge {
+#horlogeMinuteur {
   width: 24px;
   height: 24px;
   opacity: 0.5;
 }
 
-#minuteurTitre{
+#minuteurTitreReglages{
   display: flex;  
   align-items: center; 
   gap: 8px;   
@@ -121,19 +121,19 @@
   margin-top: 0;
 }
 
-#main.mode-zen {
+#mainReglages.mode-zen {
   background-color: #d9ecbd; 
 }
   
-#main.mode-nuit {
+#mainReglages.mode-nuit {
   background-color: #333;
 }
   
-#main.mode-jour {
+#mainReglages.mode-jour {
   background-color: #dcdcdc;
 }
 
-h3 {
+.sousTitreReglages {
   font-size: 1.2rem;
   font-weight: bold;
   display: flex;
@@ -142,20 +142,20 @@ h3 {
   color: grey;
 }
 
-hr {
+.barreReglages {
   margin-top: 1rem;
   margin-bottom: 0;
 }
 
-label {
+.labelReglages {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
   
-input,
-select {
+.labelReglages,
+.selectReglages {
   padding: 8px;
   border-radius: 8px;
   border: 1px solid #e2e6d5;
@@ -165,12 +165,34 @@ select {
   max-width: 200px; 
 }
 
-span {
+#reglagesMinuteur {
+  display: flex;
+  justify-content: center;
+  gap: 15rem; /* Réduction de l'espacement */
+}
+
+.labelReglages1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  gap: 0.3rem;
+}
+
+.minuteurChoixReglages {
+  background: #e2e6d5;
+  border: 1px solid #e2e6d5;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+
+.spanReglages {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.minuteurChoix {
+.minuteurChoixReglages {
   width: 60px;
   text-align: center;
   padding: 0.3rem; 
