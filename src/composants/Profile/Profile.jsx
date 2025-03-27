@@ -8,30 +8,6 @@ import axios from 'axios'
 
 function Profile(){
     const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        // Remplacer "token" par ta méthode d'obtention du token (localStorage, sessionStorage, etc.)
-        const token = localStorage.getItem('authToken'); // Exemple avec localStorage
-
-        if (token) {
-            axios.get('https://ton-api-url.com/api/user/profile', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then(response => {
-                setUser(response.data);
-                setLoading(false);
-            })
-            .catch(err => {
-                setError('Erreur lors de la récupération du profil');
-                setLoading(false);
-            });
-        } else {
-            setError('Utilisateur non authentifié');
-            setLoading(false);
-        }
-    }, []);
     
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$/;
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
