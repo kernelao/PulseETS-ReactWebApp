@@ -36,6 +36,7 @@ const PublicRoutes = () => {
       <Route path="/connexion" element={<Connexion />} />
       <Route path="/inscription" element={<Inscription />} />
       <Route path="/reinitialiser-mdp" element={<ReinitialiserMdp />} />
+      
 
       {/* navbar de test seulement */}
       <Route path="/test-navbar" element={<NavbarTest />} />
