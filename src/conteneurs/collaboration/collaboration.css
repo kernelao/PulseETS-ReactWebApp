@@ -1,29 +1,29 @@
 .collaboration {
-    display: flex;
-    justify-content: center; /* Centrage horizontal */
-    align-items: center;
-    gap: 60px; /* Espace entre les images */
-    flex-wrap: wrap; /* Pour que ça s’adapte si l’écran est petit */
-    padding: 20px;
-    background-color: white;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: center; /* Centrage horizontal */
+  align-items: center;
+  gap: 60px; /* Espace entre les images */
+  flex-wrap: wrap; /* Pour que ça s’adapte si l’écran est petit */
+  padding: 20px;
+  background-color: white;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
-  
+
 .collaboration img {
-    width: 60px; /* Tu peux ajuster la taille ici */
-    height: auto;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-    filter: grayscale(100%); /* rend les images plus blanches */
-    opacity: 0.9; /* effet doux */
+  width: 60px; /* Tu peux ajuster la taille ici */
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: grayscale(100%); /* rend les images plus blanches */
+  opacity: 0.9; /* effet doux */
 }
 
 @media screen and (max-width: 767px) {
-    .collaboration {
-        gap: 35px;
-    }
-    .collaboration img {
-        width: 40px;
-    }
+  .collaboration {
+    gap: 35px;
+  }
+  .collaboration img {
+    width: 40px;
+  }
 }

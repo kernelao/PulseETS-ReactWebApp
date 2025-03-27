@@ -21,6 +21,12 @@ const WelcomePage = () => {
     type();
   }, []);
 
+const Notes = () => {
+  return <div>Notes</div>
+}
+
+export default Notes
+=======
   return (
     <div className="welcome-page">
       <h1>Bienvenue dans votre espace de notes !</h1>

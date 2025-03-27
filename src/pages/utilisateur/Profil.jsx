@@ -2,6 +2,8 @@ import React from 'react'
 import ProfileMain from "../../composants/Profile/Profile.jsx";
 
 const Profil = () => {
+  return <div>Profil</div>
+=======
   return (
     <div>
       <ProfileMain/>
