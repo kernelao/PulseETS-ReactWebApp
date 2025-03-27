@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("Zen mode");
+  const [theme, setTheme] = useState("Mode zen");
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
