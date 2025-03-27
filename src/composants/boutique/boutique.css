@@ -1,0 +1,208 @@
+#iconeAvatar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 15px; /* Espace entre les avatars */
+    margin: 35px;
+    width: 100%; /* Garantir que l'élément occupe toute la largeur */
+}
+
+.avatars{
+    flex : 0 0 auto;
+    width: 150px; /* Largeur des avatars */
+    height: 150px; /* Hauteur des avatars */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#iconeAvatar .avatars {
+    border: none;
+    border-radius: 20px;
+    background-color: #9db293;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    max-width: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+#iconeAvatar .avatars img {
+    max-width: 100%;
+    border-radius: 20px;
+    justify-items: center;
+    align-items: center;
+    object-fit: contain;  }
+
+#iconeAvatar .avatars:hover{
+    transform: scale(1.1);
+    background-color: #4e8733;
+}
+
+.grise {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+
+/* Overlay pour la pop-up */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 300px;
+    animation: zoomIn 0.3s ease-in-out;
+}
+
+.popup-box img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+.popup-box button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+
+
+.boutiqueContainer{
+    background-color: #E3EED9;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    min-height: 100vh;
+}
+
+.h1Boutique {
+    text-align: center;
+}
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #C6D0BD;
+    object-fit: cover;
+    flex-wrap: nowrap;
+}
+
+#iconeAvatar{
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #C6D0BD;
+    align-content: center;
+    padding: 10px 10px;
+    margin: 15px 15px;
+    width: 95%;
+    height: auto;
+}
+
+#iconeAvatar .h2Boutique{
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.popup-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-box .formProfile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-box .inputProfile {
+border-radius: 8px;
+padding: 10px;
+width: 80%;
+margin-bottom: 10px;
+}
+
+.popup-box .btnProfile {
+    width: 100%;
+    padding: 10px;
+    background-color: #c0d3ae;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.popup-box .btnProfile:hover {
+    background-color: #9db293;
+}
+
+.popup-box .inputProfile::placeholder {
+    color: black;
+}
