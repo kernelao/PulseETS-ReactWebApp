@@ -24,7 +24,6 @@ const WelcomePage = () => {
 const Notes = () => {
   return <div>Notes</div>
 }
-
   return (
     <div className="welcome-page">
       <h1>Bienvenue dans votre espace de notes !</h1>
