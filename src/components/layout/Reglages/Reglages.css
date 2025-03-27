@@ -1,0 +1,200 @@
+#mainReglages {
+  background-color:#d8eeba;
+  padding: 2rem;
+  margin: 0;
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+#reglages {
+  background-color: #f2f7eb;
+  padding: 2rem;
+  width: 100%;
+  max-width: 90%;
+  max-height: 90vh;
+  margin: 2rem auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-grow: 1;  
+  overflow: auto; 
+}
+
+#reglagesMinuteur, #themeReglages {
+  width: 100%; 
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between;
+  gap: 1rem;
+}
+  
+#titreMainReglages {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+#ligne2Reglages {
+  color: gray;
+  margin-top: 4rem;
+  margin-bottom: 0;
+}
+  
+#minuteurTitreReglages,
+#themeReglages {
+  margin-top: 2rem;
+}
+
+#themeReglages {
+  display: flex;
+  flex-direction: column; 
+}
+  
+#reglagesMinuteur {
+  display: flex;
+  justify-content: center;
+  gap: 9rem;   
+}
+
+#choixThemeReglages {
+  width: 200px;
+}
+
+#boutonEnregistrerConteneurReglages {
+  display: flex;            
+  justify-content: flex-end;
+  align-items: center;
+}
+  
+#boutonEnregistrerReglages {
+  margin-top: 1.5rem;
+  padding: 0.3rem 0.3rem;
+  border: 0.5px solid black;
+  border-radius: 8px;
+  background-color: #a9c581;
+  cursor: pointer;
+  font-weight: bold;
+}
+  
+#boutonEnregistrerReglages:hover {
+  background-color: #dce5c4;;
+}
+
+#nomThemeReglages {
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 8px; 
+}
+
+#pinceauReglages {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+}
+
+#themeTitreReglages {
+  display: flex;  
+  flex-direction: column; 
+  align-items: flex-start;  
+  gap: 8px;  
+  margin-top: 0;
+}
+
+#horlogeMinuteur {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+}
+
+#minuteurTitreReglages{
+  display: flex;  
+  align-items: center; 
+  gap: 8px;   
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+#mainReglages.mode-zen {
+  background-color: #d9ecbd; 
+}
+  
+#mainReglages.mode-nuit {
+  background-color: #333;
+}
+  
+#mainReglages.mode-jour {
+  background-color: #dcdcdc;
+}
+
+.sousTitreReglages {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: grey;
+}
+
+.barreReglages {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.labelReglages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+  
+.labelReglages,
+.selectReglages {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e6d5;
+  background: #e2e6d5;
+  font-weight: bold;
+  width: 100%; 
+  max-width: 200px; 
+}
+
+#reglagesMinuteur {
+  display: flex;
+  justify-content: center;
+  gap: 15rem; /* Réduction de l'espacement */
+}
+
+.labelReglages1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  gap: 0.3rem;
+}
+
+.minuteurChoixReglages {
+  background: #e2e6d5;
+  border: 1px solid #e2e6d5;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+
+.spanReglages {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.minuteurChoixReglages {
+  width: 60px;
+  text-align: center;
+  padding: 0.3rem; 
+  border-radius: 8px;
+}
