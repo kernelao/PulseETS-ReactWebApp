@@ -9,15 +9,15 @@ function Profile(){
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const [oldPsw, setOldPsw] = useState("");
-    const [newPsw, setNewPsw] = useState("");
-    const [oldEmail, setOldEmail] = useState("");
-    const [newEmail, setNewEmail] = useState("");
     const [oldPswError, setOldPswError] = useState("");
+    const [newPsw, setNewPsw] = useState("");
     const [newPswError, setNewPswError] = useState("");
-    const [oldEmailError, setOldEmailError] = useState("");
-    const [newEmailError, setNewEmailError] = useState("");
-
     const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
+
+    const [oldEmail, setOldEmail] = useState("");
+    const [oldEmailError, setOldEmailError] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [newEmailError, setNewEmailError] = useState("");
     const [isEmailPopupOpen, setIsEmailPopupOpen] = useState(false);
 
     useEffect(() => {
@@ -78,12 +78,21 @@ const handleEmailSubmit = (e) => {
     setIsEmailPopupOpen(false);
 };
 
+const [pulsePoints, setPulsePoints] = useState(0)
+const ajouterPoints = (points) => {
+    setPulsePoints((prev) => prev + points)
+}
+
 return(
     <div className='profile_container'>
         <h1>Profile</h1> <br />
             <div className='profile_image'>
                 <img src="path_to_profile_picture.png" alt="Image de profil" className="profile-img" />
             </div>
+            <h3>{pulsePoints}</h3>
+            <Notes onNoteAjoutee={() => ajouterPoints(5)} />
+            <Taches onTacheCompletee={() => ajouterPoints(10)} />
+            <Sessions onSessionCompletee={() => ajouterPoints(100)} />
         <div className='securite_container'>
             <div>
                 <h2>Sécurité</h2>
