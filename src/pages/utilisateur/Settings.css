@@ -1,0 +1,178 @@
+#main {
+  background-color:#d8eeba;
+  padding: 2rem;
+  margin: 0;
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+#parametres {
+  background-color: #f2f7eb;
+  padding: 2rem;
+  width: 100%;
+  max-width: 90%;
+  max-height: 90vh;
+  margin: 2rem auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-grow: 1;  
+  overflow: auto; 
+}
+
+#parametresMinuteur, #theme {
+  width: 100%; 
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between;
+  gap: 1rem;
+}
+  
+#titreMain {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+#ligne2 {
+  color: gray;
+  margin-top: 4rem;
+  margin-bottom: 0;
+}
+  
+#minuteur,
+#theme {
+  margin-top: 2rem;
+}
+
+#theme {
+  display: flex;
+  flex-direction: column; 
+}
+  
+#parametresMinuteur {
+  display: flex;
+  justify-content: center;
+  gap: 9rem;   
+}
+
+#choixTheme {
+  width: 200px;
+}
+
+#boutonEnregistrerConteneur {
+  display: flex;            
+  justify-content: flex-end;
+  align-items: center;
+}
+  
+#boutonEnregistrer {
+  margin-top: 1.5rem;
+  padding: 0.3rem 0.3rem;
+  border: 0.5px solid black;
+  border-radius: 8px;
+  background-color: #a9c581;
+  cursor: pointer;
+  font-weight: bold;
+}
+  
+#boutonEnregistrer:hover {
+  background-color: #dce5c4;;
+}
+
+#nomTheme {
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 8px; 
+}
+
+#Pinceau {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+}
+
+#themeTitre {
+  display: flex;  
+  flex-direction: column; 
+  align-items: flex-start;  
+  gap: 8px;  
+  margin-top: 0;
+}
+
+#horloge {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+}
+
+#minuteurTitre{
+  display: flex;  
+  align-items: center; 
+  gap: 8px;   
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+#main.mode-zen {
+  background-color: #d9ecbd; 
+}
+  
+#main.mode-nuit {
+  background-color: #333;
+}
+  
+#main.mode-jour {
+  background-color: #dcdcdc;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: grey;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+  
+input,
+select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e6d5;
+  background: #e2e6d5;
+  font-weight: bold;
+  width: 100%; 
+  max-width: 200px; 
+}
+
+span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.minuteurChoix {
+  width: 60px;
+  text-align: center;
+  padding: 0.3rem; 
+  border-radius: 8px;
+}
