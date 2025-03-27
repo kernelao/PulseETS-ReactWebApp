@@ -1,49 +1,47 @@
 .identification {
-    padding-top: 60px;
-    min-height: 100vh;
+  padding-top: 60px;
+  min-height: 100vh;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
 }
-
 
 .identification h1 {
-    padding-top: 10vh;
-    padding-bottom: 20px;
-    text-align: center;
+  padding-top: 10vh;
+  padding-bottom: 20px;
+  text-align: center;
 }
 .identification label {
-    text-align: center;
+  text-align: center;
 }
 input {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 p {
-    text-align: center;
+  text-align: center;
 }
 
-input[type="text"],
-input[type="password"],
+input[type='text'],
+input[type='password'],
 button {
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
   width: 45vh;
   cursor: auto;
-
 }
 
 .identification button {
-    margin-top: 1rem;
-    width: 25vh;
-    height: 6vh;
-    cursor: pointer;
+  margin-top: 1rem;
+  width: 25vh;
+  height: 6vh;
+  cursor: pointer;
 }
 
 label {
@@ -51,48 +49,48 @@ label {
 }
 
 button {
-    padding: 0.5rem;
-    display: block;
-    margin: 1rem auto;
+  padding: 0.5rem;
+  display: block;
+  margin: 1rem auto;
 }
 
 .offscreen {
-    position: absolute;
-    left: -9999px;
+  position: absolute;
+  left: -9999px;
 }
 
 .errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .line {
-    display: inline-block;
+  display: inline-block;
 }
 
 @media (max-width: 600px) {
-    input[type="text"],
-    input[type="password"],
-    button {
-        width: 60%; 
-        font-size: 18px;
-    }
+  input[type='text'],
+  input[type='password'],
+  button {
+    width: 60%;
+    font-size: 18px;
+  }
 
-    .identification {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+  .identification {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
-    .identification button {
-        margin-top: 22px;
-        width: 40%;
-    }
+  .identification button {
+    margin-top: 22px;
+    width: 40%;
+  }
 
-    .line {
-        display: block;
-        margin-top: 1rem;
-    }
+  .line {
+    display: block;
+    margin-top: 1rem;
+  }
 }

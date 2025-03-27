@@ -1,9 +1,6 @@
 import React from 'react'
+import GestionWrapper from '../../admincomposants/gestionutilisateur/GestionWrapper'
 
-const GestionUtilisateur = () => {
-  return (
-    <div>GestionUtilisateur</div>
-  )
+export default function GestionUtilisateur() {
+  return <GestionWrapper />
 }
-
-export default GestionUtilisateur

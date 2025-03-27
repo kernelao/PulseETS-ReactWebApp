@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import Logo from '../../composants/logo/Logo';
-import Navbar from '../../composants/navbar/Navbar';
-import Bouton from '../../composants/bouton/Bouton';
-import './header.css';
+import React, { useState } from 'react'
+import Logo from '../../composants/logo/Logo'
+import Navbar from '../../composants/navbar/Navbar'
+import Bouton from '../../composants/bouton/Bouton'
+import './header.css'
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // État pour suivre si le menu est ouvert
+  const [isMenuOpen, setIsMenuOpen] = useState(false) // État pour suivre si le menu est ouvert
 
   return (
-    <header className={`header ${isMenuOpen ? "menu-open" : ""}`}>
+    <header className={`header ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="header__logo">
         <Logo />
       </div>
@@ -26,7 +26,7 @@ const Header = () => {
         </div>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

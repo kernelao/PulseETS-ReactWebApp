@@ -1,43 +1,43 @@
 .hero {
-    width: 100%;
-    height: 100vh;
-    padding-top: 60px; /* pour pas que le header soit par dessus */
-    background: url('../../assets/images/image4.png') no-repeat center/cover;
+  width: 100%;
+  height: 100vh;
+  padding-top: 60px; /* pour pas que le header soit par dessus */
+  background: url('../../assets/images/image4.png') no-repeat center/cover;
 }
 
 .hero .conteneur {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .hero .contenu {
-    height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    margin-left: 6rem;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  margin-left: 6rem;
 }
 
 .hero .contenu h1 {
-    white-space: nowrap;
-    color: black;
+  white-space: nowrap;
+  color: black;
 }
 
 .hero .contenu p {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-align: left;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 @media screen and (max-width: 967px) {
-    .hero {
-        padding-top: 0;
-    }
-    .hero .contenu {
-        margin-left: 2rem;
-    }
-    .hero .contenu h1 {
-        white-space:unset;
-    }
+  .hero {
+    padding-top: 0;
+  }
+  .hero .contenu {
+    margin-left: 2rem;
+  }
+  .hero .contenu h1 {
+    white-space: unset;
+  }
 }

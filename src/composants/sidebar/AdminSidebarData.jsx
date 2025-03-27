@@ -1,9 +1,4 @@
-import {
-  FaTachometerAlt,
-  FaUsers,
-  FaCogs,
-  FaStore,
-} from 'react-icons/fa';
+import { FaTachometerAlt, FaUsers, FaCogs, FaStore } from 'react-icons/fa'
 
 export const AdminSidebarData = [
   {
@@ -29,5 +24,5 @@ export const AdminSidebarData = [
     path: '/admin/boutique',
     icon: <FaStore />,
     cName: 'nav-text',
-  }
-];
+  },
+]
