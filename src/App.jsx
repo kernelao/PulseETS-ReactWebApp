@@ -1,11 +1,12 @@
 import React from 'react'
 import './App.css'
+import Notes from './pages/User/Notes/Notes.jsx'; 
 
 function App() {
   return (
-    <div>
-      <div>Mon Application Pulse</div>
-      <p>Let's do it !</p>
+    
+      <div>
+        <Notes />
     </div>
   )
 }
