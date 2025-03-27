@@ -1,0 +1,407 @@
+/* 🌿 Conteneur principal */
+.tasks-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #E6F4E6;
+    padding: 20px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+/* 🌿 Panneau gauche : Filtres + Tags */
+.left-panel {
+    width: 25%;
+    background-color: #C3E6C3;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 🌿 Filtres */
+.tasks-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tasks-filter button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tasks-filter button:hover {
+    background-color: #367c39;
+}
+
+/* 🌿 Tags */
+.tasks-tags {
+    margin-top: 20px;
+}
+
+.tag-input-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tag-input-container input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+.tag-input-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tag-input-container button:hover {
+    background-color: #367c39;
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-item {
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tag-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.tag-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tag-buttons button:hover {
+    background-color: #367c39;
+}
+
+/* 🌿 Panneau droit : Tâches */
+.right-panel {
+    flex-grow: 1;
+    background-color: #DFF2D8;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 40px); /* prend toute la hauteur sauf le padding extérieur */
+    overflow: hidden; /* empêche scroll global, mais autorise le scroll interne */
+}
+
+
+.right-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+
+
+
+/* 🌿 Affinage affichage tâches (compact et centré) */
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+    padding-bottom: 100px;
+    overflow: visible;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.task-item {
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 auto;
+    width: 95%;
+    max-width: 100%;
+}
+
+.task-item:hover {
+    background-color: #f0f0f0;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.task-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.task-buttons button:hover {
+    background-color: #367c39;
+}
+
+/* 🌿 Formulaire d'ajout */
+.tasks-form {
+    position: sticky; /* ✅ Fixe la position en bas */
+    bottom: 0;
+    left: 0;
+    background-color: #DFF2D8;
+    padding: 10px 0 0;
+    display: flex;
+    gap: 10px;
+    border-top: 2px solid #C3E6C3;
+    z-index: 10;
+}
+
+.tasks-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+.tasks-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tasks-form button:hover {
+    background-color: #367c39;
+}
+
+/* 🌿 Vue Détail */
+.task-details {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task-details h3 {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.task-details textarea {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.task-details button {
+    align-self: flex-end;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.task-details button:hover {
+    background-color: #367c39;
+}
+
+/* 🌿 Taille du texte */
+.tasks-container * {
+    font-size: 1rem;
+}
+
+/* 🌿 Barre de recherche de tag */
+.tag-search {
+    margin-top: 20px;
+}
+
+.tag-search h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+.tag-search input {
+    width: calc(100% - 2px); /* 🔧 empêche tout débordement */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;  /* ✅ prend bien en compte les bordures */
+}
+
+
+/* 🌿 ENLEVER overflow caché */
+body {
+    /* overflow: hidden; ❌ Ne surtout pas bloquer ici */
+}
+
+/* 🌿 Badge de tag */
+.tag-badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.tag-badge:hover {
+    background-color: #367c39;
+}
+
+/* 🌿 Titre des vues */
+.task-view-title {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #2f5e2f;
+}
+
+.task-view-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2f5e2f;
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #C3E6C3;
+    padding-bottom: 5px;
+}
+/* 🌿 Modale d'édition */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.task-view-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2f5e2f;
+    margin: 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #C3E6C3;
+    flex: 1;
+}
+
+.delete-visible-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: flex-start;     /* ✅ Aligne en haut du conteneur */
+    margin-top: -2px;           /* ✅ Légèrement plus haut */
+    margin-bottom: 5px;         /* ✅ Évite le chevauchement */
+}
+
+
+.delete-visible-btn:hover {
+    background-color: #c9302c;
+}
+
+.priority-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  
+  .priority-low {
+    background-color: green;
+  }
+  
+  .priority-medium {
+    background-color: orange;
+  }
+  
+  .priority-high {
+    background-color: red;
+  }
+  
