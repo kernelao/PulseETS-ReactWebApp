@@ -1,187 +1,195 @@
-import React from 'react'
-import Recompenses from '/src/composants/Recompenses/Recompenses.jsx'
-import './Profile.css'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import AVATAR from '/src/assets/image_avatar'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import Recompenses from '/src/composants/Recompenses/Recompenses.jsx';
+import './Profile.css';
+import api from "../../api/Axios";
 
-function Profile(){
-    const [user, setUser] = useState(null);
-    
-    const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$/;
-    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const [oldPsw, setOldPsw] = useState("");
-    const [newPsw, setNewPsw] = useState("");
-    const [oldEmail, setOldEmail] = useState("");
-    const [newEmail, setNewEmail] = useState("");
-    const [oldPswError, setOldPswError] = useState("");
-    const [newPswError, setNewPswError] = useState("");
-    const [oldEmailError, setOldEmailError] = useState("");
-    const [newEmailError, setNewEmailError] = useState("");
+function Profile() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
-    const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
-    const [isEmailPopupOpen, setIsEmailPopupOpen] = useState(false);
+  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$/;
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    useEffect(() => {
-        if (oldPsw && !PWD_REGEX.test(oldPsw)) {
-            setOldPswError("Mot de passe invalide (8-24 caractères, 1 maj, 1 min, 1 chiffre, 1 caractère spécial)");
-        } else {
-            setOldPswError("");
-        }
-    }, [oldPsw]);
-    
-    useEffect(() => {
-        if (newPsw && !PWD_REGEX.test(newPsw)) {
-            setNewPswError("Mot de passe invalide (8-24 caractères, 1 maj, 1 min, 1 chiffre, 1 caractère spécial)");
-        } else {
-            setNewPswError("");
-        }
-    }, [newPsw]);
-    
-    useEffect(() => {
-        if (oldEmail && !EMAIL_REGEX.test(oldEmail)) {
-            setOldEmailError("Format d'email invalide");
-        } else {
-            setOldEmailError("");
-        }
-    }, [oldEmail]);
-    
-    useEffect(() => {
-        if (newEmail && !EMAIL_REGEX.test(newEmail)) {
-            setNewEmailError("Format d'email invalide");
-        } else {
-            setNewEmailError("");
-        }
-    }, [newEmail]);
-    
-const handlePasswordSubmit = (e) => {
+  const [oldPsw, setOldPsw] = useState('');
+  const [newPsw, setNewPsw] = useState('');
+  const [oldEmail, setOldEmail] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [oldPswError, setOldPswError] = useState('');
+  const [newPswError, setNewPswError] = useState('');
+  const [oldEmailError, setOldEmailError] = useState('');
+  const [newEmailError, setNewEmailError] = useState('');
+
+  const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
+  const [isEmailPopupOpen, setIsEmailPopupOpen] = useState(false);
+
+  const validateInput = (value, regex, setError) => {
+    if (value && !regex.test(value)) {
+      setError("Format invalide");
+    } else {
+      setError("");
+    }
+  };
+
+  useEffect(() => {
+    validateInput(oldPsw, PWD_REGEX, setOldPswError);
+    validateInput(newPsw, PWD_REGEX, setNewPswError);
+    validateInput(oldEmail, EMAIL_REGEX, setOldEmailError);
+    validateInput(newEmail, EMAIL_REGEX, setNewEmailError);
+  }, [oldPsw, newPsw, oldEmail, newEmail]);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/profile");
+        setUser(response.data);
+      } catch (err) {
+        setError(err.response?.data?.message || "Erreur lors de la récupération du profil");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     if (oldPsw === newPsw) {
-        alert("Le nouveau mot de passe ne peut pas être identique à l'ancien.");
-        return;
+      alert("Le nouveau mot de passe ne peut pas être identique à l'ancien.");
+      return;
     }
-    if (!PWD_REGEX.test(newPsw)) {
-        alert("Mot de passe invalide. Il doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial.");
-        return;
-    }
-    setIsPasswordPopupOpen(false);
-};
+    setLoading(true);
 
-const handleEmailSubmit = (e) => {
+    try {
+      const response = await api.post('/change-password', { oldPsw, newPsw });
+      alert("Mot de passe modifié avec succès");
+    } catch (error) {
+      alert(error.response?.status === 401 ? "L'ancien mot de passe est incorrect." : "Erreur lors de la modification du mot de passe.");
+    } finally {
+      setLoading(false);
+      setIsPasswordPopupOpen(false);
+    }
+  };
+
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
     if (oldEmail === newEmail) {
-        alert("Le nouveau courriel ne peut pas être identique à l'ancien.");
-        return;
+      alert("Le nouveau courriel ne peut pas être identique à l'ancien.");
+      return;
     }
-    if (!EMAIL_REGEX.test(newEmail)) {
-        alert("Courriel invalide.");
-        return;
+    setLoading(true);
+
+    try {
+      const response = await api.post('/change-email', { oldEmail, newEmail });
+      alert("Courriel modifié avec succès");
+    } catch (error) {
+      alert(error.response?.status === 401 ? "L'ancien courriel est incorrect." : "Erreur lors de la modification du courriel.");
+    } finally {
+      setLoading(false);
+      setIsEmailPopupOpen(false);
     }
-    setIsEmailPopupOpen(false);
-};
+  };
 
-return(
-    <div className='profile_container'>
-        <h1 className='h1Profile'>Profile</h1> <br />
-            <div className='profile_image'>
-                <img src="path_to_profile_picture.png" alt="Image de profil" className="profile-img" />
-            </div>
-        <div className='securite_container'>
-            <div>
-                <h2 className='h2Profile'>Sécurité</h2>
-                <div className='modifier_section'>
-                    <button onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
-                </div>
-                <div className='modifier_section'>
-                    <button className='btnProfile' onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
-                </div>
-            </div>
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>Erreur : {error}</p>;
 
-            {/* modif mdp */}
-            {isPasswordPopupOpen && (
-                <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
-                    <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-                        <h3 className='h3Profile'>Modifier mot de passe</h3>
-                        <form className='formProfile' onSubmit={handlePasswordSubmit}>
-                            <div>
-                                <label>Ancien mot de passe</label>
-                                <input className='inputProfile'
-                                    type="password"
-                                    value={oldPsw}
-                                    onChange={(e) => setOldPsw(e.target.value)}
-                                    placeholder="••••••••"
-                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$"
-                                    required
-                                />
-                                {oldPswError && <p style={{ color: "red" }}>{oldPswError}</p>}
-                            </div>
-                            <div>
-                                <label>Nouveau mot de passe</label>
-                                <input className='inputProfile'
-                                    type="password"
-                                    value={newPsw}
-                                    onChange={(e) => setNewPsw(e.target.value)}
-                                    placeholder="••••••••"
-                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$"
-                                    required
-                                />
-                                {newPswError && <p style={{ color: "red" }}>{newPswError}</p>}
-                            </div>
-                            <button className='btnProfile' type="submit">Enregistrer</button>
-                        </form>
-                    </div>
-                </div>
-            )}
 
-            {/* modif email */}
-            {isEmailPopupOpen && (
-                <div className="popup-overlay" onClick={() => setIsEmailPopupOpen(false)}>
-                    <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-                        <h3 className='h3Profile'>Modifier courriel</h3>
-                        <form className='formProfile' onSubmit={handleEmailSubmit}>
-                            <div>
-                                <label>Ancien courriel</label>
-                                <input className='inputProfile'
-                                    type="email"
-                                    value={oldEmail}
-                                    onChange={(e) => setOldEmail(e.target.value)}
-                                    placeholder="Ancien courriel"
-                                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                                    required
-                                />
-                                {oldEmailError && <p style={{ color: "red" }}>{oldEmailError}</p>}
-                            </div>
-                            <div>
-                                <label>Nouveau courriel</label>
-                                <input className='inputProfile'
-                                    type="email"
-                                    value={newEmail}
-                                    onChange={(e) => setNewEmail(e.target.value)}
-                                    placeholder="Nouveau courriel"
-                                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                                    required
-                                />
-                                {newEmailError && <p style={{ color: "red" }}>{newEmailError}</p>}
-                            </div>
-                            <button className='btnProfile' type="submit">Enregistrer</button>
-                        </form>
-                    </div>
-                </div>
-            )}
+  return (
+    <div className="profile_container">
+      <h1 className="h1Profile">Profile</h1>
+      <div className="profile_image">
+        <img src="/src/assets/image_avatar" alt="Image de profil" className="profile-img" />
+      </div>
+      <div className="securite_container">
+        <h2 className="h2Profile">Sécurité</h2>
+        <div className="modifier_section">
+          <button onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
         </div>
-        <div className='recompenses_container'>
-            <div>
-                <h2 className='h2Profile'>Récompenses</h2>
-            </div>
-            <Recompenses/>
-            <div>
-
-            </div>
+        <div className="modifier_section">
+          <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
         </div>
+
+        {/* Popup pour modification mot de passe */}
+        {isPasswordPopupOpen && (
+          <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
+            <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+              <h3 className="h3Profile">Modifier mot de passe</h3>
+              <form className="formProfile" onSubmit={handlePasswordSubmit}>
+                <div>
+                  <label>Ancien mot de passe</label>
+                  <input
+                    className="inputProfile"
+                    type="password"
+                    value={oldPsw}
+                    onChange={(e) => setOldPsw(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                  />
+                  {oldPswError && <p style={{ color: "red" }}>{oldPswError}</p>}
+                </div>
+                <div>
+                  <label>Nouveau mot de passe</label>
+                  <input
+                    className="inputProfile"
+                    type="password"
+                    value={newPsw}
+                    onChange={(e) => setNewPsw(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                  />
+                  {newPswError && <p style={{ color: "red" }}>{newPswError}</p>}
+                </div>
+                <button className="btnProfile" type="submit" disabled={loading}>Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Popup pour modification email */}
+        {isEmailPopupOpen && (
+          <div className="popup-overlay" onClick={() => setIsEmailPopupOpen(false)}>
+            <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+              <h3 className="h3Profile">Modifier courriel</h3>
+              <form className="formProfile" onSubmit={handleEmailSubmit}>
+                <div>
+                  <label>Ancien courriel</label>
+                  <input
+                    className="inputProfile"
+                    type="email"
+                    value={oldEmail}
+                    onChange={(e) => setOldEmail(e.target.value)}
+                    placeholder="Ancien courriel"
+                    required
+                  />
+                  {oldEmailError && <p style={{ color: "red" }}>{oldEmailError}</p>}
+                </div>
+                <div>
+                  <label>Nouveau courriel</label>
+                  <input
+                    className="inputProfile"
+                    type="email"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    placeholder="Nouveau courriel"
+                    required
+                  />
+                  {newEmailError && <p style={{ color: "red" }}>{newEmailError}</p>}
+                </div>
+                <button className="btnProfile" type="submit" disabled={loading}>Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="recompenses_container">
+        <h2 className="h2Profile">Récompenses</h2>
+        <Recompenses />
+      </div>
     </div>
-);
+  );
 }
 
 export default Profile;

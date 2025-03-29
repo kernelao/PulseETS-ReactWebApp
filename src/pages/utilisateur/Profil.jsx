@@ -1,12 +1,11 @@
-import React from 'react'
+import React from "react";
 import ProfileMain from "../../composants/Profile/Profile.jsx";
 
-const Profil = () => {
+const Profile =() =>{
   return (
     <div>
       <ProfileMain/>
     </div>
-  )
+  );
 }
-
-export default Profil
+export default Profile;
