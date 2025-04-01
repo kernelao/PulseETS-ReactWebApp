@@ -4,9 +4,9 @@ import './CircleTimer.css';
 import alarmSoundFile from "./alarmepulse.mp3"; // Importation directe du fichier
 
 function CirclePom() {
-  const POM_CYCLE = 25*60;
-  const SMALL_BREAK = 5 * 60;
-  const LONG_BREAK = 30 * 60;
+  const POM_CYCLE = 10;
+  const SMALL_BREAK = 5;
+  const LONG_BREAK = 15;
   const CYCLE_COUNT = 4;
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -21,6 +21,11 @@ function CirclePom() {
     alarmSound.current = new Audio(alarmSoundFile);
     alarmSound.current.loop = true; // Activation de la lecture en boucle
     alarmSound.current.load(); // Charge l'audio à l'avance
+
+    // Demande la permission pour afficher des notifications
+    if ("Notification" in window) {
+      Notification.requestPermission();
+    }
   }, []);
 
 
@@ -30,12 +35,21 @@ function CirclePom() {
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
 
+  //fonction pour jouer l'alarme 
   const playAlarm = () => {
     setIsPlaying(false); // Met en pause le timer
     setIsAlarmPlaying(true);
     if (alarmSound.current) {
       alarmSound.current.currentTime = 0;
       alarmSound.current.play().catch((error) => console.error("Echec alarme ", error));
+    }
+  };
+
+
+// fonction pour afficher les notifications
+  const showNotification = (message) => {
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification(message);
     }
   };
 
@@ -55,14 +69,42 @@ function CirclePom() {
 
   const handleComplete = () => {
     playAlarm();
-    if (cycle % CYCLE_COUNT === 0) {
-      setNextDuration(LONG_BREAK);
+
+    if (duration === POM_CYCLE) {
+      // Si c'est un cycle Pomodoro (travail)
+      if (cycle < CYCLE_COUNT) {
+        showNotification("[PULSE] Temps de prendre une courte pause");
+        setNextDuration(SMALL_BREAK);
+      } else {
+        // Après 4 cycles de travail, passer à la longue pause
+        showNotification("[PULSE] Temps de prendre une longue pause");
+        setNextDuration(LONG_BREAK);
+        setCycle(1); // Réinitialiser le cycle après la longue pause
+      }
+    } else if (duration === SMALL_BREAK) {
+      // Si c'est une courte pause
+      showNotification("[PULSE] Temps de travailler!");
+      setNextDuration(POM_CYCLE);
+    } else if (duration === LONG_BREAK) {
+      // Si c'est une longue pause
+      showNotification("[PULSE] Temps de commencer un nouveau cycle");
+      setNextDuration(null); // Ne pas redémarrer le timer
+      setIsPlaying(false); // Arrêter le timer
+
+    // Réinitialiser les paramètres pour le début du prochain cycle
       setCycle(1);
-    } else {
-      setNextDuration(duration === POM_CYCLE ? SMALL_BREAK : POM_CYCLE);
-      setCycle(duration === POM_CYCLE ? cycle : cycle + 1);
+      setDuration(POM_CYCLE); // Mettre la durée par défaut pour un cycle Pomodoro
+      return { shouldRepeat: false };
     }
-    return { shouldRepeat: false };
+
+    // Incrémenter le cycle si nécessaire
+    if (duration === POM_CYCLE && cycle < CYCLE_COUNT) {
+      setCycle(cycle + 1); // Passer au cycle suivant
+    }
+
+    
+
+    return { shouldRepeat: false}; 
   };
 
   const handleReset = () => {

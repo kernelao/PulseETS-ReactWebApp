@@ -71,4 +71,7 @@
 .button_srt_container{
 
     margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
 }
