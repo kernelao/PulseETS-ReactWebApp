@@ -11,27 +11,26 @@
   white-space: nowrap;
 }
 
-  
 /* Style pour le bouton clair */
 .bouton-clair {
   background-color: #ffffff; /* Jaune doré */
   color: #1a202c; /* Gris foncé */
 }
-  
+
 .bouton-clair:hover {
   background-color: #d69e2e; /* Jaune plus foncé */
 }
-  
-  /* Style pour le bouton foncé */
+
+/* Style pour le bouton foncé */
 .bouton-fonce {
   background-color: #1a202c; /* Gris foncé */
   color: white;
 }
-  
+
 .bouton-fonce:hover {
   background-color: #2d3748; /* Gris plus foncé */
 }
-  
+
 .buttons {
   display: flex;
   gap: 1rem;

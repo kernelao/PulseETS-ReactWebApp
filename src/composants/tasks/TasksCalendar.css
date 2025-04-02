@@ -1,0 +1,92 @@
+.calendar-container {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.calendar-day-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.calendar-task {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.calendar-task:hover {
+    background-color: #367c39;
+}
+
+.calendar-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.calendar-task-list {
+    flex: 1;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* ✅ Harmonisé avec les vues jour/semaine */
+.calendar-task-line {
+    display: flex;
+    align-items: center;
+    background-color: white; /* fond blanc */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    justify-content: space-between;
+    transition: background 0.3s;
+}
+
+.calendar-task-line:hover {
+    background-color: #f5f5f5;
+}
+
+.calendar-task-line .task-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.calendar-task-line .tag-badge {
+    background-color: #e0ffe0;
+    color: #2e7d32;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.calendar-task-line .task-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-task-line button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.calendar-task-line button:hover {
+    background-color: #388e3c;
+}

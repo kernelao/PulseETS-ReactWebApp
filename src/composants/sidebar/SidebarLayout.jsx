@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { IconContext } from 'react-icons';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import './sidebar.css';
+import React, { useState } from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import { IconContext } from 'react-icons'
+import * as FaIcons from 'react-icons/fa'
+import * as AiIcons from 'react-icons/ai'
+import './sidebar.css'
 
 const SidebarLayout = ({ data }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   return (
     <IconContext.Provider value={{ color: '#fff' }}>
@@ -39,7 +39,7 @@ const SidebarLayout = ({ data }) => {
         </div>
       </div>
     </IconContext.Provider>
-  );
-};
+  )
+}
 
-export default SidebarLayout;
+export default SidebarLayout

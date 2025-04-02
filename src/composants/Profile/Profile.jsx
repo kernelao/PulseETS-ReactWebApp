@@ -1,5 +1,5 @@
 import React from 'react'
-import Recompenses from '/src/components/layout/Recompenses/Recompenses.jsx'
+import Recompenses from '/src/composants/Recompenses/Recompenses.jsx'
 import './Profile.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -71,7 +71,7 @@ const handleEmailSubmit = (e) => {
         alert("Le nouveau courriel ne peut pas être identique à l'ancien.");
         return;
     }
-    if (!EMAIL_REGEX.test(newPsw)) {
+    if (!EMAIL_REGEX.test(newEmail)) {
         alert("Courriel invalide.");
         return;
     }
@@ -80,18 +80,18 @@ const handleEmailSubmit = (e) => {
 
 return(
     <div className='profile_container'>
-        <h1>Profile</h1> <br />
+        <h1 className='h1Profile'>Profile</h1> <br />
             <div className='profile_image'>
                 <img src="path_to_profile_picture.png" alt="Image de profil" className="profile-img" />
             </div>
         <div className='securite_container'>
             <div>
-                <h2>Sécurité</h2>
+                <h2 className='h2Profile'>Sécurité</h2>
                 <div className='modifier_section'>
                     <button onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
                 </div>
                 <div className='modifier_section'>
-                    <button onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
+                    <button className='btnProfile' onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
                 </div>
             </div>
 
@@ -99,11 +99,11 @@ return(
             {isPasswordPopupOpen && (
                 <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
                     <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-                        <h3>Modifier mot de passe</h3>
-                        <form onSubmit={handlePasswordSubmit}>
+                        <h3 className='h3Profile'>Modifier mot de passe</h3>
+                        <form className='formProfile' onSubmit={handlePasswordSubmit}>
                             <div>
                                 <label>Ancien mot de passe</label>
-                                <input
+                                <input className='inputProfile'
                                     type="password"
                                     value={oldPsw}
                                     onChange={(e) => setOldPsw(e.target.value)}
@@ -115,7 +115,7 @@ return(
                             </div>
                             <div>
                                 <label>Nouveau mot de passe</label>
-                                <input
+                                <input className='inputProfile'
                                     type="password"
                                     value={newPsw}
                                     onChange={(e) => setNewPsw(e.target.value)}
@@ -125,7 +125,7 @@ return(
                                 />
                                 {newPswError && <p style={{ color: "red" }}>{newPswError}</p>}
                             </div>
-                            <button type="submit">Enregistrer</button>
+                            <button className='btnProfile' type="submit">Enregistrer</button>
                         </form>
                     </div>
                 </div>
@@ -135,11 +135,11 @@ return(
             {isEmailPopupOpen && (
                 <div className="popup-overlay" onClick={() => setIsEmailPopupOpen(false)}>
                     <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-                        <h3>Modifier courriel</h3>
-                        <form onSubmit={handleEmailSubmit}>
+                        <h3 className='h3Profile'>Modifier courriel</h3>
+                        <form className='formProfile' onSubmit={handleEmailSubmit}>
                             <div>
                                 <label>Ancien courriel</label>
-                                <input
+                                <input className='inputProfile'
                                     type="email"
                                     value={oldEmail}
                                     onChange={(e) => setOldEmail(e.target.value)}
@@ -151,7 +151,7 @@ return(
                             </div>
                             <div>
                                 <label>Nouveau courriel</label>
-                                <input
+                                <input className='inputProfile'
                                     type="email"
                                     value={newEmail}
                                     onChange={(e) => setNewEmail(e.target.value)}
@@ -161,7 +161,7 @@ return(
                                 />
                                 {newEmailError && <p style={{ color: "red" }}>{newEmailError}</p>}
                             </div>
-                            <button type="submit">Enregistrer</button>
+                            <button className='btnProfile' type="submit">Enregistrer</button>
                         </form>
                     </div>
                 </div>
@@ -169,7 +169,7 @@ return(
         </div>
         <div className='recompenses_container'>
             <div>
-                <h2>Récompenses</h2>
+                <h2 className='h2Profile'>Récompenses</h2>
             </div>
             <Recompenses/>
             <div>

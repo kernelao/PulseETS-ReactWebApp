@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 ul {
@@ -20,6 +20,7 @@ ul {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 h1 {
