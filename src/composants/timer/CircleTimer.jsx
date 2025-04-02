@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect} from "react";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'; 
 import './CircleTimer.css';
-import alarmSoundFile from "./alarmepulse.mp3"; // Importation directe du fichier
+import alarmSoundFile from "./alarmepulse.mp3"; 
 
 function CirclePom() {
-  const POM_CYCLE = 10;
-  const SMALL_BREAK = 5;
-  const LONG_BREAK = 15;
+  const POM_CYCLE =25*60;
+  const SMALL_BREAK = 5*60;
+  const LONG_BREAK = 15*60;
   const CYCLE_COUNT = 4;
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -130,9 +130,9 @@ function CirclePom() {
   return (
     <div className="cercle_main">
       <div className='btn_timer_container'>
-        <button onClick={() => handleSetDuration(POM_CYCLE)} className='timer_btn'>Pomodoro</button>
-        <button onClick={() => handleSetDuration(SMALL_BREAK)} className='timer_btn'>Courte Pause</button>
-        <button onClick={() => handleSetDuration(LONG_BREAK)} className='timer_btn'>Longue Pause</button>
+        <button onClick={() => handleSetDuration(POM_CYCLE)} className='timer_btn animated_btn'>Pomodoro</button>
+        <button onClick={() => handleSetDuration(SMALL_BREAK)} className='timer_btn animated_btn'>Courte Pause</button>
+        <button onClick={() => handleSetDuration(LONG_BREAK)} className='timer_btn animated_btn'>Longue Pause</button>
       </div>
 
       <div className="cercle_box">
@@ -140,7 +140,7 @@ function CirclePom() {
           key={key}
           isPlaying={isPlaying}
           duration={duration}
-          colors={["#D2E3C0", "#C6DEAE", "#A30000"]}
+          colors={[ "#10217f","#091245","#060B26"]}
           colorsTime={[duration, duration / 2, 5]}
           onComplete={handleComplete}
         >
@@ -152,9 +152,9 @@ function CirclePom() {
             <button onClick={stopAlarm} className='start_btn'>Stop Alarm</button>
           ) : (
             <>
-              <button onClick={() => setIsPlaying(true)} className='start_btn'>start</button>
-              <button onClick={() => setIsPlaying(false)} className='start_btn'>stop</button>
-              <button onClick={handleReset} className='start_btn'>reset</button>
+              <button onClick={() => setIsPlaying(true)} className='start_btn animated_btn'>start</button>
+              <button onClick={() => setIsPlaying(false)} className='start_btn animated_btn'>stop</button>
+              <button onClick={handleReset} className='start_btn animated_btn'>reset</button>
             </>
           )}
         </div>

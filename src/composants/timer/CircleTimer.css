@@ -39,7 +39,37 @@
     justify-content: center;
     align-items: center;
     gap:5px;
+
 }
+
+.animated_btn {
+    background-color: #10217f;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .animated_btn:hover {
+    background-color: #6979cf;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+  }
+  
+  .animated_btn:active {
+    background-color: #6979cf;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+  }
+  .selected {
+    background-color: #ff9800 !important;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.6);
+  }
 
 
 .btn_timer_container{
