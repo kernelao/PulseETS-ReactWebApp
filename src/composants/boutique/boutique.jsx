@@ -64,7 +64,7 @@ const Boutique = () => {
             <h1 className="h1Boutique">Boutique</h1>
             <p className="points">Points PULSE : {pulsePoints}</p>
             
-            <div className='profile_image'>
+            <div className='profile_image' onClick={() => handleClick(avatar)}>
                 <img src={selectedAvatar?.image || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
             </div>
 

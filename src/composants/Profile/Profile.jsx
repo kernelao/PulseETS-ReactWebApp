@@ -2,12 +2,50 @@ import React, { useState, useEffect } from 'react';
 import Recompenses from '/src/composants/Recompenses/Recompenses.jsx';
 import './Profile.css';
 import api from "../../api/Axios";
+import AVATAR from '/src/assets/image_avatar'
 
 
 function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); 
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [isAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
+  const [availableAvatars, setAvailableAvatars] = useState([]);
+
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/profile");
+        setUser(response.data);
+        setSelectedAvatar(response.data.avatar ? response.data.avatar : AVATAR.defaultavatar);
+        const avatarsPossedes = response.data.avatarsPossedes || [];
+        const avatarsAvecDefaut = [{ id: "default", image: AVATAR.defaultavatar }, ...avatarsPossedes];
+        setAvailableAvatars(avatarsAvecDefaut);  // Assure-toi d'utiliser cette ligne
+      } catch (err) {
+        setError(err.response?.data?.message || "Erreur lors de la récupération du profil");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfile();
+  }, []);
+
+  const handleAvatarClick = () => {
+    setIsAvatarPopupOpen(true);
+  };
+
+  const handleAvatarSelect = async (avatar) => {
+    try {
+      await api.post('/update-avatar', { avatarId: avatar.id });
+      setSelectedAvatar(avatar.image || AVATAR.defaultavatar);
+      setIsAvatarPopupOpen(false);
+    } catch (error) {
+      alert("Erreur lors de la mise à jour de l'avatar.");
+    }
+  };
+
 
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$/;
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,21 +76,6 @@ function Profile() {
     validateInput(oldEmail, EMAIL_REGEX, setOldEmailError);
     validateInput(newEmail, EMAIL_REGEX, setNewEmailError);
   }, [oldPsw, newPsw, oldEmail, newEmail]);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await api.get("/profile");
-        setUser(response.data);
-      } catch (err) {
-        setError(err.response?.data?.message || "Erreur lors de la récupération du profil");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, []);
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -99,9 +122,32 @@ function Profile() {
   return (
     <div className="profile_container">
       <h1 className="h1Profile">Profile</h1>
-      <div className="profile_image">
-        <img src="/src/assets/image_avatar" alt="Image de profil" className="profile-img" />
+      <div className="profile_image" onClick={handleAvatarClick}>
+        <img src={selectedAvatar || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
       </div>
+
+      {isAvatarPopupOpen && (
+        <div className="popup-overlay" onClick={() => setIsAvatarPopupOpen(false)}>
+          <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+            <h3 className="h3Profile">Choisir un avatar</h3>
+            <div className="avatars-container">
+              {availableAvatars.map((avatar) => (
+              <img
+                key={avatar.id}
+                src={avatar.image}
+                alt="Avatar"
+                className={`avatar-img ${selectedAvatar === avatar.image ? "selected" : ""}`}
+                onClick={() => handleAvatarSelect(avatar)}
+              />
+              ))}
+            </div>
+            <button className="btnProfile" onClick={() => window.location.href = '/app/boutique'}>
+              Aller à la boutique
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="securite_container">
         <h2 className="h2Profile">Sécurité</h2>
         <div className="modifier_section">

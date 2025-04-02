@@ -28,6 +28,7 @@
     border: 3px solid #C6D0BD;
     object-fit: cover;
     flex-wrap: nowrap;
+    cursor: pointer;
 }
 
 .securite_container{
