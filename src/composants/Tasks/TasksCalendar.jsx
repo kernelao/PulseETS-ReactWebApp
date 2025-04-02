@@ -119,45 +119,52 @@ const TasksCalendar = ({
                         {selectedDayTasks.length > 0 ? (
                             selectedDayTasks.map(task => (
                                 <div key={task.id} className="calendar-task-line">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedIds.includes(task.id)}
-                                        onChange={() => toggleTaskSelection(task.id)}
-                                        style={{ marginRight: "10px" }}
-                                    />
-                                    <div className="task-content" onClick={() => setSelectedTask(task)} style={{ textAlign: "left" }}>
-                                        {task.title}
-                                        {task.tag && (
-                                            <span className="tag-badge" onClick={(e) => {
-                                                e.stopPropagation();
-                                                updateTag(task.id, "");
-                                            }}>
-                                                #{task.tag} ✕
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className="task-buttons">
-                                        {task.priority && (
-                                            <span
-                                                className={`priority-indicator ${
-                                                    task.priority === "haute"
-                                                        ? "priority-high"
-                                                        : task.priority === "moyenne"
-                                                        ? "priority-medium"
-                                                        : "priority-low"
-                                                }`}
-                                                title={`Priorité ${task.priority}`}
-                                                style={{ alignSelf: "center" }}
-                                            ></span>
-                                        )}
-                                        <button onClick={() => openEditModal(task)}>Modifier</button>
-                                        <button onClick={() => deleteTask(task.id)}>Supprimer</button>
-                                        <button style={{ backgroundColor: "#28a745" }} onClick={() => handleComplete(task)}>✓</button>
-                                        <button onClick={() => togglePin(task)}>
-                                            {task.pinned ? "📍" : "📌"}
-                                        </button>
-                                    </div>
-                                </div>
+  {/* Colonne gauche : case à cocher + infos */}
+  <div className="calendar-task-info">
+    <input
+      type="checkbox"
+      checked={selectedIds.includes(task.id)}
+      onChange={() => toggleTaskSelection(task.id)}
+    />
+    <div className="task-title-tag" onClick={() => setSelectedTask(task)}>
+      <strong>{task.title}</strong>
+      {task.tag && (
+        <span
+          className="tag-badge"
+          onClick={(e) => {
+            e.stopPropagation();
+            updateTag(task.id, "");
+          }}
+        >
+          #{task.tag} ✕
+        </span>
+      )}
+    </div>
+  </div>
+
+  {/* Colonne droite : pastille de priorité + boutons */}
+  <div className="task-buttons">
+    {task.priority && (
+      <span
+        className={`priority-indicator ${
+          task.priority === "haute"
+            ? "priority-high"
+            : task.priority === "moyenne"
+            ? "priority-medium"
+            : "priority-low"
+        }`}
+        title={`Priorité ${task.priority}`}
+      ></span>
+    )}
+    <button onClick={() => openEditModal(task)}>Modifier</button>
+    <button onClick={() => deleteTask(task.id)}>Supprimer</button>
+    <button style={{ backgroundColor: "#28a745" }} onClick={() => handleComplete(task)}>✓</button>
+    <button onClick={() => togglePin(task)}>{task.pinned ? "📍" : "📌"}</button>
+  </div>
+</div>
+
+
+
                             ))
                         ) : (
                             <p>Aucune tâche pour ce jour.</p>
