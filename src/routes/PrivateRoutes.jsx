@@ -4,14 +4,14 @@ import SidebarLayout from '../composants/sidebar/SidebarLayout'
 import { UserSidebarData } from '../composants/sidebar/UserSidebarData'
 
 // Pages utilisateur
-import Dashboard from '../pages/utilisateur/Dashboard'
-import Profil from '../pages/utilisateur/Profil'
-import Reglages from '../pages/utilisateur/Reglages'
-import Pomodoro from '../pages/utilisateur/Pomodoro'
-import Notes from '../pages/utilisateur/Notes'
-import Taches from '../pages/utilisateur/Taches'
-import Boutique from '../pages/utilisateur/Boutique'
-import Aide from '../pages/utilisateur/Aide'
+import Dashboard from "../pages/utilisateur/Dashboard";
+import Profil from "../pages/utilisateur/Profil";
+import Settings from "../pages/utilisateur/Settings.jsx";
+import Pomodoro from "../pages/utilisateur/Pomodoro";
+import Notes from "../pages/utilisateur/Notes";
+import Taches from "../pages/utilisateur/Taches";
+import Boutique from "../pages/utilisateur/Boutique";
+import Aide from "../pages/utilisateur/Aide";
 
 const PrivateRoutes = () => {
   const { isAuthenticated } = useAuth()
