@@ -1,193 +1,163 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import welcomeImage from "../../assets/images/welcome-image2.jpg";
 import "./notes.css";
 
+const TYPEWRITER_TEXT = "Commencez à organiser vos idées dès maintenant !";
 
-//Page introduction
-const WelcomePage = () => {
+function IntroductionNote() {
   const animatedRef = useRef(null);
 
   useEffect(() => {
-    const text = "Commencez à organiser vos idées dès maintenant !";
     let index = 0;
+    let mounted = true;
 
     const type = () => {
-      if (animatedRef.current && index <= text.length) {
-        animatedRef.current.innerText = text.substring(0, index++); //affiche lettre  graduellement
+      if (mounted && animatedRef.current && index <= TYPEWRITER_TEXT.length) {
+        animatedRef.current.innerText = TYPEWRITER_TEXT.substring(0, index++);
         setTimeout(type, 50);
       }
     };
-
     type();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-const Notes = () => {
-  return <div>Notes</div>
-}
   return (
     <div className="welcome-page">
       <h1>Bienvenue dans votre espace de notes !</h1>
-      <p ref={animatedRef} className="animated-text"></p>
-      <img
-        src={welcomeImage} alt="Bienvenue" className="welcome-image"
-      />
+      <p ref={animatedRef} className="animated-text center-text"></p>
+      <img src={welcomeImage} alt="Bienvenue" className="welcome-image" />
     </div>
   );
-};
+}
 
-const NotesApp = () => {
-  //Categorie Bienvenue set 
+export default function NotesApp() {
   const bienvenueFolder = {
     name: "Bienvenue",
-    notes: [{id: 0,title: "Introduction",content:""}],
+    notes: [{ id: 0, title: "Introduction", content: "" }]
   };
 
-  //Notes enregistres
   const loadNotes = () => {
     const savedNotes = localStorage.getItem("notesData");
-    return savedNotes ? JSON.parse(savedNotes) : []; //Convertir en JS si note existe
+    const data = savedNotes ? JSON.parse(savedNotes) : [];
+    return data;
   };
 
-  const [folders, setFolders] = useState(loadNotes); 
-  const [selectedNote, setSelectedNote] = useState(bienvenueFolder.notes[0]); //note que tu edit actuellement
+  const [folders, setFolders] = useState(loadNotes);
+  const [selectedNote, setSelectedNote] = useState(bienvenueFolder.notes[0]);
   const [openFolders, setOpenFolders] = useState({ Bienvenue: true });
-  const [history, setHistory] = useState([]); //pour UNDO
+  const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [typingTimeout, setTypingTimeout] = useState(null);
-  const [newFolderName, setNewFolderName] = useState("");
   const [addingCategory, setAddingCategory] = useState(false);
+  const [newFolderName, setNewFolderName] = useState("");
   const [addingNoteTo, setAddingNoteTo] = useState(null);
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [folderOptions, setFolderOptions] = useState(null);
-  const [editingFolderName, setEditingFolderName] = useState(null);
-  const [editedFolderName, setEditedFolderName] = useState("");
   const [noteOptions, setNoteOptions] = useState(null);
   const [editingNoteId, setEditingNoteId] = useState(null);
   const [editedNoteTitle, setEditedNoteTitle] = useState("");
+  const [editingFolderName, setEditingFolderName] = useState(null);
+  const [editedFolderName, setEditedFolderName] = useState("");
 
-  // Refs pour menu et input
   const folderOptionsRef = useRef(null);
   const noteOptionsRef = useRef(null);
   const addCategoryRef = useRef(null);
   const addNoteRef = useRef(null);
 
-  //La sauvegarde des donnees pour folders
   useEffect(() => {
-    localStorage.setItem("notesData", JSON.stringify(folders));}, [folders]);
+    localStorage.setItem("notesData", JSON.stringify(folders));
+  }, [folders]);
 
-  //  Clique exterieure (menu)
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        folderOptionsRef.current &&
-        !folderOptionsRef.current.contains(event.target)
-      ) {
+    function handleClickOutside(e) {
+      if (folderOptionsRef.current && !folderOptionsRef.current.contains(e.target)) {
         setFolderOptions(null);
       }
-
-      if (
-        noteOptionsRef.current &&
-        !noteOptionsRef.current.contains(event.target)
-      ) {
+      if (noteOptionsRef.current && !noteOptionsRef.current.contains(e.target)) {
         setNoteOptions(null);
       }
-
-      if (
-        addCategoryRef.current &&
-        !addCategoryRef.current.contains(event.target)
-      ) {
+      if (addCategoryRef.current && !addCategoryRef.current.contains(e.target)) {
         setAddingCategory(false);
         setNewFolderName("");
       }
-
-      if (
-        addNoteRef.current &&
-        !addNoteRef.current.contains(event.target)
-      ) {
+      if (addNoteRef.current && !addNoteRef.current.contains(e.target)) {
         setAddingNoteTo(null);
         setNewNoteTitle("");
       }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside); //si on clique dehors
-    return () => {document.removeEventListener("mousedown", handleClickOutside);};
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleNoteSelection = (note) => {
+  function handleNoteSelection(note) {
     setSelectedNote(note);
     setHistory([]);
     setHistoryIndex(-1);
-  };
+  }
 
-  const handleContentChange = (e) => {
+  function handleContentChange(e) {
     const newContent = e.target.value;
-    
     if (typingTimeout) clearTimeout(typingTimeout);
 
     const newTimeout = setTimeout(() => {
-      setHistory([...history.slice(0, historyIndex + 1), selectedNote.content]); //garde contenu avant changement 
+      setHistory([...history.slice(0, historyIndex + 1), selectedNote.content]);
       setHistoryIndex(historyIndex + 1);
     }, 1000);
-
     setTypingTimeout(newTimeout);
 
-    //mettre a jour contenu de la note
-    setFolders((prevFolders) =>
-      prevFolders.map((folder) => ({
+    setFolders((prev) =>
+      prev.map((folder) => ({
         ...folder,
-        notes: folder.notes.map((note) =>
-          note.id === selectedNote.id ? { ...note, content: newContent } : note
-        ),
+        notes: folder.notes.map((n) =>
+          n.id === selectedNote.id ? { ...n, content: newContent } : n
+        )
       }))
     );
-
     setSelectedNote({ ...selectedNote, content: newContent });
-  };
+  }
 
-  const handleUndo = () => {
+  function handleUndo() {
     if (historyIndex >= 0) {
       const previousContent = history[historyIndex];
-      setFolders((prevFolders) =>
-        prevFolders.map((folder) => ({
+      setFolders((prev) =>
+        prev.map((folder) => ({
           ...folder,
-          notes: folder.notes.map((note) =>
-            note.id === selectedNote.id ? { ...note, content: previousContent } : note
-          ),
+          notes: folder.notes.map((n) =>
+            n.id === selectedNote.id ? { ...n, content: previousContent } : n
+          )
         }))
       );
       setSelectedNote({ ...selectedNote, content: previousContent });
       setHistoryIndex(historyIndex - 1);
     }
-  };
+  }
 
-  const handleAddFolder = () => {
-    if (
-      newFolderName.trim() !== "" &&
-      newFolderName !== "Bienvenue" &&
-      !folders.find((f) => f.name === newFolderName)
-    ) {
-      setFolders([{ name: newFolderName, notes: [] }, ...folders]);
-      setNewFolderName("");
-      setAddingCategory(false);
-    }
-  };
+  function handleAddFolder() {
+    const trimmed = newFolderName.trim();
+    if (!trimmed || trimmed.toLowerCase() === "bienvenue") return;
+    if (folders.some((f) => f.name.toLowerCase() === trimmed.toLowerCase())) return;
+    setFolders([...folders, { name: trimmed, notes: [] }]);
+    setAddingCategory(false);
+    setNewFolderName("");
+  }
 
-  const handleAddNote = (folderName) => {
-    if (newNoteTitle.trim() !== "") {
-      const newNote = { id: Date.now(), title: newNoteTitle, content: "" };
-      setFolders((prevFolders) =>
-        prevFolders.map((folder) =>
-          folder.name === folderName ? { ...folder, notes: [...folder.notes, newNote] } : folder
-        )
-      );
-      setNewNoteTitle("");
-      setAddingNoteTo(null);
-    }
-  };
+  function handleAddNote(folderName) {
+    const title = newNoteTitle.trim();
+    if (!title) return;
+    const newNote = { id: Date.now(), title, content: "" };
+    setFolders((prev) =>
+      prev.map((fold) =>
+        fold.name === folderName ? { ...fold, notes: [...fold.notes, newNote] } : fold
+      )
+    );
+    setAddingNoteTo(null);
+    setNewNoteTitle("");
+  }
 
-  
   return (
-    //Sidebar
     <div className="app">
       <div className="sidebar">
         <div className="sidebar-header">
@@ -197,18 +167,6 @@ const NotesApp = () => {
           </button>
         </div>
 
-    {/* Fichiers */}
-  <div className="folder">
-      <div className="folder-title">Bienvenue</div>
-      <div className="notes">
-      <div
-      className={`note-item ${selectedNote?.id === bienvenueFolder.notes[0]?.id ? "active" : ""}`}
-      onClick={() => handleNoteSelection(bienvenueFolder.notes[0])}
-      >
-      {bienvenueFolder.notes[0]?.title} 
-    </div>
-    </div>
-  </div>
         {addingCategory && (
           <div className="add-category-input" ref={addCategoryRef}>
             <input
@@ -221,198 +179,228 @@ const NotesApp = () => {
           </div>
         )}
 
-    {/*Si dossier existant*/}
-        {folders.map((folder) => (
-          <div key={folder.name} className="folder">
-        <div
-        className="folder-title"
-        onClick={() =>setOpenFolders({ ...openFolders, [folder.name]: !openFolders[folder.name] })}
-        >
+        {/* Bienvenue folder fixed */}
+        <div className="folder">
+          <div className="folder-title" onClick={() => setOpenFolders((prev) => ({ ...prev, Bienvenue: !prev["Bienvenue"] }))}>
+            <span>{openFolders["Bienvenue"] ? "▼" : "▶"} Bienvenue</span>
+          </div>
+          {openFolders["Bienvenue"] && (
+            <div className="notes">
+              <div
+                key={bienvenueFolder.notes[0].id}
+                className={"note-item " + (selectedNote?.id === 0 ? "active" : "")}
+                onClick={() => handleNoteSelection(bienvenueFolder.notes[0])}
 
-  {editingFolderName === folder.name ? (
-    <input
-      value={editedFolderName}
-      onChange={(e) => setEditedFolderName(e.target.value)}
-      onBlur={() => {
-        setFolders(folders.map(f => f.name === folder.name ? { ...f, name: editedFolderName } : f));
-        setEditingFolderName(null);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          setFolders(folders.map(f => f.name === folder.name ? { ...f, name: editedFolderName } : f));
-          setEditingFolderName(null);
-        }
-      }}
-      autoFocus
-    />
-  ) : (
-    <>
-      <span>{openFolders[folder.name] ? "▼" : "▶"} {folder.name}</span>
-      <div className="folder-actions">
-        <button
-          className="folder-options-btn"
-          onClick={(e) => {
-            e.stopPropagation(); //Eviter de toggle le fichier
-            setFolderOptions(folder.name); 
-          }}
-        >
-          ⋮
-        </button>
-        <button
-      className="add-note-btn"
-      onClick={(e) => {
-        e.stopPropagation(); 
-        setOpenFolders((prev) => ({ ...prev, [folder.name]: true })); 
-        setAddingNoteTo(folder.name); 
-        }}
-        >+</button>
-      </div>
-    </>
-  )}
-    </div>
+              >
+                <span className="note-title">{bienvenueFolder.notes[0].title}</span>
+              </div>
+            </div>
+          )}
+        </div>
 
-            {folderOptions === folder.name && (
-              <div className="folder-options-menu" ref={folderOptionsRef}>
-                <button
-                  onClick={() => {
+        {/* Other folders */}
+        {folders.map((folder) => {
+          const isOpen = !!openFolders[folder.name];
+          return (
+            <div key={folder.name} className="folder">
+              <div className="folder-title" onClick={() =>
+                setOpenFolders((prev) => ({ ...prev, [folder.name]: !prev[folder.name] }))
+              }>
+                {editingFolderName === folder.name ? (
+                  <input
+                    value={editedFolderName}
+                    onChange={(e) => setEditedFolderName(e.target.value)}
+                    onBlur={() => {
+                      setFolders((prev) =>
+                        prev.map((f) =>
+                          f.name === folder.name ? { ...f, name: editedFolderName } : f
+                        )
+                      );
+                      setEditingFolderName(null);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        setFolders((prev) =>
+                          prev.map((f) =>
+                            f.name === folder.name ? { ...f, name: editedFolderName } : f
+                          )
+                        );
+                        setEditingFolderName(null);
+                      }
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <span>{isOpen ? "▼" : "▶"} {folder.name}</span>
+                )}
+
+                <div className="folder-actions">
+                  <button
+                    className="folder-options-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFolderOptions(folderOptions === folder.name ? null : folder.name);
+                    }}
+                  >
+                    ⋮
+                  </button>
+                  <button
+                    className="add-note-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenFolders((prev) => ({ ...prev, [folder.name]: true }));
+                      setAddingNoteTo(folder.name);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {folderOptions === folder.name && (
+                <div className="folder-options-menu" ref={folderOptionsRef}>
+                  <button onClick={() => {
                     setEditedFolderName(folder.name);
                     setEditingFolderName(folder.name);
                     setFolderOptions(null);
-                  }}
-                >
-                  Modifier
-                </button>
-                <button
-                  onClick={() => {
-                    setFolders(folders.filter((f) => f.name !== folder.name));
+                  }}>Modifier</button>
+                  <button onClick={() => {
+                    setFolders((prev) => prev.filter((f) => f.name !== folder.name));
+                    if (selectedNote && folder.notes.some((n) => n.id === selectedNote.id)) {
+                      setSelectedNote(null);
+                    }
                     setFolderOptions(null);
-                  }}
-                >
-                  Supprimer
-                </button>
-              </div>
-            )}
+                  }}>Supprimer</button>
+                </div>
+              )}
 
-            {openFolders[folder.name] && (
-              <div className="notes">
-                {folder.notes.map((note) => (
-           <div
-              key={note.id}
-              className={`note-item ${selectedNote?.id === note.id ? "active" : ""}`}
-              onClick={() => handleNoteSelection(note)}
-            >
-  {editingNoteId === note.id ? (
-    <input
-      value={editedNoteTitle}
-      onChange={(e) => setEditedNoteTitle(e.target.value)}
-      onBlur={() => {
-        setFolders((prevFolders) =>
-          prevFolders.map((f) =>
-            f.name === folder.name
-              ? {
-                  ...f,
-                  notes: f.notes.map((n) =>
-                    n.id === note.id ? { ...n, title: editedNoteTitle } : n
-                  ),
-                }
-              : f
-          )
-        );
-        setEditingNoteId(null);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          setFolders((prevFolders) =>
-            prevFolders.map((f) =>
-              f.name === folder.name? {...f,notes: f.notes.map((n) =>
-                      n.id === note.id ? { ...n, title: editedNoteTitle } : n
-                    ),}: f));
-          setEditingNoteId(null);
-        }}}
-      autoFocus
-    />
-  ) : (<span>{note.title}</span>
-  )}
+              {isOpen && (
+                <div className="notes">
+                  {folder.notes.map((note) => (
+                    <div
+                      key={note.id}
+                      className={"note-item " + (selectedNote?.id === note.id ? "active" : "")}
+                      onClick={() => handleNoteSelection(note)} // <-- ici aussi
 
-  <button
-    onClick={(e) => {
-      e.stopPropagation(); 
-      setNoteOptions(noteOptions === note.id ? null : note.id);
-    }}
-  >
-    ⋮</button>
+                    >
+                      {editingNoteId === note.id ? (
+                        <input
+                          value={editedNoteTitle}
+                          onChange={(e) => setEditedNoteTitle(e.target.value)}
+                          onBlur={() => {
+                            setFolders((prev) =>
+                              prev.map((f) =>
+                                f.name === folder.name
+                                  ? {
+                                      ...f,
+                                      notes: f.notes.map((n) =>
+                                        n.id === note.id ? { ...n, title: editedNoteTitle } : n
+                                      )
+                                    }
+                                  : f
+                              )
+                            );
+                            setEditingNoteId(null);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              setFolders((prev) =>
+                                prev.map((f) =>
+                                  f.name === folder.name
+                                    ? {
+                                        ...f,
+                                        notes: f.notes.map((n) =>
+                                          n.id === note.id ? { ...n, title: editedNoteTitle } : n
+                                        )
+                                      }
+                                    : f
+                                )
+                              );
+                              setEditingNoteId(null);
+                            }
+                          }}
+                          autoFocus
+                        />
+                      ) : (
+                        <span className="note-title">
+                        {note.title}
+                      </span>
+                      )}
 
-  {noteOptions === note.id && (
-    <div
-      className="folder-options-menu"
-      ref={noteOptionsRef}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        onClick={() => {
-          setEditedNoteTitle(note.title);
-          setEditingNoteId(note.id);
-          setNoteOptions(null);
-        }}
-      >Modifier</button>
+                      <button
+                        className="note-options-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setNoteOptions(noteOptions === note.id ? null : note.id);
+                        }}
+                      >
+                        ⋮
+                      </button>
 
-      <button
-        onClick={() => {
-          setFolders((prevFolders) =>
-            prevFolders.map((f) =>
-              f.name === folder.name
-                ? {...f,
-                    notes: f.notes.filter((n) => n.id !== note.id),
-                  }: f
-            )
+                      {noteOptions === note.id && (
+                        <div className="note-options-menu" ref={noteOptionsRef}>
+                          <button onClick={() => {
+                            setEditedNoteTitle(note.title);
+                            setEditingNoteId(note.id);
+                            setNoteOptions(null);
+                          }}>Modifier</button>
+                          <button onClick={() => {
+                            setFolders((prev) =>
+                              prev.map((f) =>
+                                f.name === folder.name
+                                  ? {
+                                      ...f,
+                                      notes: f.notes.filter((n) => n.id !== note.id)
+                                    }
+                                  : f
+                              )
+                            );
+                            if (selectedNote?.id === note.id) {
+                              setSelectedNote(null);
+                            }
+                            setNoteOptions(null);
+                          }}>Supprimer</button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
+                  {addingNoteTo === folder.name && (
+                    <div className="add-note-input" ref={addNoteRef}>
+                      <input
+                        type="text"
+                        placeholder="Titre de la note"
+                        value={newNoteTitle}
+                        onChange={(e) => setNewNoteTitle(e.target.value)}
+                      />
+                      <button onClick={() => handleAddNote(folder.name)}>✔</button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           );
-          if (selectedNote.id === note.id) setSelectedNote(null);
-          setNoteOptions(null);
-        }}
-      >Supprimer</button></div>
-      )}
-    </div>))}
-                {addingNoteTo === folder.name && (
-                  <div className="add-note-input" ref={addNoteRef}>
-                    <input
-                      type="text"
-                      placeholder="Titre de la note"
-                      value={newNoteTitle}
-                      onChange={(e) => setNewNoteTitle(e.target.value)}
-                    />
-                    <button onClick={() => handleAddNote(folder.name)}>✔</button>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+        })}
       </div>
 
       <div className="editor">
-  {selectedNote ? (
-    selectedNote.title === "Introduction" && selectedNote.id === 0 ? (
-      <WelcomePage />
-    ) : (
-      <>
-<h1 className="note-title-input">{selectedNote.title}</h1>
-        <hr className="separator" />
-        <div className="text-area-container">
-          <textarea value={selectedNote.content} onChange={handleContentChange} />
-          <button className="undo-btn" onClick={handleUndo} disabled={historyIndex < 0}>
-            ↩ Undo
-          </button>
-        </div>
-      </>
-    )
-  ) : (
-    <p className="no-note">Sélectionne une note</p> //Quand aucune note
-  )}
-</div>
-
+        {selectedNote ? (
+          selectedNote.id === 0 ? <IntroductionNote /> : (
+            <>
+              <h1 className="note-title-input">{selectedNote.title}</h1>
+              <hr className="separator" />
+              <div className="text-area-container">
+                <textarea value={selectedNote.content} onChange={handleContentChange} />
+                <button className="undo-btn" onClick={handleUndo} disabled={historyIndex < 0}>
+                  ↩ Undo
+                </button>
+              </div>
+            </>
+          )
+        ) : (
+          <p className="no-note">Sélectionne une note</p>
+        )}
+      </div>
     </div>
-
-    
   );
-};
-export default NotesApp;
+}
