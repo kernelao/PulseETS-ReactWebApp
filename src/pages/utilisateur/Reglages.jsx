@@ -4,6 +4,7 @@ import horloge from "../../assets/horloge.svg";  //icone d'horloge
 import Pinceau from "../../assets/pinceau.svg";  //icone de pinceau
 import { ThemeContext } from "../../context/ThemeContext"; //pour le changement de themes
 
+
 const Reglages = () => {
 
   const { theme, changeTheme } = useContext(ThemeContext);
@@ -21,10 +22,10 @@ const Reglages = () => {
 
     <div id="mainReglages" className={(theme|| "").replace(" ", "-").toLowerCase()}>
 
-      <Navbar />
+      
 
       <div id="reglages">
-        <h2 id="titreMainReglages">Paramètre</h2>
+        <h2 id="titreMainReglages">Réglages</h2>
         <hr className="barreReglages"/>
         <form onSubmit={handleSubmit}>
           <section id="minuteurReglages">

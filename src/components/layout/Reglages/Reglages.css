@@ -1,5 +1,4 @@
 #mainReglages {
-  background-color:#d8eeba;
   padding: 2rem;
   margin: 0;
   box-sizing: border-box; 
@@ -7,15 +6,18 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: var(--navbar-width,250px);
 }
 
+
 #reglages {
-  background-color: #f2f7eb;
   padding: 2rem;
   width: 100%;
-  max-width: 90%;
+  max-width: 80%;
   max-height: 90vh;
-  margin: 2rem auto;
+  margin: auto;/*margin: 2rem auto;*/
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -23,6 +25,7 @@
   align-items: stretch;
   flex-grow: 1;  
   overflow: auto; 
+  margin-left: 2rem;
 }
 
 #reglagesMinuteur, #themeReglages {
@@ -77,13 +80,8 @@
   padding: 0.3rem 0.3rem;
   border: 0.5px solid black;
   border-radius: 8px;
-  background-color: #a9c581;
   cursor: pointer;
   font-weight: bold;
-}
-  
-#boutonEnregistrerReglages:hover {
-  background-color: #dce5c4;;
 }
 
 #nomThemeReglages {
@@ -122,15 +120,62 @@
 }
 
 #mainReglages.mode-zen {
-  background-color: #d9ecbd; 
+  background-color: #9cccb5; 
+}
+
+#mainReglages.mode-zen #reglages {
+  background-color: #cfe4d9; /* Couleur de fond de #reglages en mode nuit */
+  color: rgb(80, 80, 80); /* Couleur du texte en mode nuit */
+}
+
+#mainReglages.mode-zen #boutonEnregistrerReglages {
+  background-color: #9cccb5; /* Couleur de fond de #reglages en mode nuit */
 }
   
 #mainReglages.mode-nuit {
-  background-color: #333;
+  background-color: #0b0624;
+}
+
+#mainReglages.mode-nuit #reglages {
+  background-color: #171a38; /* Couleur de fond de #reglages en mode nuit */
+  color: rgb(149, 140, 140); /* Couleur du texte en mode nuit */
+}
+
+#mainReglages.mode-nuit #boutonEnregistrerReglages {
+  background-color: #2d2b36; /* Couleur de fond de #reglages en mode nuit */
+  color: rgb(149, 140, 140);
+}
+
+#mainReglages.mode-nuit #themeTitreReglages {
+  background-color: #2d2b36;
+  border-radius: 10px;
+}
+
+#mainReglages.mode-nuit #minuteurTitreReglages {
+  background-color: #2d2b36;
+  border-radius: 10px;
+}
+
+#mainReglages.mode-nuit .minuteurChoixReglages {
+  background-color: #49484f;
+  color: rgb(183, 181, 181);
+}
+
+#mainReglages.mode-nuit .selectReglages {
+  background-color: #49484f;
+  color: rgb(183, 181, 181);
 }
   
 #mainReglages.mode-jour {
-  background-color: #dcdcdc;
+  background-color: #cfdbe1;
+}
+
+#mainReglages.mode-jour #reglages {
+  background-color: #eef5f8; /* Couleur de fond de #reglages en mode nuit */
+}
+
+#mainReglages.mode-jour #boutonEnregistrerReglages {
+  background-color: #cfdbe1; /* Couleur de fond de #reglages en mode nuit */
 }
 
 .sousTitreReglages {
