@@ -1,4 +1,4 @@
-#iconeBadges{
+#iconeBadges {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -6,8 +6,8 @@
     margin: 35px;
 }
 
-.badges{
-    flex : 0 0 auto;
+.badges {
+    flex: 0 0 auto;
 }
 
 #iconeBadges .badges {
@@ -28,9 +28,10 @@
     max-width: 60%;
     justify-items: center;
     align-items: center;
-    object-fit: contain;  }
+    object-fit: contain;
+}
 
-#iconeBadges .badges:hover{
+#iconeBadges .badges:hover {
     transform: scale(1.1);
     background-color: #4e8733;
 }
@@ -41,6 +42,41 @@
     cursor: not-allowed;
 }
 
+/* Ajout d'une section pour les objectifs */
+#iconeObjectifs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 15px;
+    margin: 35px;
+}
+
+.objectifs {
+    flex: 0 0 auto;
+    background-color: #f0b727;
+    border-radius: 8px;
+    padding: 10px;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+    font-weight: bold;
+}
+
+.objectifs:hover {
+    transform: scale(1.1);
+    background-color: #b99d15;
+}
+
+#iconeObjectifs .objectifs.grise {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
 
 /* Overlay pour la pop-up */
 .popup-overlay {
