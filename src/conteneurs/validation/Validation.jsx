@@ -59,11 +59,12 @@ const Validation = () => {
     }
 
     try {
-      const response = await axios.post(INSCRIPTION_URL, {
+      const response = await axios.post('http://127.0.0.1:8000/api/inscription', {
         username: user,
         email,
         password: pwd,
       })
+      
 
       const token = response?.data?.token
       const role = response?.data?.role || 'user' // <- récupère le rôle renvoyé par Symfony

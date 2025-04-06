@@ -380,7 +380,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+
 }
 .task-header {
   display: flex;
@@ -436,4 +436,17 @@ body {
 
 .priority-high {
   background-color: red;
+}
+
+.tasks-page.no-scroll {
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+.tasks-page {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  align-items: center;     /* centre verticalement si tu veux aussi */
+  height: 100vh;
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from './../../api/Axios'
 import TasksFilter from './TasksFilter'
 import TasksList from './TasksList'
 import TaskDetails from './TaskDetails'
@@ -18,13 +17,14 @@ const Tasks = () => {
   const [notification, setNotification] = useState({ message: '', type: '' })
   const [selectedIds, setSelectedIds] = useState([])
 
+  // 🔒 Bloquer le scroll global uniquement sur cette page
   useEffect(() => {
-    axios
-      .get('/taches')
-      .then((res) => setTasks(res.data))
-      .catch(() =>
-        showNotification('Erreur lors du chargement des tâches', 'error')
-      )
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+      document.documentElement.style.overflow = 'auto'
+    }
   }, [])
 
   const showNotification = (message, type = 'info') => {
@@ -33,141 +33,106 @@ const Tasks = () => {
   }
 
   const addTask = (title, tag, dueDate, priority = 'moyenne') => {
-    console.log(' addTask reçu :', { title, tag, dueDate, priority })
-
-    const data = {
-      titre: title,
-      tag: tag || null,
-      priority,
-      dueDate: dueDate.toISOString().split('T')[0],
-      completed: false,
-      pinned: false,
-    }
-
-    axios
-      .post('/taches', data)
-      .then((res) => {
-        console.log(' Tâche ajoutée :', res.data) //  LOG
-        setTasks((prev) => [...prev, res.data])
-        showNotification(' Nouvelle tâche ajoutée !')
-      })
-      .catch((err) => {
-        console.error(' Erreur lors de l’ajout :', err.response || err)
-        showNotification(' Erreur lors de l’ajout', 'error')
-      })
+    const dateToUse = dueDate ? new Date(dueDate) : new Date()
+    dateToUse.setHours(0, 0, 0, 0)
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now(),
+        title,
+        tag,
+        dueDate: dateToUse.toISOString(),
+        description: '',
+        createdAt: new Date().toISOString(),
+        completed: false,
+        priority,
+        pinned: false,
+      },
+    ])
+    showNotification('✅ Nouvelle tâche ajoutée !')
   }
 
   const updateTask = (
     id,
-    title,
-    tag,
-    dueDate,
+    newTitle,
+    newTag,
+    newDate,
     completed = null,
-    priority = null,
+    newPriority = null,
     pinned = null
   ) => {
-    const data = {
-      ...(title !== undefined && { titre: title }),
-      ...(tag !== undefined && { tag }),
-      ...(dueDate && { dueDate: dueDate }),
-      ...(completed !== null && { completed }),
-      ...(priority && { priority }),
-      ...(pinned !== null && { pinned }),
-    }
-
-    axios
-      .put(`/taches/${id}`, data)
-      .then((res) => {
-        setTasks((prev) =>
-          prev.map((task) => (task.id === id ? res.data : task))
-        )
-        if (completed) showNotification('✅ Tâche complétée !')
-        else showNotification('✏️ Tâche modifiée !')
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          const updatedTask = {
+            ...task,
+            title: newTitle,
+            tag: newTag,
+            dueDate: newDate
+              ? new Date(newDate + 'T00:00:00').toISOString()
+              : task.dueDate,
+          }
+          if (completed !== null) updatedTask.completed = completed
+          if (newPriority !== null) updatedTask.priority = newPriority
+          if (pinned !== null) updatedTask.pinned = pinned
+          return updatedTask
+        }
+        return task
       })
-      .catch(() =>
-        showNotification('❌ Erreur lors de la modification', 'error')
-      )
+    )
+    if (completed === true) {
+      showNotification('✅ Tâche complétée !')
+    } else if (completed === null) {
+      showNotification('✏️ Tâche modifiée !')
+    }
   }
 
   const deleteTask = (id) => {
-    axios
-      .delete(`/taches/${id}`)
-      .then(() => {
-        setTasks((prev) => prev.filter((task) => task.id !== id))
-        setSelectedTask(null)
-        showNotification('🗑️ Tâche supprimée !')
-      })
-      .catch(() =>
-        showNotification('❌ Erreur lors de la suppression', 'error')
-      )
+    setTasks(tasks.filter((task) => task.id !== id))
+    if (selectedTask?.id === id) setSelectedTask(null)
+    showNotification('🗑️ Tâche supprimée !')
   }
 
   const deleteSelectedTasks = () => {
-    Promise.all(selectedIds.map((id) => axios.delete(`/taches/${id}`))).then(
-      () => {
-        setTasks((prev) =>
-          prev.filter((task) => !selectedIds.includes(task.id))
-        )
-        setSelectedIds([])
-        showNotification('🗑️ Tâches supprimées !')
-      }
-    )
+    setTasks(tasks.filter((task) => !selectedIds.includes(task.id)))
+    setSelectedIds([])
+    showNotification('🗑️ Tâches supprimées !')
   }
 
   const completeSelectedTasks = () => {
-    Promise.all(
-      selectedIds.map((id) => axios.put(`/taches/${id}`, { completed: true }))
-    ).then(() => {
-      setTasks((prev) =>
-        prev.map((task) =>
-          selectedIds.includes(task.id) ? { ...task, completed: true } : task
-        )
-      )
-      setSelectedIds([])
-      showNotification('✅ Tâches complétées !')
+    const updated = tasks.map((task) => {
+      if (selectedIds.includes(task.id)) {
+        return { ...task, completed: true }
+      }
+      return task
     })
+    setTasks(updated)
+    setSelectedIds([])
+    showNotification('✅ Tâches complétées !')
   }
 
   const restoreSelectedTasks = () => {
-    Promise.all(
-      selectedIds.map((id) => axios.put(`/taches/${id}`, { completed: false }))
-    ).then(() => {
-      setTasks((prev) =>
-        prev.map((task) =>
-          selectedIds.includes(task.id) ? { ...task, completed: false } : task
-        )
-      )
-      setSelectedIds([])
-      showNotification('🔁 Tâches restaurées !')
+    const updated = tasks.map((task) => {
+      if (selectedIds.includes(task.id) && task.completed) {
+        return { ...task, completed: false }
+      }
+      return task
     })
-  }
-
-  const restoreTask = (id) => {
-    updateTask(id, undefined, undefined, undefined, false)
-    showNotification('🔁 Tâche restaurée !')
+    setTasks(updated)
+    setSelectedIds([])
+    showNotification('🔁 Tâches restaurées !')
   }
 
   const removeTag = (id) => {
-    axios.put(`/taches/${id}`, { tag: '' }).then((res) => {
-      setTasks((prev) => prev.map((task) => (task.id === id ? res.data : task)))
-    })
-  }
-
-  const saveDescription = (id, description) => {
-    axios.put(`/taches/${id}`, { description }).then((res) => {
-      setTasks((prev) => prev.map((task) => (task.id === id ? res.data : task)))
-    })
-  }
-
-  const toggleTaskSelection = (id) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    setTasks(
+      tasks.map((task) => (task.id === id ? { ...task, tag: '' } : task))
     )
   }
 
-  const selectAllVisibleTasks = (tasksToSelect) => {
-    const ids = tasksToSelect.map((task) => task.id)
-    setSelectedIds(ids)
+  const saveDescription = (id, description) => {
+    setTasks(
+      tasks.map((task) => (task.id === id ? { ...task, description } : task))
+    )
   }
 
   const getFilterTitle = () => {
@@ -207,19 +172,46 @@ const Tasks = () => {
           start.setDate(
             now.getDate() - (now.getDay() === 0 ? 6 : now.getDay() - 1)
           )
+          start.setHours(0, 0, 0, 0)
           const end = new Date(start)
           end.setDate(start.getDate() + 6)
+          end.setHours(23, 59, 59, 999)
           return taskDate >= start && taskDate <= end
         })())
 
     return matchDate && !task.completed && matchTag
   })
 
+  const restoreTask = (id) => {
+    const taskToRestore = tasks.find((task) => task.id === id)
+    if (taskToRestore) {
+      updateTask(
+        taskToRestore.id,
+        taskToRestore.title,
+        taskToRestore.tag,
+        taskToRestore.dueDate?.slice(0, 10),
+        false
+      )
+      showNotification('🔁 Tâche restaurée !')
+    }
+  }
+
+  const toggleTaskSelection = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    )
+  }
+
+  const selectAllVisibleTasks = (tasksToSelect) => {
+    const ids = tasksToSelect.map((task) => task.id)
+    setSelectedIds(ids)
+  }
+
   return (
     <div className="tasks-page">
       <div className="tasks-container">
-        <div className="left-panel">
-          <h2 className="tasks-title">Vue des tâches</h2>
+        <div className="left-panel" style={{ position: 'relative' }}>
+          <h2 className="tasks-title">Vue Des Jours</h2>
           <TasksFilter setFilter={setFilter} />
           <div className="tag-search">
             <h3>Filtrer par tag</h3>
@@ -245,16 +237,21 @@ const Tasks = () => {
               <h3 className="task-view-title">{getFilterTitle()}</h3>
               {filter !== 'completed' ? (
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <button onClick={() => selectAllVisibleTasks(filteredTasks)}>
+                  <button
+                    className="delete-visible-btn"
+                    onClick={() => selectAllVisibleTasks(filteredTasks)}
+                  >
                     Sélectionner
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={deleteSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
                     🗑️
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={completeSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
@@ -264,19 +261,24 @@ const Tasks = () => {
               ) : (
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <button
+                    className="delete-visible-btn"
                     onClick={() =>
-                      selectAllVisibleTasks(tasks.filter((t) => t.completed))
+                      selectAllVisibleTasks(
+                        tasks.filter((task) => task.completed)
+                      )
                     }
                   >
                     Sélectionner
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={restoreSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
                     🔁
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={deleteSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
