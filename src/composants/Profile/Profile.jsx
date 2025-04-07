@@ -4,7 +4,6 @@ import './Profile.css';
 import api from "../../api/Axios";
 import AVATAR from '/src/assets/image_avatar'
 
-
 function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +11,67 @@ function Profile() {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [isAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
   const [availableAvatars, setAvailableAvatars] = useState([]);
+  const [pointsPulse, setPointsPulse] = useState(0); // Nouvelle variable pour les points Pulse
+  const [recompenses, setRecompenses] = useState([]); // Nouvelle variable pour les récompenses
+  const [oldPsw, setOldPsw] = useState("");
+  const [newPsw, setNewPsw] = useState("");
+  const [oldPswError, setOldPswError] = useState("");
+  const [newPswError, setNewPswError] = useState("");
+  const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
 
+  const [oldEmail, setOldEmail] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [oldEmailError, setOldEmailError] = useState("");
+  const [newEmailError, setNewEmailError] = useState("");
+  const [isEmailPopupOpen, setIsEmailPopupOpen] = useState(false);
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setOldPswError("");
+    setNewPswError("");
+  
+    try {
+      await api.post("/change-password", {
+        oldPsw,
+        newPsw
+      });
+      alert("Mot de passe modifié avec succès !");
+      setIsPasswordPopupOpen(false);
+      setOldPsw("");
+      setNewPsw("");
+    } catch (err) {
+      const message = err.response?.data?.message || "Erreur lors de la modification du mot de passe";
+      if (message.toLowerCase().includes("ancien")) {
+        setOldPswError(message);
+      } else {
+        setNewPswError(message);
+      }
+    }
+  };
+
+  const handleEmailSubmit = async (e) => {
+    e.preventDefault();
+    setOldEmailError("");
+    setNewEmailError("");
+  
+    try {
+      await api.post("/change-email", {
+        oldEmail,
+        newEmail
+      });
+      alert("Courriel modifié avec succès !");
+      setIsEmailPopupOpen(false);
+      setOldEmail("");
+      setNewEmail("");
+    } catch (err) {
+      const message = err.response?.data?.message || "Erreur lors de la modification du courriel";
+      if (message.toLowerCase().includes("ancien")) {
+        setOldEmailError(message);
+      } else {
+        setNewEmailError(message);
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,9 +79,14 @@ function Profile() {
         const response = await api.get("/profile");
         setUser(response.data);
         setSelectedAvatar(response.data.avatar ? response.data.avatar : AVATAR.defaultavatar);
+
         const avatarsPossedes = response.data.avatarsPossedes || [];
         const avatarsAvecDefaut = [{ id: "default", image: AVATAR.defaultavatar }, ...avatarsPossedes];
-        setAvailableAvatars(avatarsAvecDefaut);  // Assure-toi d'utiliser cette ligne
+        setAvailableAvatars(avatarsAvecDefaut); 
+
+        // Récupération des points Pulse et des récompenses
+        setPointsPulse(response.data.pulsePoints); // Assurez-vous que l'API renvoie les points Pulse
+        setRecompenses(response.data.recompenses || []); // Assurez-vous que l'API renvoie les récompenses
       } catch (err) {
         setError(err.response?.data?.message || "Erreur lors de la récupération du profil");
       } finally {
@@ -46,78 +110,10 @@ function Profile() {
     }
   };
 
-
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,24}$/;
-  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const [oldPsw, setOldPsw] = useState('');
-  const [newPsw, setNewPsw] = useState('');
-  const [oldEmail, setOldEmail] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [oldPswError, setOldPswError] = useState('');
-  const [newPswError, setNewPswError] = useState('');
-  const [oldEmailError, setOldEmailError] = useState('');
-  const [newEmailError, setNewEmailError] = useState('');
-
-  const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
-  const [isEmailPopupOpen, setIsEmailPopupOpen] = useState(false);
-
-  const validateInput = (value, regex, setError) => {
-    if (value && !regex.test(value)) {
-      setError("Format invalide");
-    } else {
-      setError("");
-    }
-  };
-
-  useEffect(() => {
-    validateInput(oldPsw, PWD_REGEX, setOldPswError);
-    validateInput(newPsw, PWD_REGEX, setNewPswError);
-    validateInput(oldEmail, EMAIL_REGEX, setOldEmailError);
-    validateInput(newEmail, EMAIL_REGEX, setNewEmailError);
-  }, [oldPsw, newPsw, oldEmail, newEmail]);
-
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-    if (oldPsw === newPsw) {
-      alert("Le nouveau mot de passe ne peut pas être identique à l'ancien.");
-      return;
-    }
-    setLoading(true);
-
-    try {
-      const response = await api.post('/change-password', { oldPsw, newPsw });
-      alert("Mot de passe modifié avec succès");
-    } catch (error) {
-      alert(error.response?.status === 401 ? "L'ancien mot de passe est incorrect." : "Erreur lors de la modification du mot de passe.");
-    } finally {
-      setLoading(false);
-      setIsPasswordPopupOpen(false);
-    }
-  };
-
-  const handleEmailSubmit = async (e) => {
-    e.preventDefault();
-    if (oldEmail === newEmail) {
-      alert("Le nouveau courriel ne peut pas être identique à l'ancien.");
-      return;
-    }
-    setLoading(true);
-
-    try {
-      const response = await api.post('/change-email', { oldEmail, newEmail });
-      alert("Courriel modifié avec succès");
-    } catch (error) {
-      alert(error.response?.status === 401 ? "L'ancien courriel est incorrect." : "Erreur lors de la modification du courriel.");
-    } finally {
-      setLoading(false);
-      setIsEmailPopupOpen(false);
-    }
-  };
+  // Reste de ton code pour la gestion des mots de passe et des emails
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
-
 
   return (
     <div className="profile_container">
@@ -132,13 +128,13 @@ function Profile() {
             <h3 className="h3Profile">Choisir un avatar</h3>
             <div className="avatars-container">
               {availableAvatars.map((avatar) => (
-              <img
-                key={avatar.id}
-                src={avatar.image}
-                alt="Avatar"
-                className={`avatar-img ${selectedAvatar === avatar.image ? "selected" : ""}`}
-                onClick={() => handleAvatarSelect(avatar)}
-              />
+                <img
+                  key={avatar.id}
+                  src={avatar.image}
+                  alt="Avatar"
+                  className={`avatar-img ${selectedAvatar === avatar.image ? "selected" : ""}`}
+                  onClick={() => handleAvatarSelect(avatar)}
+                />
               ))}
             </div>
             <button className="btnProfile" onClick={() => window.location.href = '/app/boutique'}>
@@ -147,6 +143,12 @@ function Profile() {
           </div>
         </div>
       )}
+
+      {/* Affichage des points Pulse */}
+      <div className="points-pulse-container">
+        <h2 className="h2Profile">Points Pulse</h2>
+        <p>Points actuels : {pointsPulse}</p>
+      </div>
 
       <div className="securite_container">
         <h2 className="h2Profile">Sécurité</h2>
@@ -232,7 +234,7 @@ function Profile() {
 
       <div className="recompenses_container">
         <h2 className="h2Profile">Récompenses</h2>
-        <Recompenses />
+        <Recompenses recompenses={recompenses} /> {/* Passer les récompenses au composant */}
       </div>
     </div>
   );

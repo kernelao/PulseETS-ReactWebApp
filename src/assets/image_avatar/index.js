@@ -17,6 +17,11 @@ import SPECIALironman from './SPECIALironman.svg';
 import SPECIALjoker from './SPECIALjoker.svg';
 import VIPavatargreenblack from './VIPavatargreenblack.svg';
 import VIPavatarshadescheveuxvert from './VIPavatarshadescheveuxvert.svg';
+import ExclusiveNeon from './ExclusiveNeon.svg';
+import ExclusiveSpaceExplorer from './ExclusiveSpaceExplorer.svg';
+import ExclusiveSteampunk from './ExclusiveSteampunk.svg';
+import ExclusiveWarrior from './ExclusiveWarrior.svg';
+import ExclusiveWizard from './ExclusiveWizard.svg';
 
 const AVATAR = {
     defaultavatar,
@@ -37,7 +42,12 @@ const AVATAR = {
     SPECIALironman,
     SPECIALjoker,
     VIPavatargreenblack,
-    VIPavatarshadescheveuxvert
+    VIPavatarshadescheveuxvert,
+    ExclusiveNeon,
+    ExclusiveSpaceExplorer,
+    ExclusiveSteampunk,
+    ExclusiveWarrior,
+    ExclusiveWizard
 };
 
 export default AVATAR;

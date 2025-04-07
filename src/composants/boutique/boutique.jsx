@@ -41,12 +41,11 @@ const Boutique = () => {
         { image: AVATAR.SPECIALjoker, description: "Why so serious?", cost: 25000, objectives: [] },
         { image: AVATAR.VIPavatargreenblack, description: "Wild n serious on vacation", cost: 3000, objectives: [] },
         { image: AVATAR.VIPavatarshadescheveuxvert, description: "Donna", cost: 3000, objectives: [] },
-        { image: AVATAR.avatarcyberpunk, description: "Cyber Punk", cost: 500, objectives: ["Compléter 20 tâches"] },
-        { image: AVATAR.avatarneonlights, description: "Neon Lights", cost: 400, objectives: [] },
-        { image: AVATAR.avatarspace, description: "Space Explorer", cost: 700, objectives: ["Compléter 50 tâches"] },
-        { image: AVATAR.avatarsteampunk, description: "Steampunk Voyager", cost: 600, objectives: [] },
-        { image: AVATAR.avatarviking, description: "Viking Warrior", cost: 750, objectives: [] },
-        { image: AVATAR.avatarwizard, description: "Wizard Supreme", cost: 1000, objectives: [] },
+        { image: AVATAR.ExclusiveNeon, description: "Neon Lights", cost: 400, objectives: [] },
+        { image: AVATAR.ExclusiveSpaceExplorer, description: "Space Explorer", cost: 700, objectives: ["Compléter 50 tâches"] },
+        { image: AVATAR.ExclusiveSteampunk, description: "Steampunk Voyager", cost: 600, objectives: [] },
+        { image: AVATAR.ExclusiveWarrior, description: "Viking Warrior", cost: 750, objectives: [] },
+        { image: AVATAR.ExclusiveWizard, description: "Wizard Supreme", cost: 1000, objectives: [] },
     ];
 
     const themes = [
