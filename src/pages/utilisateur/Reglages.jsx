@@ -19,10 +19,8 @@ const Reglages = () => {
   };
 
   return (
-
+    <div id="app">
     <div id="mainReglages" className={(theme|| "").replace(" ", "-").toLowerCase()}>
-
-      
 
       <div id="reglages">
         <h2 id="titreMainReglages">Réglages</h2>
@@ -81,6 +79,7 @@ const Reglages = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }
