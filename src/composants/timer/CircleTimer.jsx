@@ -16,9 +16,9 @@ function CirclePom() {
   const alarmTimeoutRef = useRef(null);
 
   const duration ={
-       pomodoro :15,
-       pauseCourte: 5,
-       pauseLongue: 10,
+       pomodoro :25*60,
+       pauseCourte: 5*60,
+       pauseLongue: 15*60,
        
   };
   
