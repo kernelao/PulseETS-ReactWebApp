@@ -4,7 +4,7 @@ import './CircleTimer.css';
 import alarmSoundFile from "./alarmepulse.mp3"; 
 
 function CirclePom() {
-    
+  const [startTime, setStartTime] = useState(null);
   const [mode, setMode] = useState('pomodoro'); // pomodoro | pauseCourte | pauseLongue
   const [isPlaying, setIsPlaying] = useState(false);
   const [auto, setAuto] = useState(false);
@@ -16,9 +16,9 @@ function CirclePom() {
   const alarmTimeoutRef = useRef(null);
 
   const duration ={
-       pomodoro :25 *60,
-       pauseCourte: 5*60,
-       pauseLongue: 15*60,
+       pomodoro :15,
+       pauseCourte: 5,
+       pauseLongue: 10,
        
   };
   
@@ -53,6 +53,7 @@ function CirclePom() {
     if (auto) {
       setAutoActive(true);
     }
+    setStartTime(new Date()); // ⏱️ capture l’heure du début
     setIsPlaying(true);
   };
 
@@ -87,8 +88,40 @@ function CirclePom() {
     });
   };
 
+  const sendSessionToAPI = async () => {
+    const token = localStorage.getItem("token");
+  
+    const endedAt = new Date(); // ⏱️ heure de fin maintenant
+  
+    const response = await fetch("http://localhost:8000/api/pomodoro-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        startedAt: startTime.toISOString(),   // 🟢 nouveau champ
+        endedAt: endedAt.toISOString(),       // 🟢 nouveau champ
+        pomodoros_completes: pomodoroCount,
+        pomodoroDuration: duration.pomodoro,
+        shortBreak: duration.pauseCourte,
+        longBreak: duration.pauseLongue,
+        autoStart: auto
+      })
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Erreur API :", errorData);
+      return;
+    }
+    const data = await response.json();
+    console.log("Réponse de l'API :", data);
+  };
+
   const handleComplete = () => {
     playAlarm();
+    sendSessionToAPI(); 
 
     if (Notification.permission === 'granted') {
       new Notification(`[PULSE] Fin de ${mode === 'pomodoro' ? 'la session de travail' : mode === 'pauseCourte' ? 'la pause courte' : 'la pause longue'}`);
