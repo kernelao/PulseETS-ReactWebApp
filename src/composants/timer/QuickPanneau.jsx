@@ -59,8 +59,8 @@ export default function QuickPanneau() {
       </div>
 
       <div className={`sliding-panel ${isOpen ? 'open' : ''}`}>
-        {/* 🔁 Tâches en premier */}
-        <h3>Tâche rapide</h3>
+        
+        <h3>Tâches</h3>
         <div className="input-row">
           <input
             className="sliding-input"
@@ -71,6 +71,8 @@ export default function QuickPanneau() {
           />
           <button className="add-btn" onClick={handleAddTask}><Plus size={18} /></button>
         </div>
+
+
         <ul className="item-list">
           {tasks.map(task => (
             <li key={task.id} className="item-row task-row">
@@ -118,8 +120,8 @@ export default function QuickPanneau() {
           ))}
         </ul>
 
-        {/* ✏️ Ensuite les notes */}
-        <h3 style={{ marginTop: '2rem' }}>Note rapide</h3>
+       
+        <h3 style={{ marginTop: '2rem' }}>Notes </h3>
         <div className="input-row">
           <input
             className="sliding-input"

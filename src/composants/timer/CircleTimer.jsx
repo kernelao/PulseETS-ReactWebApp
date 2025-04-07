@@ -5,7 +5,7 @@ import alarmSoundFile from "./alarmepulse.mp3";
 
 function CirclePom() {
   const [startTime, setStartTime] = useState(null);
-  const [mode, setMode] = useState('pomodoro'); // pomodoro | pauseCourte | pauseLongue
+  const [mode, setMode] = useState('pomodoro'); 
   const [isPlaying, setIsPlaying] = useState(false);
   const [auto, setAuto] = useState(false);
   const [autoActive, setAutoActive] = useState(false);
@@ -45,7 +45,7 @@ function CirclePom() {
       alarmSound.current.play();
       alarmTimeoutRef.current = setTimeout(() => {
         stopAlarm();
-      }, 5500); // arrete apres 8 seconde
+      }, 5500); // arrete apres 5,5 seconde (+/-4 bar)
     }
   };
 
@@ -53,7 +53,7 @@ function CirclePom() {
     if (auto) {
       setAutoActive(true);
     }
-    setStartTime(new Date()); // ⏱️ capture l’heure du début
+    setStartTime(new Date()); // capture l’heure du début
     setIsPlaying(true);
   };
 
@@ -91,7 +91,7 @@ function CirclePom() {
   const sendSessionToAPI = async () => {
     const token = localStorage.getItem("token");
   
-    const endedAt = new Date(); // ⏱️ heure de fin maintenant
+    const endedAt = new Date(); // heure de fin maintenant
   
     const response = await fetch("http://localhost:8000/api/pomodoro-session", {
       method: "POST",
@@ -100,8 +100,8 @@ function CirclePom() {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        startedAt: startTime.toISOString(),   // 🟢 nouveau champ
-        endedAt: endedAt.toISOString(),       // 🟢 nouveau champ
+        startedAt: startTime.toISOString(),   
+        endedAt: endedAt.toISOString(),      
         pomodoros_completes: pomodoroCount,
         pomodoroDuration: duration.pomodoro,
         shortBreak: duration.pauseCourte,
