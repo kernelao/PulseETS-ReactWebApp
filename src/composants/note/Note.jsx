@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import welcomeImage from "../../assets/images/welcome-image2.jpg";
+import axios from './../../api/Axios';
 import "./notes.css";
 
 const TYPEWRITER_TEXT = "Commencez à organiser vos idées dès maintenant !";
@@ -10,7 +11,6 @@ function IntroductionNote() {
   useEffect(() => {
     let index = 0;
     let mounted = true;
-
     const type = () => {
       if (mounted && animatedRef.current && index <= TYPEWRITER_TEXT.length) {
         animatedRef.current.innerText = TYPEWRITER_TEXT.substring(0, index++);
@@ -18,7 +18,6 @@ function IntroductionNote() {
       }
     };
     type();
-
     return () => {
       mounted = false;
     };
@@ -39,13 +38,7 @@ export default function NotesApp() {
     notes: [{ id: 0, title: "Introduction", content: "" }]
   };
 
-  const loadNotes = () => {
-    const savedNotes = localStorage.getItem("notesData");
-    const data = savedNotes ? JSON.parse(savedNotes) : [];
-    return data;
-  };
-
-  const [folders, setFolders] = useState(loadNotes);
+  const [folders, setFolders] = useState([]);
   const [selectedNote, setSelectedNote] = useState(bienvenueFolder.notes[0]);
   const [openFolders, setOpenFolders] = useState({ Bienvenue: true });
   const [history, setHistory] = useState([]);
@@ -68,17 +61,32 @@ export default function NotesApp() {
   const addNoteRef = useRef(null);
 
   useEffect(() => {
-    localStorage.setItem("notesData", JSON.stringify(folders));
-  }, [folders]);
+    async function fetchNotes() {
+      try {
+        const res = await axios.get("/notes");
+        const categorized = {};
+        res.data.forEach(note => {
+          const category = note.categorie || "Sans Catégorie";
+          if (!categorized[category]) categorized[category] = [];
+          categorized[category].push({
+            id: note.id,
+            title: note.titre,
+            content: note.contenu || ""
+          });
+        });
+        const foldersArray = Object.entries(categorized).map(([name, notes]) => ({ name, notes }));
+        setFolders(foldersArray);
+      } catch (err) {
+        console.error("Erreur de chargement des notes:", err);
+      }
+    }
+    fetchNotes();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (folderOptionsRef.current && !folderOptionsRef.current.contains(e.target)) {
-        setFolderOptions(null);
-      }
-      if (noteOptionsRef.current && !noteOptionsRef.current.contains(e.target)) {
-        setNoteOptions(null);
-      }
+      if (folderOptionsRef.current && !folderOptionsRef.current.contains(e.target)) setFolderOptions(null);
+      if (noteOptionsRef.current && !noteOptionsRef.current.contains(e.target)) setNoteOptions(null);
       if (addCategoryRef.current && !addCategoryRef.current.contains(e.target)) {
         setAddingCategory(false);
         setNewFolderName("");
@@ -101,10 +109,12 @@ export default function NotesApp() {
   function handleContentChange(e) {
     const newContent = e.target.value;
     if (typingTimeout) clearTimeout(typingTimeout);
-
     const newTimeout = setTimeout(() => {
       setHistory([...history.slice(0, historyIndex + 1), selectedNote.content]);
       setHistoryIndex(historyIndex + 1);
+      axios.put(`/notes/${selectedNote.id}`, {
+        contenu: newContent
+      });
     }, 1000);
     setTypingTimeout(newTimeout);
 
@@ -122,6 +132,7 @@ export default function NotesApp() {
   function handleUndo() {
     if (historyIndex >= 0) {
       const previousContent = history[historyIndex];
+      axios.put(`/notes/${selectedNote.id}`, { contenu: previousContent });
       setFolders((prev) =>
         prev.map((folder) => ({
           ...folder,
@@ -147,15 +158,147 @@ export default function NotesApp() {
   function handleAddNote(folderName) {
     const title = newNoteTitle.trim();
     if (!title) return;
-    const newNote = { id: Date.now(), title, content: "" };
-    setFolders((prev) =>
-      prev.map((fold) =>
-        fold.name === folderName ? { ...fold, notes: [...fold.notes, newNote] } : fold
-      )
-    );
-    setAddingNoteTo(null);
-    setNewNoteTitle("");
+    axios.post('/notes', {
+      titre: title,
+      contenu: "",
+      categorie: folderName
+    }).then((res) => {
+      const newNote = {
+        id: res.data.id,
+        title: res.data.titre,
+        content: res.data.contenu || ""
+      };
+      setFolders((prev) =>
+        prev.map((fold) =>
+          fold.name === folderName ? { ...fold, notes: [...fold.notes, newNote] } : fold
+        )
+      );
+      setAddingNoteTo(null);
+      setNewNoteTitle("");
+    });
   }
+
+  
+
+//delete
+//notes
+function handleDeleteNote(folderName, noteId) {
+ // console.log("Sending DELETE for noteId:", noteId); 
+  axios.delete(`/notes/${noteId}`)
+    .then(() => {
+      return axios.get("/notes");
+    })
+    .then((res) => {
+      const categorized = {};
+      res.data.forEach(note => {
+        const category = note.categorie || "Sans Catégorie";
+        if (!categorized[category]) categorized[category] = [];
+        categorized[category].push({
+          id: note.id,
+          title: note.titre,
+          content: note.contenu || ""
+        });
+      });
+      const foldersArray = Object.entries(categorized).map(([name, notes]) => ({ name, notes }));
+      setFolders(foldersArray);
+
+      if (selectedNote?.id === noteId) {
+        setSelectedNote(null);
+      }
+    })
+    .catch((err) => {
+      console.error("Erreur lors de la suppression de la note:", err);
+    });
+}
+
+
+
+//categories
+function handleDeleteCategory(folderName) {
+  // Get all notes in that folder
+  const notesToDelete = folders.find(f => f.name === folderName)?.notes || [];
+
+  // Confirm with user (optional)
+  if (!window.confirm(`Supprimer la catégorie "${folderName}" et toutes ses notes ?`)) return;
+
+  // Delete each note via the API
+  Promise.all(notesToDelete.map(note =>
+    axios.delete(`/notes/${note.id}`)
+  ))
+    .then(() => {
+      // Remove the folder from frontend state
+      setFolders(prev => prev.filter(f => f.name !== folderName));
+
+      // Clear selected note if it was part of the deleted folder
+      if (selectedNote && notesToDelete.some(n => n.id === selectedNote.id)) {
+        setSelectedNote(null);
+      }
+    })
+    .catch((err) => {
+      console.error("Erreur lors de la suppression de la catégorie:", err);
+    });
+}
+
+function handleEditCategoryName(oldName, newName) {
+  axios.get("/notes")
+    .then((res) => {
+      const notesInCategory = res.data.filter(note => note.categorie === oldName);
+
+      return Promise.all(
+        notesInCategory.map(note =>
+          axios.put(`/notes/${note.id}`, {
+            ...note,
+            categorie: newName
+          })
+        )
+      );
+    })
+    .then(() => {
+      return axios.get("/notes");
+    })
+    .then((res) => {
+      const categorized = {};
+      res.data.forEach(note => {
+        const category = note.categorie || "Sans Catégorie";
+        if (!categorized[category]) categorized[category] = [];
+        categorized[category].push({
+          id: note.id,
+          title: note.titre,
+          content: note.contenu || ""
+        });
+      });
+      const foldersArray = Object.entries(categorized).map(([name, notes]) => ({ name, notes }));
+      setFolders(foldersArray);
+    })
+    .catch(err => {
+      console.error("Erreur lors de la modification de la catégorie:", err);
+    });
+}
+
+
+function handleEditNoteTitle(noteId, newTitle) {
+  axios.put(`/notes/${noteId}`, { titre: newTitle })
+    .then(() => axios.get("/notes"))
+    .then((res) => {
+      const categorized = {};
+      res.data.forEach(note => {
+        const category = note.categorie || "Sans Catégorie";
+        if (!categorized[category]) categorized[category] = [];
+        categorized[category].push({
+          id: note.id,
+          title: note.titre,
+          content: note.contenu || ""
+        });
+      });
+      const foldersArray = Object.entries(categorized).map(([name, notes]) => ({ name, notes }));
+      setFolders(foldersArray);
+    })
+    .catch(err => {
+      console.error("Erreur lors de la modification du titre:", err);
+    });
+}
+
+
 
   return (
     <div className="app">
@@ -179,7 +322,7 @@ export default function NotesApp() {
           </div>
         )}
 
-        {/* Bienvenue folder fixed */}
+        {/* Bienvenue folder  */}
         <div className="folder">
           <div className="folder-title" onClick={() => setOpenFolders((prev) => ({ ...prev, Bienvenue: !prev["Bienvenue"] }))}>
             <span>{openFolders["Bienvenue"] ? "▼" : "▶"} Bienvenue</span>
@@ -208,31 +351,23 @@ export default function NotesApp() {
               }>
                 {editingFolderName === folder.name ? (
                   <input
-                    value={editedFolderName}
-                    onChange={(e) => setEditedFolderName(e.target.value)}
-                    onBlur={() => {
-                      setFolders((prev) =>
-                        prev.map((f) =>
-                          f.name === folder.name ? { ...f, name: editedFolderName } : f
-                        )
-                      );
+                  value={editedFolderName}
+                  onChange={(e) => setEditedFolderName(e.target.value)}
+                  onBlur={() => {
+                    handleEditCategoryName(folder.name, editedFolderName); 
+                    setEditingFolderName(null);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleEditCategoryName(folder.name, editedFolderName); // ✅ keep this here
                       setEditingFolderName(null);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        setFolders((prev) =>
-                          prev.map((f) =>
-                            f.name === folder.name ? { ...f, name: editedFolderName } : f
-                          )
-                        );
-                        setEditingFolderName(null);
-                      }
-                    }}
-                    autoFocus
-                  />
-                ) : (
-                  <span>{isOpen ? "▼" : "▶"} {folder.name}</span>
-                )}
+                    }
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <span>{isOpen ? "▼" : "▶"} {folder.name}</span>
+              )}
 
                 <div className="folder-actions">
                   <button
@@ -264,13 +399,12 @@ export default function NotesApp() {
                     setEditingFolderName(folder.name);
                     setFolderOptions(null);
                   }}>Modifier</button>
+                  
                   <button onClick={() => {
-                    setFolders((prev) => prev.filter((f) => f.name !== folder.name));
-                    if (selectedNote && folder.notes.some((n) => n.id === selectedNote.id)) {
-                      setSelectedNote(null);
-                    }
-                    setFolderOptions(null);
-                  }}>Supprimer</button>
+                handleDeleteCategory(folder.name);
+                setFolderOptions(null);
+                }}>Supprimer</button>
+
                 </div>
               )}
 
@@ -285,42 +419,21 @@ export default function NotesApp() {
                     >
                       {editingNoteId === note.id ? (
                         <input
-                          value={editedNoteTitle}
-                          onChange={(e) => setEditedNoteTitle(e.target.value)}
-                          onBlur={() => {
-                            setFolders((prev) =>
-                              prev.map((f) =>
-                                f.name === folder.name
-                                  ? {
-                                      ...f,
-                                      notes: f.notes.map((n) =>
-                                        n.id === note.id ? { ...n, title: editedNoteTitle } : n
-                                      )
-                                    }
-                                  : f
-                              )
-                            );
-                            setEditingNoteId(null);
-                          }}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              setFolders((prev) =>
-                                prev.map((f) =>
-                                  f.name === folder.name
-                                    ? {
-                                        ...f,
-                                        notes: f.notes.map((n) =>
-                                          n.id === note.id ? { ...n, title: editedNoteTitle } : n
-                                        )
-                                      }
-                                    : f
-                                )
-                              );
-                              setEditingNoteId(null);
-                            }
-                          }}
-                          autoFocus
-                        />
+                      value={editedNoteTitle}
+                    onChange={(e) => setEditedNoteTitle(e.target.value)}
+                    onBlur={() => {
+                      handleEditNoteTitle(note.id, editedNoteTitle);
+                      setEditingNoteId(null);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleEditNoteTitle(note.id, editedNoteTitle);
+                        setEditingNoteId(null);
+                      }
+                    }}
+                    autoFocus
+                  />
+
                       ) : (
                         <span className="note-title">
                         {note.title}
@@ -344,22 +457,20 @@ export default function NotesApp() {
                             setEditingNoteId(note.id);
                             setNoteOptions(null);
                           }}>Modifier</button>
-                          <button onClick={() => {
-                            setFolders((prev) =>
-                              prev.map((f) =>
-                                f.name === folder.name
-                                  ? {
-                                      ...f,
-                                      notes: f.notes.filter((n) => n.id !== note.id)
-                                    }
-                                  : f
-                              )
-                            );
-                            if (selectedNote?.id === note.id) {
-                              setSelectedNote(null);
-                            }
-                            setNoteOptions(null);
-                          }}>Supprimer</button>
+
+
+            <button
+            onClick={(e) => {
+          e.stopPropagation(); 
+        //  console.log("Clicked delete:", note.id); 
+
+          handleDeleteNote(folder.name, note.id);
+          }}
+          >
+          Supprimer
+        </button>
+
+
                         </div>
                       )}
                     </div>
