@@ -20,15 +20,16 @@
   padding: 2rem;
   width: 100%;
   max-width: 95%;
-  max-height: 90vh;
+  max-height: 100%;
   margin: auto;/*margin: 2rem auto;*/
+  margin-top: -1.5rem;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   flex-grow: 1;  
-  overflow: auto; 
+  overflow: auto; /*scroll*/
   margin-left: 2rem;
 }
 
