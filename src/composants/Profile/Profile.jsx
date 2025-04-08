@@ -79,14 +79,14 @@ function Profile() {
         const response = await api.get("/profile");
         setUser(response.data);
         setSelectedAvatar(response.data.avatar ? response.data.avatar : AVATAR.defaultavatar);
-
-        const avatarsPossedes = response.data.avatarsPossedes || [];
+  
+        const avatarsPossedes = response.data.avatarsPossedes || []; // à adapter si tu veux aussi les avatars achetés
         const avatarsAvecDefaut = [{ id: "default", image: AVATAR.defaultavatar }, ...avatarsPossedes];
         setAvailableAvatars(avatarsAvecDefaut); 
-
-        // Récupération des points Pulse et des récompenses
-        setPointsPulse(response.data.pulsePoints); // Assurez-vous que l'API renvoie les points Pulse
-        setRecompenses(response.data.recompenses || []); // Assurez-vous que l'API renvoie les récompenses
+  
+        // Correction ici
+        setPointsPulse(response.data.points); // 👈 correspond à la clé du backend
+        setRecompenses(response.data.recompenses || []);
       } catch (err) {
         setError(err.response?.data?.message || "Erreur lors de la récupération du profil");
       } finally {
@@ -95,6 +95,7 @@ function Profile() {
     };
     fetchProfile();
   }, []);
+  
 
   const handleAvatarClick = () => {
     setIsAvatarPopupOpen(true);
