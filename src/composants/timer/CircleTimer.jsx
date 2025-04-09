@@ -1,98 +1,229 @@
-
-import { useState } from "react";
+import React, { useState, useRef, useEffect} from "react";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'; 
 import './CircleTimer.css';
+import alarmSoundFile from "./alarmepulse.mp3"; 
 
-
-  
-
-  
-
-
-  
 function CirclePom() {
-
-  const POM_CYCLE = 25 * 60;
-  const SMALL_BREAK= 5 * 60;
-  const LONG_BREAK = 30 * 60;
-  const CYCLE_COUNT = 4; // Nombre de cycles avant une longue pause
-
+  const [startTime, setStartTime] = useState(null);
+  const [mode, setMode] = useState('pomodoro'); 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(POM_CYCLE);
-  const [cycle, setCycle] = useState(1);
-  const [key, setKey] = useState(0);
+  const [auto, setAuto] = useState(false);
+  const [autoActive, setAutoActive] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
+  const [pomodoroCount, setPomodoroCount] = useState(0);
 
-  const formatTime = (remainingTime) => {
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
+  const alarmSound = useRef(null);
+  const alarmTimeoutRef = useRef(null);
 
-// Gérer la fin du cycle
-const handleComplete = () => {
-    if (cycle % CYCLE_COUNT === 0) {
-        setDuration(LONG_BREAK);
-        setCycle(1); // Réinitialise le cycle après une longue pause
-    } else {
-        setDuration(duration === POM_CYCLE ? SMALL_BREAK : POM_CYCLE);
-        setCycle(duration === POM_CYCLE ? cycle : cycle + 1);
-    }
-    return { shouldRepeat: true, delay: 1 };
-};
-
-const handleReset = () => {
-  setIsPlaying(false);
-  setDuration(POM_CYCLE);
-  setCycle(1);
-  setKey(prevKey => prevKey + 1); // Change la clé pour forcer le reset du timer
-};
-
-const handleSetDuration = (newDuration) => {
-  setIsPlaying(false);
-  setDuration(newDuration);
-  setKey(prevKey => prevKey + 1); // Force la réinitialisation du timer
-};
+  const duration ={
+       pomodoro :25*60,
+       pauseCourte: 5*60,
+       pauseLongue: 15*60,
+       
+  };
   
-    return (  
-    <div className="cercle_main">
+  useEffect(() => {
+    alarmSound.current = new Audio(alarmSoundFile);
+    alarmSound.current.loop = true; 
+  }, []);
 
-            <div className='btn_timer_container'>
-                <button onClick={() => handleSetDuration(POM_CYCLE)}    className='timer_btn' >Pomodoro</button>
-                <button onClick={() => handleSetDuration(SMALL_BREAK)}  className='timer_btn'>Courte Pause</button>
-                <button onClick={() => handleSetDuration(LONG_BREAK)}  className='timer_btn'>Longue Pause</button>
-            </div> 
 
-        <div className="cercle_box">
-         
-          <CountdownCircleTimer
-              key={key}
-              isPlaying={isPlaying}
-              duration={duration}
-              colors={["#D2E3C0", "#C6DEAE", "#A30000"]}
-              colorsTime={[duration, duration / 2, 5]}
-              onComplete={handleComplete}
-            >
-          
-           {({ remainingTime }) => <h1 className="text_cercle">{formatTime(remainingTime)}</h1>}
-          
-            </CountdownCircleTimer>
-           
-            <div className='button_srt_container'>
-              <button onClick={() => setIsPlaying(true)} className='start_btn' >start</button>
-              <button onClick={() => setIsPlaying(false)} className='start_btn' >stop</button>
-              <button onClick={handleReset} className='start_btn'>reset</button>
+  
+
+  const stopAlarm = () => {
+    if (alarmSound.current) {
+      alarmSound.current.pause();
+      alarmSound.current.currentTime = 0;
+    }
+    if (alarmTimeoutRef.current) {
+      clearTimeout(alarmTimeoutRef.current);
+    }
+  };
+
+  const playAlarm = () => {
+    if (alarmSound.current) {
+      alarmSound.current.play();
+      alarmTimeoutRef.current = setTimeout(() => {
+        stopAlarm();
+      }, 5500); // arrete apres 5,5 seconde (+/-4 bar)
+    }
+  };
+
+  const handleStart = () => {
+    if (auto) {
+      setAutoActive(true);
+    }
+    setStartTime(new Date()); // capture l’heure du début
+    setIsPlaying(true);
+  };
+
+
+  const handlePause = () => setIsPlaying(false);
+
+  const handleReset = () => {
+    setIsPlaying(false);
+    setMode('pomodoro');
+    setPomodoroCount(0);
+    setTimerKey(prev => prev + 1);
+    stopAlarm();
+    setAutoActive(false);
+  };
+
+
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    setIsPlaying(false);
+    setTimerKey(prev => prev + 1);
+    stopAlarm();
+  };
+
+
+  const handleAutoToggle = () => {
+    setAuto(prev => {
+      const next = !prev;
+      if (!next) {
+        setAutoActive(false);
+      }
+      return next;
+    });
+  };
+
+  const sendSessionToAPI = async () => {
+    const token = localStorage.getItem("token");
+  
+    const endedAt = new Date(); // heure de fin maintenant
+  
+    const response = await fetch("http://localhost:8000/api/pomodoro-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        startedAt: startTime.toISOString(),   
+        endedAt: endedAt.toISOString(),      
+        pomodoros_completes: pomodoroCount,
+        pomodoroDuration: duration.pomodoro,
+        shortBreak: duration.pauseCourte,
+        longBreak: duration.pauseLongue,
+        autoStart: auto
+      })
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Erreur API :", errorData);
+      return;
+    }
+    const data = await response.json();
+    console.log("Réponse de l'API :", data);
+  };
+
+  const handleComplete = () => {
+    playAlarm();
+    sendSessionToAPI(); 
+
+    if (Notification.permission === 'granted') {
+      new Notification(`[PULSE] Fin de ${mode === 'pomodoro' ? 'la session de travail' : mode === 'pauseCourte' ? 'la pause courte' : 'la pause longue'}`);
+    }
+
+    const nextState = () => {
+      if (mode === 'pomodoro') {
+        const nextCount = pomodoroCount + 1;
+        if (nextCount >= 4) {
+          setPomodoroCount(0);
+          return 'pauseLongue';
+        } else {
+          setPomodoroCount(nextCount);
+          return 'pauseCourte';
+        }
+      } else {
+        return 'pomodoro';
+      }
+    };
+
+    const nextMode = nextState();
+    setMode(nextMode);
+    setTimerKey(prev => prev + 1);
+
+    if (auto && autoActive) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+
+    return { shouldRepeat: false };
+  };
+
+
+  const getButtonStyle = (btnMode) => ({
+    backgroundColor: mode === btnMode ? ' #8997e6' : '#10217f',
+    color: mode === btnMode ? 'white' : 'white',
+    border: '1px solid #ccc',
+    margin: '5px',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    cursor: 'pointer'
+  });
+  
+
+  return (
+    <div className="cercle_main" >
+      <div className='btn_timer_container'>
+        <button onClick={() => handleModeChange('pomodoro')}  style={getButtonStyle('pomodoro')} className='timer_btn animated_btn'>Pomodoro</button>
+        <button onClick={() => handleModeChange('pauseCourte')}  style={getButtonStyle('pauseCourte')} className='timer_btn animated_btn'>Courte Pause</button>
+        <button onClick={() => handleModeChange('pauseLongue')}style={getButtonStyle('pauseLongue')}  className='timer_btn animated_btn'>Longue Pause</button>
+      </div>
+
+      <div className="cercle_box">
+        <CountdownCircleTimer
+          key={timerKey}
+          isPlaying={isPlaying}
+          duration={duration[mode]}
+          colors={[ "#10217f","#091245","#060B26"]}
+          colorsTime={[duration, duration / 2, 5]}
+          onComplete={handleComplete}
+        >
+           {({ remainingTime }) => {
+          const minutes = Math.floor(remainingTime / 60);
+          const seconds = remainingTime % 60;
+          return (
+            <div style={{ fontSize: '32px' }}>
+              {`${minutes}:${seconds.toString().padStart(2, '0')}`}
             </div>
+          );
+        }}
+      </CountdownCircleTimer>
+      </div>
+
+        <div className='button_srt_container'>
+         
+           
+              <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
+              <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
+              <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
+      
+        
         </div>
 
+        
+      <div className="auto_cont">
+        <label>
+          <input type="checkbox" checked={auto} onChange={handleAutoToggle} />
+          Mode automatique
+        </label>
+      </div>
 
-       
-          
-
-          
-       
+      <div className="txt_pom_comsecutif">
+        <strong>Pomodoros consécutifs : {pomodoroCount} / 4</strong>
+      </div>
 
 
+
+
+      
     </div>
-    );
+  );
 }
+
 export default CirclePom;
