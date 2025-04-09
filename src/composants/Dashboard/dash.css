@@ -1,0 +1,9 @@
+.dashboard-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .left, .center, .right {
+    flex: 1;
+  }
+  

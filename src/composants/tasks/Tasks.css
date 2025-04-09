@@ -375,13 +375,7 @@
   flex-direction: column;
   gap: 10px;
 }
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
+
 .task-header {
   display: flex;
   justify-content: space-between;
