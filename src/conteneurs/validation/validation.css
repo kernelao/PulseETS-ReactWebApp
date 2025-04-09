@@ -1,49 +1,49 @@
 .validation {
-    padding-top: 60px;
-    min-height: 100vh;
+  padding-top: 60px;
+  min-height: 100vh;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
 }
 
 .validation h1 {
-    padding-top: 10vh;
-    padding-bottom: 20px;
-    text-align: center;
+  padding-top: 10vh;
+  padding-bottom: 20px;
+  text-align: center;
 }
 .validation label {
-    text-align: center;
+  text-align: center;
 }
 input {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 p {
-    text-align: center;
+  text-align: center;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
+input[type='text'],
+input[type='email'],
+input[type='password'],
 button,
 textarea {
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
   width: 45vh;
-  cursor:auto;
+  cursor: auto;
 }
 
 .validation button {
-    margin-top: 1rem;
-    width: 25vh;
-    height: 6vh;
-    cursor: pointer;
+  margin-top: 1rem;
+  width: 25vh;
+  height: 6vh;
+  cursor: pointer;
 }
 
 label {
@@ -51,76 +51,76 @@ label {
 }
 
 button {
-    padding: 0.5rem;
-    display: block;
-    margin: 1rem auto;
+  padding: 0.5rem;
+  display: block;
+  margin: 1rem auto;
 }
 
 .instructions {
-    font-size: 0.75rem;
-    border-radius: 0.5rem;
-    padding: 0.25rem;
-    position: relative;
-    bottom: -10px;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
 }
 
 .instructions > svg {
-    margin-right: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .offscreen {
-    position: absolute;
-    left: -9999px;
+  position: absolute;
+  left: -9999px;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .valid {
-    color: limegreen;
-    margin-left: 0.25rem;
+  color: limegreen;
+  margin-left: 0.25rem;
 }
 
 .invalid {
-    color: red;
-    margin-left: 0.25rem;
+  color: red;
+  margin-left: 0.25rem;
 }
 
 .errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .line {
-    display: inline-block;
+  display: inline-block;
 }
 
 @media (max-width: 600px) {
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    button,
-    textarea {
-        width: 60%; 
-        font-size: 18px;
-    }
-  
-    .validation {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-  
-    .validation button {
-        margin-top: 22px;
-        width: 40%;
-    }
-  
-    .line {
-        display: block;
-        margin-top: 1rem;
-    }
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  button,
+  textarea {
+    width: 60%;
+    font-size: 18px;
+  }
+
+  .validation {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .validation button {
+    margin-top: 22px;
+    width: 40%;
+  }
+
+  .line {
+    display: block;
+    margin-top: 1rem;
+  }
 }

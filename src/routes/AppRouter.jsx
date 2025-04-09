@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PublicRoutes from "./PublicRoutes";
-import PrivateRoutes from "./PrivateRoutes";
-import AdminRoutes from "./AdminRoutes";
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import PublicRoutes from './PublicRoutes'
+import PrivateRoutes from './PrivateRoutes'
+import AdminRoutes from './AdminRoutes'
 
 const AppRouter = () => {
   return (
@@ -18,7 +18,7 @@ const AppRouter = () => {
         <Route path="/admin/*" element={<AdminRoutes />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default AppRouter;
+export default AppRouter

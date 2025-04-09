@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../../conteneurs/header/Header'
 
-
 const Mentions = () => {
   return (
     <>

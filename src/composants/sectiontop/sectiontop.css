@@ -1,0 +1,29 @@
+.section-top {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+
+  /* Ces 3 lignes évitent le "margin collapsing" */
+  display: flow-root;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-top-content {
+  background-color: rgba(0, 0, 0, 0.5); /* facultatif */
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-top h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.section-top p {
+  font-size: 1.2rem;
+}

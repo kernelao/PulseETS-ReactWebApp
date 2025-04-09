@@ -1,19 +1,19 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import SidebarLayout from "../composants/sidebar/SidebarLayout";
-import { AdminSidebarData } from "../composants/sidebar/AdminSidebarData";
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import SidebarLayout from '../composants/sidebar/SidebarLayout'
+import { AdminSidebarData } from '../composants/sidebar/AdminSidebarData'
 
 // Pages admin
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import GestionUtilisateur from "../pages/admin/GestionUtilisateur";
-import GestionBoutique from "../pages/admin/GestionBoutique";
-import GestionReglages from "../pages/admin/GestionReglages";
+import AdminDashboard from '../pages/admin/AdminDashboard'
+import GestionUtilisateur from '../pages/admin/GestionUtilisateur'
+import GestionBoutique from '../pages/admin/GestionBoutique'
+import GestionReglages from '../pages/admin/GestionReglages'
 
 const AdminRoutes = () => {
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isAdmin } = useAuth()
 
   if (!isAuthenticated || !isAdmin) {
-    return <Navigate to="/connexion" replace />;
+    return <Navigate to="/connexion" replace />
   }
 
   return (
@@ -29,7 +29,7 @@ const AdminRoutes = () => {
         <Route path="*" element={<Navigate to="adminDashboard" replace />} />
       </Route>
     </Routes>
-  );
-};
+  )
+}
 
-export default AdminRoutes;
+export default AdminRoutes

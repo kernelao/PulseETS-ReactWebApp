@@ -1,66 +1,66 @@
 .cta {
-    border: 1px solide white;
-    color: black;
+  border: 1px solide white;
+  color: black;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 
-    padding: 2rem;
-    margin: 4rem;
-    border-radius: 1rem;
-    background: black;
+  padding: 2rem;
+  margin: 4rem;
+  border-radius: 1rem;
+  background: black;
 }
 
 .cta-contenu p {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 30px;
-    cursor: pointer;
-    color: white;
-    text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 30px;
+  cursor: pointer;
+  color: white;
+  text-align: left;
 }
 
 .cta-contenu h3 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 38px;
-    color: white;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 38px;
+  color: white;
 }
 
 .cta-bouton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
 }
 
 @media screen and (max-width: 650px) {
-    .cta {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .cta p {
-        text-align: center;
-    }
+  .cta {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .cta-bouton {
-        margin: 2rem 0 0;
-    }
+  .cta p {
+    text-align: center;
+  }
+
+  .cta-bouton {
+    margin: 2rem 0 0;
+  }
 }
 
 @media screen and (max-width: 550px) {
-    .cta {
-        margin: 4rem 2rem;
-    }
-    .cta-contenu h3 {
-        font-size: 18px;
-        line-height: 28px;
-        text-align: center;
-    }
-    .cta-bouton {
-        margin: 2rem 0 0;
-    }
+  .cta {
+    margin: 4rem 2rem;
+  }
+  .cta-contenu h3 {
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+  }
+  .cta-bouton {
+    margin: 2rem 0 0;
+  }
 }

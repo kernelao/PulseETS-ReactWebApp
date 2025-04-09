@@ -1,81 +1,80 @@
 .blog {
-    padding: 2.5rem 4rem;
-    display: flex;
-    flex-direction: column;
+  padding: 2.5rem 4rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-titre {
-    width: 100%;
-    text-align: left;
+  width: 100%;
+  text-align: left;
 
-    margin-bottom: 5rem;
+  margin-bottom: 5rem;
 }
 
 .blog-titre h1 {
-    font-size: 62px;
-    line-height: 75px;
-    font-weight: 800;
+  font-size: 62px;
+  line-height: 75px;
+  font-weight: 800;
 }
 
 .blog-conteneur {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .conteneur-group1 {
-    flex: 0.75;
-    margin-right: 2rem;
+  flex: 0.75;
+  margin-right: 2rem;
 }
 
 .conteneur-group2 {
-    flex: 1;
+  flex: 1;
 
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
 }
 
 @media screen and (max-width: 990px) {
-    .blog {
-        padding: 2.5rem 2rem;
-    }
+  .blog {
+    padding: 2.5rem 2rem;
+  }
 
-    .blog-conteneur {
-        flex-direction: column-reverse;
-    }
+  .blog-conteneur {
+    flex-direction: column-reverse;
+  }
 
-    .conteneur-group1 {
-        margin: 2rem 0;
-    }
+  .conteneur-group1 {
+    margin: 2rem 0;
+  }
 
-    .conteneur-group1 .article  {
-       width: 48%;
-    }
+  .conteneur-group1 .article {
+    width: 48%;
+  }
 
-    .conteneur-group1 .article-conteneur {
-        height: 250px;
-    }
+  .conteneur-group1 .article-conteneur {
+    height: 250px;
+  }
 }
 
 @media screen and (max-width: 700px) {
-    .conteneur-group2 {
-        grid-template-columns: repeat(1, 1fr);
-    }
+  .conteneur-group2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
-    .conteneur-group1 .article  {
-       width: 100%;
-    }
+  .conteneur-group1 .article {
+    width: 100%;
+  }
 
-    .blog-titre h1 {
-        font-size: 46px;
-        line-height: 52px;
-    }
+  .blog-titre h1 {
+    font-size: 46px;
+    line-height: 52px;
+  }
 }
 
 @media screen and (max-width: 550px) {
-    .blog-titre h1 {
-        font-size: 34px;
-        line-height: 42px;
-    }
-
+  .blog-titre h1 {
+    font-size: 34px;
+    line-height: 42px;
+  }
 }

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import "../../components/Layout/Reglages/Reglages.css";
-import Navbar from "../../composants/navbar/Navbar.jsx";
 import horloge from "../../assets/horloge.svg";  //icone d'horloge
 import Pinceau from "../../assets/pinceau.svg";  //icone de pinceau
 import { ThemeContext } from "../../context/ThemeContext"; //pour le changement de themes
 
 const Reglages = () => {
+
   const { theme, changeTheme } = useContext(ThemeContext);
   const [pomodoro, setPomodoro] = useState(25);
   const [pauseCourte, setPauseCourte] = useState(5);
@@ -19,18 +19,18 @@ const Reglages = () => {
 
   return (
 
-    <div id="mainReglages" className={theme.replace(" ", "-").toLowerCase()}>
+    <div id="mainReglages" className={(theme|| "").replace(" ", "-").toLowerCase()}>
 
       <Navbar />
 
       <div id="reglages">
         <h2 id="titreMainReglages">Paramètre</h2>
-        <hr class="barreReglages"/>
+        <hr className="barreReglages"/>
         <form onSubmit={handleSubmit}>
           <section id="minuteurReglages">
             <div id="minuteurTitreReglages">
               <img src={horloge} alt="Paramètres du minuteur" id="horlogeMinuteur" />
-              <h3 class="sousTitreReglages">Minuteur</h3>
+              <h3 className="sousTitreReglages">Minuteur</h3>
             </div>
             <div id="reglagesMinuteur">
               {[
@@ -39,7 +39,7 @@ const Reglages = () => {
                 { label: "Pause Longue", value: pauseLongue, setter: setPauseLongue },
               ].map((item, index) => (
                 <label key={index} className="labelReglages1">
-                  <span class="spanReglages">{item.label}</span>
+                  <span className="spanReglages">{item.label}</span>
                   <input
                     className="minuteurChoixReglages"
                     type="number"
@@ -56,13 +56,13 @@ const Reglages = () => {
           <section id="themeReglages">
             <div id="themeTitreReglages">
               <img src={Pinceau} alt="Changer le thème" id="pinceauReglages" />
-              <h3 class="sousTitreReglages">Changer le thème</h3>
+              <h3 className="sousTitreReglages">Changer le thème</h3>
             </div>
             <label id="nomThemeReglages">
-              <span class="spanReglages">Nom :</span>
+              <span className="spanReglages">Nom :</span>
               <select
                 id="choixThemeReglages"
-                class="selectReglages"
+                className="selectReglages"
                 value={themeChoisi}
                 onChange={(e) => setThemeChoisi(e.target.value)}
               >
@@ -82,6 +82,6 @@ const Reglages = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Reglages

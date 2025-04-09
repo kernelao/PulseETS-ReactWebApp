@@ -1,110 +1,104 @@
 .mission {
-    margin: 1rem 6rem; /* Pour créer un cadre, sinon allongé */
-    padding: 2rem 4rem;
-    background-color: black;
-    color: white;
+  margin: 1rem 6rem; /* Pour créer un cadre, sinon allongé */
+  padding: 2rem 4rem;
+  background-color: black;
+  color: white;
 }
 
 .effet {
-    display: flex;
-    
+  display: flex;
 }
 
 .effet .bloc {
-    margin: 0;
-    
+  margin: 0;
 }
 .effet .bloc-text {
-    max-width: 700px;
+  max-width: 700px;
 }
 
 .titre {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    margin: 4rem 0 2rem;
-    
+  margin: 4rem 0 2rem;
 }
 
 .titre h2 {
-    font-size: 25px;
-    line-height: 45px;
-    font-weight: 500;
-    
+  font-size: 25px;
+  line-height: 45px;
+  font-weight: 500;
 }
 
 .explorer {
-    font-size: 14px;
-    line-height: 30px;
-    font-weight: 300;
-    cursor: pointer;
+  font-size: 14px;
+  line-height: 30px;
+  font-weight: 300;
+  cursor: pointer;
 
-    color: #fbbf24;
+  color: #fbbf24;
 }
 
 .bloc {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 
-    margin-top: 4rem;
-    
+  margin-top: 4rem;
 }
 
 /* Personnaliser les composants */
 .bloc .effet-conteneur {
-    flex: 1;
-    margin: 1rem;
-    min-width: 210px;
-    display: unset;
-    flex-direction: column;
-    
+  flex: 1;
+  margin: 1rem;
+  min-width: 210px;
+  display: unset;
+  flex-direction: column;
 }
 
 /* Personnaliser les composants */
 .bloc .effet-conteneur-texte {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 @media screen and (max-width: 850px) {
-    .titre {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 0rem;
-    }
+  .titre {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0rem;
+  }
 
-    .titre p {
-        margin-top: 1rem;
-    }
+  .titre p {
+    margin-top: 1rem;
+  }
 }
 
 @media screen and (max-width: 650px) {
-    .effet .effet-conteneur {
-        flex-direction: column;
-    }
+  .effet .effet-conteneur {
+    flex-direction: column;
+  }
 
-    .effet .effet-conteneur-texte {
-        margin-top: 0.5rem;
-    }
+  .effet .effet-conteneur-texte {
+    margin-top: 0.5rem;
+  }
 
-    .titre h1 {
-        font-size: 28px;
-        line-height: 40px;
-    }
+  .titre h1 {
+    font-size: 28px;
+    line-height: 40px;
+  }
 }
 
 @media screen and (max-width: 750px) {
-    .bloc .effet-conteneur {
-        margin: 1rem 0;
-        min-width: 100%;
-    }
-    .mission {
-        margin: 0rem 2rem;
-        padding: 2rem 2rem;
-    }
-    .titre {
-        margin-top: 30px;
-    }
+  .bloc .effet-conteneur {
+    margin: 1rem 0;
+    min-width: 100%;
+  }
+  .mission {
+    margin: 0rem 2rem;
+    padding: 2rem 2rem;
+  }
+  .titre {
+    margin-top: 30px;
+  }
 }

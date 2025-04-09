@@ -1,64 +1,76 @@
-import React, { useRef, useState, useEffect } from 'react';
-import './identification.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import axios from '../../api/Axios';
+import React, { useRef, useState, useEffect } from 'react'
+import './identification.css'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import axios from '../../api/Axios'
 
-const IDENTIFICATION_URL = '/connexion';
+const IDENTIFICATION_URL = '/connexion'
 
 const Identification = () => {
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef = useRef()
+  const errRef = useRef()
 
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const navigate = useNavigate()
+  const { login } = useAuth()
 
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [errMsg, setErrMsg] = useState('');
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
+  const [user, setUser] = useState('')
+  const [pwd, setPwd] = useState('')
+  const [errMsg, setErrMsg] = useState('')
 
   useEffect(() => {
-    setErrMsg('');
-  }, [user, pwd]);
+    userRef.current.focus()
+  }, [])
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [user, pwd])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const response = await axios.post(IDENTIFICATION_URL, {
         email: user,
-        password: pwd
-      });
+        password: pwd,
+      })
 
-      const token = response?.data?.token;
-      const role = response?.data?.role || 'user';
+      const token = response?.data?.token
+      const role = response?.data?.role || 'user'
 
       if (token) {
-        login(token, role);
-        navigate('/app/dashboard');
-      } else {
-        setErrMsg("Aucun token reçu.");
-      }
+        login(token, role)
 
+        if (
+          role === 'ROLE_ADMIN' ||
+          role === 'admin' ||
+          (Array.isArray(role) && role.includes('ROLE_ADMIN'))
+        ) {
+          navigate('/admin/dashboard')
+        } else {
+          navigate('/app/dashboard')
+        }
+      } else {
+        setErrMsg('Aucun token reçu.')
+      }
     } catch (err) {
       if (!err?.response) {
-        setErrMsg('Aucune réponse du serveur');
+        setErrMsg('Aucune réponse du serveur')
       } else if (err.response?.status === 401) {
-        setErrMsg('Identifiants invalides');
+        setErrMsg('Identifiants invalides')
       } else {
-        setErrMsg('Connexion échouée');
+        setErrMsg('Connexion échouée')
       }
-      errRef.current.focus();
+      errRef.current.focus()
     }
-  };
+  }
 
   return (
     <div className="identification">
-      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+      <p
+        ref={errRef}
+        className={errMsg ? 'errmsg' : 'offscreen'}
+        aria-live="assertive"
+      >
         {errMsg}
       </p>
       <h1>Connexion</h1>
@@ -93,7 +105,7 @@ const Identification = () => {
         </span>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Identification;
+export default Identification

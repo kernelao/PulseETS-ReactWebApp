@@ -1,119 +1,117 @@
-
 .navbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    
-    position: fixed;
-    color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  position: fixed;
+  color: white;
 }
 
 .navbar__links {
-    display: flex;
+  display: flex;
 }
 
 .navbar__link {
-    padding: 0 0.5rem;
-    color: inherit;
-    color: white;
-    transition: color 0.3s ease-in-out;
+  padding: 0 0.5rem;
+  color: inherit;
+  color: white;
+  transition: color 0.3s ease-in-out;
 }
 .navbar__link.active {
-    color: #fbbf24; /* Jaune doré pour le lien actif */
-    font-weight: 500;
+  color: #fbbf24; /* Jaune doré pour le lien actif */
+  font-weight: 500;
 }
 
 .navbar__burger {
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: none;
-    color: inherit;
-    display: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  display: none;
 }
 
 @media screen and (max-width: 967px) {
-    
-    .navbar__links {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        
-        right: -100vw;
-        bottom: 0;
-        height: 100vh;
-        padding: 2rem;
-        visibility: hidden;
-        background-color: black;
-    }
-    .show-navbar .navbar__links {
-        left:0;
-        width: 100vw;
-        visibility: visible;
-    }
-    .navbar__item::after {
-        content: "";
-        display: block;
-        margin: 0 auto;
-        width: 3vw;
-        height: 1px;
-        background: white;
-    }
-    .navbar__item:last-child:after {
-        display: none;
-    }
-    .navbar__link {
-        display: block;
-        padding: 1.5rem;
-        font-size: 5vw;
-    }
-    .navbar__burger {
-        display: block;
-        position: fixed;
-        right: 1rem;
-        height: 27px;
-    }
-    .navbar__burger:hover {
-        cursor: pointer;
-    }
-    .burger-bar,
-    .burger-bar::before,
-    .burger-bar::after {
-        display: block;
-        width: 20px;
-        height: 2px;
-        position: relative;
-        border-radius: 3px;
-        background: white;
+  .navbar__links {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
 
-        transition: all .5s ease-in-out;
-    }
-    .burger-bar::before,
-    .burger-bar::after {
-        content: "";
-        position: absolute;
-        left: 0;
-    }
-    .burger-bar::before {
-        transform: translateY(-7px);
-    }
-    .burger-bar::after {
-        transform: translateY(7px);
-    }
-    .show-navbar .burger-bar {
-        width: 0;
+    right: -100vw;
+    bottom: 0;
+    height: 100vh;
+    padding: 2rem;
+    visibility: hidden;
+    background-color: black;
+  }
+  .show-navbar .navbar__links {
+    left: 0;
+    width: 100vw;
+    visibility: visible;
+  }
+  .navbar__item::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 3vw;
+    height: 1px;
+    background: white;
+  }
+  .navbar__item:last-child:after {
+    display: none;
+  }
+  .navbar__link {
+    display: block;
+    padding: 1.5rem;
+    font-size: 5vw;
+  }
+  .navbar__burger {
+    display: block;
+    position: fixed;
+    right: 1rem;
+    height: 27px;
+  }
+  .navbar__burger:hover {
+    cursor: pointer;
+  }
+  .burger-bar,
+  .burger-bar::before,
+  .burger-bar::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    position: relative;
+    border-radius: 3px;
+    background: white;
 
-        background: transparent;
-    }
+    transition: all 0.5s ease-in-out;
+  }
+  .burger-bar::before,
+  .burger-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .burger-bar::before {
+    transform: translateY(-7px);
+  }
+  .burger-bar::after {
+    transform: translateY(7px);
+  }
+  .show-navbar .burger-bar {
+    width: 0;
 
-    /* Pour afficher le X du burger menu */
-    .show-navbar .burger-bar::before {
-        transform: rotate(45deg);
-    }
-    .show-navbar .burger-bar::after {
-        transform: rotate(-45deg);
-    }
+    background: transparent;
+  }
+
+  /* Pour afficher le X du burger menu */
+  .show-navbar .burger-bar::before {
+    transform: rotate(45deg);
+  }
+  .show-navbar .burger-bar::after {
+    transform: rotate(-45deg);
+  }
 }
