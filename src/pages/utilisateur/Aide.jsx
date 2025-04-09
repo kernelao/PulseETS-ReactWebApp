@@ -1,7 +1,8 @@
 import React from 'react'
+import AideMain from "../../composants/aide/aide.jsx";
 
 const Aide = () => {
-  return <div>Aide</div>
+  return <AideMain />;
 }
 
 export default Aide
