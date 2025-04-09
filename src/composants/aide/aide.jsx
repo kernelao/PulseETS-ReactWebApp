@@ -3,16 +3,16 @@ import './aide.css';
 
 const aide = () => {
   return (
-    <div className="support-container">
+    <div className="aideMain">
       <h2>Support &amp; assistance</h2>
-      <div className="contact-section">
+      <div className="aideContact">
         <h3>Nous contacter</h3>
         <p>Signalez un bug ou posez une question</p>
         <textarea 
-          className="message-input" 
+          className="aideInput" 
           placeholder="Écrire votre message..." 
         />
-        <button className="send-button">Envoyer</button>
+        <button className="aideBouton">Envoyer</button>
       </div>
     </div>
   );
