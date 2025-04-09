@@ -31,14 +31,13 @@ function Profile() {
     setNewPswError("");
   
     try {
-      await api.post("/change-password", {
+      await api.post("/user/change-password", {
         oldPsw,
         newPsw
       });
       alert("Mot de passe modifié avec succès !");
-      setIsPasswordPopupOpen(false);
-      setOldPsw("");
-      setNewPsw("");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
     } catch (err) {
       const message = err.response?.data?.message || "Erreur lors de la modification du mot de passe";
       if (message.toLowerCase().includes("ancien")) {
@@ -55,14 +54,13 @@ function Profile() {
     setNewEmailError("");
   
     try {
-      await api.post("/change-email", {
+      await api.post("/user/change-email", {
         oldEmail,
         newEmail
       });
       alert("Courriel modifié avec succès !");
-      setIsEmailPopupOpen(false);
-      setOldEmail("");
-      setNewEmail("");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
     } catch (err) {
       const message = err.response?.data?.message || "Erreur lors de la modification du courriel";
       if (message.toLowerCase().includes("ancien")) {
@@ -78,13 +76,31 @@ function Profile() {
       try {
         const response = await api.get("/profile");
         setUser(response.data);
-        setSelectedAvatar(response.data.avatar ? response.data.avatar : AVATAR.defaultavatar);
-  
-        const avatarsPossedes = response.data.avatarsPossedes || []; // à adapter si tu veux aussi les avatars achetés
-        const avatarsAvecDefaut = [{ id: "default", image: AVATAR.defaultavatar }, ...avatarsPossedes];
+        const nomAvatar = response.data.avatarPrincipal || "defautavatar";
+        const avatarLocal = Object.entries(AVATAR).find(([key]) =>
+          nomAvatar.toLowerCase().includes(key.toLowerCase())
+        );
+setSelectedAvatar(avatarLocal ? avatarLocal[1] : AVATAR.defaultavatar);
+
+const avatarsPossedes = response.data.unlockedAvatars || [];
+
+const avatarsAvecImages = avatarsPossedes.map(nom => {
+  const match = Object.entries(AVATAR).find(([key]) =>
+    nom.toLowerCase().includes(key.toLowerCase())
+  );
+  return {
+    id: nom,
+    image: match ? match[1] : AVATAR.defaultavatar,
+  };
+});
+
+const avatarsAvecDefaut = [{ id: "defaultavatar", image: AVATAR.defaultavatar }, ...avatarsAvecImages];
+
+setAvailableAvatars(avatarsAvecDefaut);
+
+
         setAvailableAvatars(avatarsAvecDefaut); 
   
-        // Correction ici
         setPointsPulse(response.data.points); // 👈 correspond à la clé du backend
         setRecompenses(response.data.recompenses || []);
       } catch (err) {
@@ -103,15 +119,14 @@ function Profile() {
 
   const handleAvatarSelect = async (avatar) => {
     try {
-      await api.post('/update-avatar', { avatarId: avatar.id });
+      await api.post('/user/avatar/principal', { avatarName: avatar.name });
       setSelectedAvatar(avatar.image || AVATAR.defaultavatar);
       setIsAvatarPopupOpen(false);
     } catch (error) {
       alert("Erreur lors de la mise à jour de l'avatar.");
     }
   };
-
-  // Reste de ton code pour la gestion des mots de passe et des emails
+  
 
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
