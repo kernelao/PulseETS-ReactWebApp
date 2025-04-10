@@ -18,4 +18,5 @@ const TimerPom = ({ pomodoro, pauseCourte, pauseLongue }) => {
   );
 };
 
+
 export default TimerPom;
