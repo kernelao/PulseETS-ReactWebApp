@@ -22,6 +22,7 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
     pauseCourte: pauseCourte * 60,
     pauseLongue: pauseLongue * 60,
 
+
   };
 
   useEffect(() => {
@@ -44,15 +45,14 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
       alarmSound.current.play();
       alarmTimeoutRef.current = setTimeout(() => {
         stopAlarm();
+
       }, 5500); // arrête après 5,5 secondes
     }
   };
 
   const handleStart = () => {
-    if (auto) {
-      setAutoActive(true);
-    }
-    setStartTime(new Date()); // capture l’heure du début
+    if (auto) setAutoActive(true);
+    setStartTime(new Date());
     setIsPlaying(true);
   };
 
@@ -77,17 +77,16 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
   const handleAutoToggle = () => {
     setAuto(prev => {
       const next = !prev;
-      if (!next) {
-        setAutoActive(false);
-      }
+      if (!next) setAutoActive(false);
       return next;
     });
   };
 
   const sendSessionToAPI = async () => {
     const token = localStorage.getItem("token");
-    const endedAt = new Date(); // heure de fin maintenant
-  
+
+    const endedAt = new Date();
+
     const response = await fetch("http://localhost:8000/api/pomodoro-session", {
       method: "POST",
       headers: {
@@ -95,8 +94,8 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        startedAt: startTime.toISOString(),   
-        endedAt: endedAt.toISOString(),      
+        startedAt: startTime?.toISOString(),
+        endedAt: endedAt.toISOString(),
         pomodoros_completes: pomodoroCount,
         pomodoroDuration: duration.pomodoro,
         shortBreak: duration.pauseCourte,
@@ -104,19 +103,20 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
         autoStart: auto
       })
     });
-  
+
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Erreur API :", errorData);
       return;
     }
+
     const data = await response.json();
     console.log("Réponse de l'API :", data);
   };
 
   const handleComplete = () => {
     playAlarm();
-    sendSessionToAPI(); 
+    sendSessionToAPI();
 
     if (Notification.permission === 'granted') {
       new Notification(`[PULSE] Fin de ${mode === 'pomodoro' ? 'la session de travail' : mode === 'pauseCourte' ? 'la pause courte' : 'la pause longue'}`);
@@ -151,8 +151,8 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
   };
 
   const getButtonStyle = (btnMode) => ({
-    backgroundColor: mode === btnMode ? ' #8997e6' : '#10217f',
-    color: mode === btnMode ? 'white' : 'white',
+    backgroundColor: mode === btnMode ? '#8997e6' : '#10217f',
+    color: 'white',
     border: '1px solid #ccc',
     margin: '5px',
     padding: '10px 20px',
@@ -161,11 +161,11 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
   });
 
   return (
-    <div className="cercle_main" >
+    <div className="cercle_main">
       <div className='btn_timer_container'>
-        <button onClick={() => handleModeChange('pomodoro')}  style={getButtonStyle('pomodoro')} className='timer_btn animated_btn'>Pomodoro</button>
-        <button onClick={() => handleModeChange('pauseCourte')}  style={getButtonStyle('pauseCourte')} className='timer_btn animated_btn'>Courte Pause</button>
-        <button onClick={() => handleModeChange('pauseLongue')}style={getButtonStyle('pauseLongue')}  className='timer_btn animated_btn'>Longue Pause</button>
+        <button onClick={() => handleModeChange('pomodoro')} style={getButtonStyle('pomodoro')} className='timer_btn animated_btn'>Pomodoro</button>
+        <button onClick={() => handleModeChange('pauseCourte')} style={getButtonStyle('pauseCourte')} className='timer_btn animated_btn'>Courte Pause</button>
+        <button onClick={() => handleModeChange('pauseLongue')} style={getButtonStyle('pauseLongue')} className='timer_btn animated_btn'>Longue Pause</button>
       </div>
 
       <div className="cercle_box">
@@ -173,20 +173,26 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
           key={timerKey}
           isPlaying={isPlaying}
           duration={duration[mode]}
-          colors={[ "#10217f","#091245","#060B26"]}
-          colorsTime={[duration, duration / 2, 5]}
+          colors={["#10217f", "#091245", "#060B26"]}
+          colorsTime={[duration[mode], duration[mode] / 2, 5]}
           onComplete={handleComplete}
         >
-           {({ remainingTime }) => {
-          const minutes = Math.floor(remainingTime / 60);
-          const seconds = remainingTime % 60;
-          return (
-            <div style={{ fontSize: '32px' }}>
-              {`${minutes}:${seconds.toString().padStart(2, '0')}`}
-            </div>
-          );
-        }}
-      </CountdownCircleTimer>
+          {({ remainingTime }) => {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            return (
+              <div style={{ fontSize: '32px' }}>
+                {`${minutes}:${seconds.toString().padStart(2, '0')}`}
+              </div>
+            );
+          }}
+        </CountdownCircleTimer>
+      </div>
+
+      <div className='button_srt_container'>
+        <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
+        <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
+        <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
       </div>
 
       <div className='button_srt_container'>
