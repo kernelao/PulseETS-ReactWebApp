@@ -3,7 +3,11 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import './CircleTimer.css';
 import alarmSoundFile from "./alarmepulse.mp3"; 
 
+
 function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
+
+function CirclePom() {
+
   const [startTime, setStartTime] = useState(null);
   const [mode, setMode] = useState('pomodoro'); 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,9 +20,15 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
   const alarmTimeoutRef = useRef(null);
 
   const duration ={
+
     pomodoro: pomodoro * 60,
     pauseCourte: pauseCourte * 60,
     pauseLongue: pauseLongue * 60,
+
+       pomodoro :25*60,
+       pauseCourte: 5*60,
+       pauseLongue: 15*60,
+
        
   };
   

@@ -8,6 +8,11 @@ const Pomodoro = () => {
   
   // Passer les valeurs à TimerPom
   return <TimerPom pomodoro={pomodoro} pauseCourte={pauseCourte} pauseLongue={pauseLongue} />;
+  return (
+    <div>
+      <TimerPom/>
+    </div>
+  )
 }
 
 export default Pomodoro;
