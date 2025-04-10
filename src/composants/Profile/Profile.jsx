@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Recompenses from '/src/composants/Recompenses/Recompenses.jsx';
 import './Profile.css';
 import api from "../../api/Axios";
-import AVATAR from '/src/assets/image_avatar'
+import AVATAR,  { avatarMap } from '/src/assets/image_avatar'
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -18,6 +18,7 @@ function Profile() {
   const [oldPswError, setOldPswError] = useState("");
   const [newPswError, setNewPswError] = useState("");
   const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
+
 
   const [oldEmail, setOldEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -75,40 +76,44 @@ function Profile() {
     const fetchProfile = async () => {
       try {
         const response = await api.get("/profile");
-        setUser(response.data);
-        const nomAvatar = response.data.avatarPrincipal || "defautavatar";
-        const avatarLocal = Object.entries(AVATAR).find(([key]) =>
-          nomAvatar.toLowerCase().includes(key.toLowerCase())
-        );
-setSelectedAvatar(avatarLocal ? avatarLocal[1] : AVATAR.defaultavatar);
-
-const avatarsPossedes = response.data.unlockedAvatars || [];
-
-const avatarsAvecImages = avatarsPossedes.map(nom => {
-  const match = Object.entries(AVATAR).find(([key]) =>
-    nom.toLowerCase().includes(key.toLowerCase())
-  );
-  return {
-    id: nom,
-    image: match ? match[1] : AVATAR.defaultavatar,
-  };
-});
-
-const avatarsAvecDefaut = [{ id: "defaultavatar", image: AVATAR.defaultavatar }, ...avatarsAvecImages];
-
-setAvailableAvatars(avatarsAvecDefaut);
-
-
-        setAvailableAvatars(avatarsAvecDefaut); 
+        const data = response.data;
   
-        setPointsPulse(response.data.points); // 👈 correspond à la clé du backend
-        setRecompenses(response.data.recompenses || []);
+        setUser(data);
+  
+        // 🎯 Avatar principal
+        const nomAvatar = response.data.avatarPrincipal || "Jon Doe";
+        const key = avatarMap[nomAvatar];
+        setSelectedAvatar(AVATAR[key] || AVATAR.defaultavatar);
+  
+        // 🎯 Avatars possédés
+        const avatarsPossedes = data.unlockedAvatars || [];
+        const avatarsAvecImages = response.data.unlockedAvatars.map(nom => {
+          const key = avatarMap[nom];
+          return {
+            id: nom,
+            name: nom, // 👈 nécessaire pour le POST
+            image: AVATAR[key] || AVATAR.defaultavatar,
+          };
+        });
+  
+        // Ajout de l’avatar par défaut en tête de liste
+        const avatarsAvecDefaut = [
+          { id: "defaultavatar", name: "Jon Doe", image: AVATAR.defaultavatar }, // ✅ name ajouté ici
+          ...avatarsAvecImages
+        ];
+                setAvailableAvatars(avatarsAvecDefaut);
+  
+        // 🎯 PulsePoints et récompenses
+        setPointsPulse(data.pulsePoints || 0);
+        setRecompenses(data.recompenses || []);
+  
       } catch (err) {
         setError(err.response?.data?.message || "Erreur lors de la récupération du profil");
       } finally {
         setLoading(false);
       }
     };
+  
     fetchProfile();
   }, []);
   
@@ -118,14 +123,28 @@ setAvailableAvatars(avatarsAvecDefaut);
   };
 
   const handleAvatarSelect = async (avatar) => {
+    console.log("Avatar envoyé au backend:", avatar);
+  
     try {
-      await api.post('/user/avatar/principal', { avatarName: avatar.name });
+      // 1. Affiche immédiatement l'image cliquée
       setSelectedAvatar(avatar.image || AVATAR.defaultavatar);
+  
+      // 2. Mets à jour le backend
+      await api.post('/user/avatar/principal', { avatarName: avatar.name });
+  
+      // 3. Recharge les infos pour synchroniser au cas où
+      const response = await api.get("/profile");
+      const nomAvatar = response.data.avatarPrincipal || "Jon Doe";
+      const key = avatarMap[nomAvatar];
+      setSelectedAvatar(AVATAR[key] || AVATAR.defaultavatar);
+  
       setIsAvatarPopupOpen(false);
     } catch (error) {
       alert("Erreur lors de la mise à jour de l'avatar.");
     }
   };
+  
+  
   
 
   if (loading) return <p>Chargement...</p>;
@@ -169,7 +188,7 @@ setAvailableAvatars(avatarsAvecDefaut);
       <div className="securite_container">
         <h2 className="h2Profile">Sécurité</h2>
         <div className="modifier_section">
-          <button onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
+          <button className="btnProfile" onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
         </div>
         <div className="modifier_section">
           <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>

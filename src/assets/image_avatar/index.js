@@ -23,6 +23,33 @@ import ExclusiveSteampunk from './ExclusiveSteampunk.svg';
 import ExclusiveWarrior from './ExclusiveWarrior.svg';
 import ExclusiveWizard from './ExclusiveWizard.svg';
 
+export const avatarMap = {
+    "Jon Doe": "defaultavatar",
+    "Lina": "avatarchandailrose",
+    "Grey Kid": "avatarchapeaugris",
+    "Incognita": "avatarchapeaushades",
+    "Julie": "avatarcheveuxbleux",
+    "Roussette": "avatarcheveuxroux",
+    "Wild n Serious": "avatargreenblack",
+    "Sequelita": "avatarhatmauve",
+    "80's boy": "avatarlunettesfancy",
+    "Kim Possible": "avatarroussepurplehat",
+    "Cool guy": "avatarshades",
+    "Suit man": "avatarsuits",
+    "I am Batman": "SPECIALbatman",
+    "Suuuuuu": "SPECIALcr7",
+    "Elektra": "SPECIALfemalesuperhero",
+    "Tony Stark aka Ironman": "SPECIALironman",
+    "Why so serious?": "SPECIALjoker",
+    "Wild n serious on vacation": "VIPavatargreenblack",
+    "Donna": "VIPavatarshadescheveuxvert",
+    "Neon Lights": "ExclusiveNeon",
+    "Space Explorer": "ExclusiveSpaceExplorer",
+    "Steampunk Voyager": "ExclusiveSteampunk",
+    "Viking Warrior": "ExclusiveWarrior",
+    "Wizard Supreme": "ExclusiveWizard"
+  };  
+
 const AVATAR = {
     defaultavatar,
     avatarchandailrose,

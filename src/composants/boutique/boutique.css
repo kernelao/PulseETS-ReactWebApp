@@ -1,13 +1,13 @@
 .boutiqueContainer {
-    background-color: #E3EED9;
+    background-color: #080b25;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    min-height: 100vh;
-    overflow: hidden;
+    min-height: 100%;
+    color: white;
 }
 
 .h1Boutique {
@@ -19,7 +19,7 @@
 .points {
     font-size: 1.2rem;
     font-weight: bold;
-    background: #C6D0BD;
+    background: #3345a7;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -27,8 +27,7 @@
 
 #boutique {
     width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
+    max-height: 100vh;
     padding: 10px;
     margin-bottom: 20px;
 }
@@ -108,7 +107,6 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    overflow: auto;
     animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -121,7 +119,8 @@
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    animation: zoomIn 0.3s
+    animation: zoomIn 0.3s;
+    color: black;
 }
 
 .purchase-btn {
