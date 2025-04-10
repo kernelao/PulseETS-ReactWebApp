@@ -41,8 +41,8 @@ const Reglages = () => {
         const reglage = res.data;
   
         setPomodoro(reglage.pomodoro);
-        setPauseCourte(reglage.courtePause);
-        setPauseLongue(reglage.longuePause);
+        setPauseCourte(reglage.courtePause ?? 5);
+        setPauseLongue(reglage.longuePause ?? 15);
         setThemeChoisi(reglage.theme);
         changeTheme(reglage.theme);
         setReglageId(reglage.id);
@@ -84,7 +84,7 @@ const Reglages = () => {
         }
       );
   
-      alert("Réglages sauvegardés !");
+      //alert("Réglages sauvegardés !");
     } catch (error) {
       console.error("Erreur Axios complète :", error);
       alert("Erreur : " + JSON.stringify(error.response?.data || error.message));
