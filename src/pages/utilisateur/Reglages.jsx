@@ -14,10 +14,41 @@ const Reglages = () => {
   const [themeChoisi, setThemeChoisi] = useState(theme);
   const { pomodoro, setPomodoro, pauseCourte, setPauseCourte, pauseLongue, setPauseLongue } = useOutletContext();
 
-  const handleSubmit = (e) => { //pour le choix de theme
-    e.preventDefault();
-    changeTheme(themeChoisi);
+ // const handleSubmit = (e) => { //pour le choix de theme
+ //   e.preventDefault();
+ //   changeTheme(themeChoisi);
+ // };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Préparer les données à envoyer
+  const data = {
+    pomodoro,
+    pauseCourte,
+    pauseLongue,
+    theme: themeChoisi,
   };
+
+  // Envoi des réglages au backend via une requête POST
+  try {
+    const response = await fetch("/api/reglages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      console.log("Réglages enregistrés avec succès !");
+    } else {
+      console.error("Erreur lors de l'enregistrement des réglages");
+    }
+  } catch (error) {
+    console.error("Erreur réseau : ", error);
+  }
+};
 
   return (
     <div id="app">
