@@ -15,6 +15,9 @@ const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const INSCRIPTION_URL = '/inscription'
+//const INSCRIPTION_URL = 'http://localhost:5173/inscription'
+//const INSCRIPTION_URL = 'http://localhost:5175/connexion'; // URL complète de ton API Symfony
+
 
 const Validation = () => {
   const { login } = useAuth() // ✅ Import du login
@@ -59,11 +62,12 @@ const Validation = () => {
     }
 
     try {
-      const response = await axios.post(INSCRIPTION_URL, {
+      const response = await axios.post('http://127.0.0.1:8000/api/inscription', {
         username: user,
         email,
         password: pwd,
       })
+      
 
       const token = response?.data?.token
       const role = response?.data?.role || 'user' // <- récupère le rôle renvoyé par Symfony
