@@ -6,7 +6,7 @@ import alarmSoundFile from "./alarmepulse.mp3";
 
 function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
 
-function CirclePom() {
+
 
   const [startTime, setStartTime] = useState(null);
   const [mode, setMode] = useState('pomodoro'); 
@@ -25,9 +25,7 @@ function CirclePom() {
     pauseCourte: pauseCourte * 60,
     pauseLongue: pauseLongue * 60,
 
-       pomodoro :25*60,
-       pauseCourte: 5*60,
-       pauseLongue: 15*60,
+       
 
        
   };
@@ -234,6 +232,6 @@ function CirclePom() {
       
     </div>
   );
-}
+};
 
 export default CirclePom;

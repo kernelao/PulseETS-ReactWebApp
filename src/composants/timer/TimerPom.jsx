@@ -27,6 +27,3 @@ export default TimerPom;
 
 
 
-);};
-
-export default TimerPom;
