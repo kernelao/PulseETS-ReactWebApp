@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from './../../api/Axios'
 import TasksFilter from './TasksFilter'
 import TasksList from './TasksList'
 import TaskDetails from './TaskDetails'
@@ -9,6 +8,10 @@ import TasksWeekView from './TasksWeekView'
 import CompletedTasks from './CompletedTasks'
 import Notification from './Notification'
 import './Tasks.css'
+import { createTache, deleteTache } from '../../api/tachesApi'
+import { fetchTaches } from '../../api/tachesApi'
+import { updateTache, completeTache } from '../../api/tachesApi' // ajoute completeTache si ce n'est pas déjà fait
+import { restoreTache } from '../../api/tachesApi'
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
@@ -18,158 +21,287 @@ const Tasks = () => {
   const [notification, setNotification] = useState({ message: '', type: '' })
   const [selectedIds, setSelectedIds] = useState([])
 
+  // 🔒 Bloquer le scroll global uniquement sur cette page
   useEffect(() => {
-    axios
-      .get('/taches')
-      .then((res) => setTasks(res.data))
-      .catch(() =>
-        showNotification('Erreur lors du chargement des tâches', 'error')
-      )
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+      document.documentElement.style.overflow = 'auto'
+    }
   }, [])
+
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTaches()
+        console.log('Tâches récupérées:', fetchedTasks)
+  
+        const mappedTasks = fetchedTasks.map((t) => ({
+          id: t.id,
+          title: t.titre, // 🟢 CORRECTION ICI
+          tag: t.tag,
+          dueDate: t.dueDate,
+          priority: t.priority,
+          completed: t.completed,
+          pinned: t.pinned,
+          description: t.description || '',
+          createdAt: t.createdAt
+        }))
+  
+        setTasks(mappedTasks)
+      } catch (error) {
+        console.error("Erreur lors de la récupération des tâches", error)
+      }
+    }
+    loadTasks()
+  }, [])
+  
+  
 
   const showNotification = (message, type = 'info') => {
     setNotification({ message, type })
     setTimeout(() => setNotification({ message: '', type: '' }), 3000)
   }
 
-  const addTask = (title, tag, dueDate, priority = 'moyenne') => {
-    console.log(' addTask reçu :', { title, tag, dueDate, priority })
+  const addTask = async (title, tag, dueDate, priority = 'moyenne') => {
+    try {
+      // Normalisation de la date (s'il n'y a pas de dueDate, on prend la date du jour)
+      const dateToUse = dueDate ? new Date(dueDate) : new Date();
+      // On met la date à minuit (en UTC pour éviter les décalages de fuseaux horaires)
+      dateToUse.setUTCHours(0, 0, 0, 0);
+  
+      // Préparer les données de la tâche
+      const tacheData = {
+        titre: title,
+        tag,
+        dueDate: dateToUse.toISOString().split('T')[0], // yyyy-mm-dd
+        priority,
+        completed: false,
+        pinned: false,
+        description: '',
+      };
+  
+      // Créer la tâche via l'API
+      const newTaskFromApi = await createTache(tacheData);
+  
+      // Préparer la tâche pour l'affichage
+      const newTask = {
+        id: newTaskFromApi.id,
+        title: newTaskFromApi.titre,
+        tag: newTaskFromApi.tag,
+        dueDate: newTaskFromApi.dueDate,
+        priority: newTaskFromApi.priority,
+        completed: newTaskFromApi.completed,
+        pinned: newTaskFromApi.pinned,
+        description: newTaskFromApi.description || '',
+        createdAt: newTaskFromApi.createdAt,
+      };
+  
+      // Mise à jour de l'état avec la nouvelle tâche
+      setTasks((prev) => [...prev, newTask]);
+  
+      // Notification
+      showNotification('✅ Nouvelle tâche ajoutée (API) !');
+    } catch (error) {
+      console.error('Erreur ajout tâche :', error);
+      showNotification('❌ Erreur lors de l’ajout', 'error');
+    }
+  };
+  
+  
 
-    const data = {
-      titre: title,
-      tag: tag || null,
-      priority,
-      dueDate: dueDate.toISOString().split('T')[0],
-      completed: false,
-      pinned: false,
+const updateTask = async (
+  id,
+  newTitle,
+  newTag,
+  newDate,
+  completed = null,
+  newPriority = null,
+  pinned = null
+) => {
+  try {
+    // Si on demande uniquement la complétion, utilise completeTache
+    if (completed === true && newTitle === null && newTag === null && newDate === null) {
+      const updatedFromApi = await completeTache(id)
+      setTasks(tasks.map(t => t.id === id ? {
+        ...t,
+        completed: updatedFromApi.completed
+      } : t))
+      showNotification('✅ Tâche complétée !')
+      return
     }
 
-    axios
-      .post('/taches', data)
-      .then((res) => {
-        console.log(' Tâche ajoutée :', res.data) //  LOG
-        setTasks((prev) => [...prev, res.data])
-        showNotification(' Nouvelle tâche ajoutée !')
-      })
-      .catch((err) => {
-        console.error(' Erreur lors de l’ajout :', err.response || err)
-        showNotification(' Erreur lors de l’ajout', 'error')
-      })
-  }
-
-  const updateTask = (
-    id,
-    title,
-    tag,
-    dueDate,
-    completed = null,
-    priority = null,
-    pinned = null
-  ) => {
+    const taskToUpdate = tasks.find(t => t.id === id)
     const data = {
-      ...(title !== undefined && { titre: title }),
-      ...(tag !== undefined && { tag }),
-      ...(dueDate && { dueDate: dueDate }),
-      ...(completed !== null && { completed }),
-      ...(priority && { priority }),
-      ...(pinned !== null && { pinned }),
+      titre: newTitle ?? taskToUpdate.title,
+      tag: newTag ?? taskToUpdate.tag,
+      dueDate: newDate ?? taskToUpdate.dueDate,
+      priority: newPriority ?? taskToUpdate.priority,
+      completed: completed ?? taskToUpdate.completed,
+      pinned: pinned ?? taskToUpdate.pinned,
+      description: taskToUpdate.description
     }
 
-    axios
-      .put(`/taches/${id}`, data)
-      .then((res) => {
-        setTasks((prev) =>
-          prev.map((task) => (task.id === id ? res.data : task))
-        )
-        if (completed) showNotification('✅ Tâche complétée !')
-        else showNotification('✏️ Tâche modifiée !')
-      })
-      .catch(() =>
-        showNotification('❌ Erreur lors de la modification', 'error')
+    const updated = await updateTache(id, data)
+
+    setTasks(tasks.map(t => t.id === id ? {
+      ...t,
+      title: updated.titre,
+      tag: updated.tag,
+      dueDate: updated.dueDate,
+      priority: updated.priority,
+      completed: updated.completed,
+      pinned: updated.pinned,
+      description: updated.description
+    } : t))
+
+    showNotification('✏️ Tâche modifiée !')
+  } catch (err) {
+    console.error('Erreur updateTask', err)
+    showNotification('❌ Erreur lors de la modification', 'error')
+  }
+}
+
+  
+
+  const deleteTask = async (id) => {
+    try {
+      await deleteTache(id)
+      setTasks(tasks.filter((task) => task.id !== id))
+      if (selectedTask?.id === id) setSelectedTask(null)
+      showNotification('🗑️ Tâche supprimée (API) !')
+    } catch (error) {
+      console.error('Erreur suppression tâche', error)
+      showNotification('❌ Erreur lors de la suppression', 'error')
+    }
+  }
+
+  const deleteSelectedTasks = async () => {
+    try {
+      await Promise.all(
+        selectedIds.map(async (id) => {
+          await deleteTache(id) // appel API
+        })
       )
+  
+      setTasks(tasks.filter((task) => !selectedIds.includes(task.id)))
+      setSelectedIds([])
+      showNotification('🗑️ Tâches supprimées (API) !')
+    } catch (err) {
+      console.error('Erreur suppression multiple', err)
+      showNotification('❌ Erreur lors de la suppression', 'error')
+    }
   }
+  
 
-  const deleteTask = (id) => {
-    axios
-      .delete(`/taches/${id}`)
-      .then(() => {
-        setTasks((prev) => prev.filter((task) => task.id !== id))
-        setSelectedTask(null)
-        showNotification('🗑️ Tâche supprimée !')
-      })
-      .catch(() =>
-        showNotification('❌ Erreur lors de la suppression', 'error')
+  const completeSelectedTasks = async () => {
+    try {
+      const updatedTasks = await Promise.all(
+        selectedIds.map(async (id) => {
+          const updated = await updateTache(id, { completed: true })
+          return {
+            ...tasks.find((task) => task.id === id),
+            completed: updated.completed
+          }
+        })
       )
-  }
-
-  const deleteSelectedTasks = () => {
-    Promise.all(selectedIds.map((id) => axios.delete(`/taches/${id}`))).then(
-      () => {
-        setTasks((prev) =>
-          prev.filter((task) => !selectedIds.includes(task.id))
-        )
-        setSelectedIds([])
-        showNotification('🗑️ Tâches supprimées !')
-      }
-    )
-  }
-
-  const completeSelectedTasks = () => {
-    Promise.all(
-      selectedIds.map((id) => axios.put(`/taches/${id}`, { completed: true }))
-    ).then(() => {
+  
       setTasks((prev) =>
         prev.map((task) =>
-          selectedIds.includes(task.id) ? { ...task, completed: true } : task
+          selectedIds.includes(task.id)
+            ? updatedTasks.find((ut) => ut.id === task.id) || task
+            : task
         )
       )
+  
       setSelectedIds([])
-      showNotification('✅ Tâches complétées !')
-    })
+      showNotification('✅ Tâches complétées (API) !')
+    } catch (err) {
+      console.error('Erreur lors de la complétion multiple', err)
+      showNotification('❌ Erreur lors de la complétion', 'error')
+    }
   }
+  
 
-  const restoreSelectedTasks = () => {
-    Promise.all(
-      selectedIds.map((id) => axios.put(`/taches/${id}`, { completed: false }))
-    ).then(() => {
+  const restoreSelectedTasks = async () => {
+    try {
+      const updatedTasks = await Promise.all(
+        selectedIds.map(async (id) => {
+          const updated = await updateTache(id, { completed: false })
+          return {
+            ...tasks.find((task) => task.id === id),
+            completed: updated.completed
+          }
+        })
+      )
+  
       setTasks((prev) =>
         prev.map((task) =>
-          selectedIds.includes(task.id) ? { ...task, completed: false } : task
+          selectedIds.includes(task.id)
+            ? updatedTasks.find((ut) => ut.id === task.id) || task
+            : task
         )
       )
+  
       setSelectedIds([])
-      showNotification('🔁 Tâches restaurées !')
-    })
+      showNotification('🔁 Tâches restaurées (API) !')
+    } catch (err) {
+      console.error('Erreur restauration multiple', err)
+      showNotification('❌ Erreur restauration', 'error')
+    }
   }
+  
 
-  const restoreTask = (id) => {
-    updateTask(id, undefined, undefined, undefined, false)
-    showNotification('🔁 Tâche restaurée !')
+  const removeTag = async (id) => {
+    try {
+      const taskToUpdate = tasks.find((t) => t.id === id);
+      const updated = await updateTache(id, {
+        titre: taskToUpdate.title,
+        tag: '',
+        dueDate: taskToUpdate.dueDate,
+        priority: taskToUpdate.priority,
+        completed: taskToUpdate.completed,
+        pinned: taskToUpdate.pinned,
+        description: taskToUpdate.description
+      });
+  
+      setTasks(tasks.map((t) =>
+        t.id === id ? { ...t, tag: updated.tag } : t
+      ));
+  
+      showNotification('🏷️ Tag supprimé !');
+    } catch (err) {
+      console.error('Erreur suppression tag', err);
+      showNotification('❌ Erreur suppression tag', 'error');
+    }
   }
+  
 
-  const removeTag = (id) => {
-    axios.put(`/taches/${id}`, { tag: '' }).then((res) => {
-      setTasks((prev) => prev.map((task) => (task.id === id ? res.data : task)))
-    })
+  const saveDescription = async (id, description) => {
+    try {
+      const taskToUpdate = tasks.find((t) => t.id === id);
+      const updated = await updateTache(id, {
+        titre: taskToUpdate.title,
+        tag: taskToUpdate.tag,
+        dueDate: taskToUpdate.dueDate,
+        priority: taskToUpdate.priority,
+        completed: taskToUpdate.completed,
+        pinned: taskToUpdate.pinned,
+        description: description
+      });
+  
+      setTasks(tasks.map((t) =>
+        t.id === id ? { ...t, description: updated.description } : t
+      ));
+  
+      showNotification('💾 Description enregistrée !');
+    } catch (err) {
+      console.error('Erreur sauvegarde description', err);
+      showNotification('❌ Erreur sauvegarde', 'error');
+    }
   }
-
-  const saveDescription = (id, description) => {
-    axios.put(`/taches/${id}`, { description }).then((res) => {
-      setTasks((prev) => prev.map((task) => (task.id === id ? res.data : task)))
-    })
-  }
-
-  const toggleTaskSelection = (id) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    )
-  }
-
-  const selectAllVisibleTasks = (tasksToSelect) => {
-    const ids = tasksToSelect.map((task) => task.id)
-    setSelectedIds(ids)
-  }
-
+  
   const getFilterTitle = () => {
     switch (filter) {
       case 'day':
@@ -207,19 +339,90 @@ const Tasks = () => {
           start.setDate(
             now.getDate() - (now.getDay() === 0 ? 6 : now.getDay() - 1)
           )
+          start.setHours(0, 0, 0, 0)
           const end = new Date(start)
           end.setDate(start.getDate() + 6)
+          end.setHours(23, 59, 59, 999)
           return taskDate >= start && taskDate <= end
         })())
 
     return matchDate && !task.completed && matchTag
   })
 
+  const restoreTask = async (id) => {
+    try {
+      const taskToRestore = tasks.find((task) => task.id === id)
+      if (!taskToRestore) return
+  
+      const updated = await updateTache(id, {
+        titre: taskToRestore.title,
+        tag: taskToRestore.tag,
+        dueDate: taskToRestore.dueDate?.slice(0, 10),
+        priority: taskToRestore.priority,
+        pinned: taskToRestore.pinned,
+        completed: false,
+        description: taskToRestore.description
+      })
+  
+      setTasks(tasks.map((t) =>
+        t.id === id
+          ? {
+              ...t,
+              completed: updated.completed
+            }
+          : t
+      ))
+  
+      showNotification('🔁 Tâche restaurée (API) !')
+    } catch (error) {
+      console.error('Erreur restauration tâche unique', error)
+      showNotification('❌ Erreur restauration', 'error')
+    }
+  }
+  
+  const togglePinnedTask = async (task) => {
+    try {
+      const updated = await updateTache(task.id, {
+        titre: task.title,
+        tag: task.tag,
+        dueDate: task.dueDate,
+        priority: task.priority,
+        completed: task.completed,
+        pinned: !task.pinned,
+        description: task.description,
+      });
+  
+      setTasks(tasks.map((t) =>
+        t.id === task.id ? {
+          ...t,
+          pinned: updated.pinned
+        } : t
+      ));
+  
+      showNotification(updated.pinned ? '📍 Tâche épinglée !' : '📌 Tâche désépinglée !');
+    } catch (err) {
+      console.error('Erreur épinglage tâche', err);
+      showNotification('❌ Erreur lors de l’épinglage', 'error');
+    }
+  }
+  
+
+  const toggleTaskSelection = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    )
+  }
+
+  const selectAllVisibleTasks = (tasksToSelect) => {
+    const ids = tasksToSelect.map((task) => task.id)
+    setSelectedIds(ids)
+  }
+
   return (
     <div className="tasks-page">
       <div className="tasks-container">
-        <div className="left-panel">
-          <h2 className="tasks-title">Vue des tâches</h2>
+        <div className="left-panel" style={{ position: 'relative' }}>
+          <h2 className="tasks-title">Vue Des Jours</h2>
           <TasksFilter setFilter={setFilter} />
           <div className="tag-search">
             <h3>Filtrer par tag</h3>
@@ -245,16 +448,21 @@ const Tasks = () => {
               <h3 className="task-view-title">{getFilterTitle()}</h3>
               {filter !== 'completed' ? (
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <button onClick={() => selectAllVisibleTasks(filteredTasks)}>
+                  <button
+                    className="delete-visible-btn"
+                    onClick={() => selectAllVisibleTasks(filteredTasks)}
+                  >
                     Sélectionner
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={deleteSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
                     🗑️
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={completeSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
@@ -264,19 +472,24 @@ const Tasks = () => {
               ) : (
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <button
+                    className="delete-visible-btn"
                     onClick={() =>
-                      selectAllVisibleTasks(tasks.filter((t) => t.completed))
+                      selectAllVisibleTasks(
+                        tasks.filter((task) => task.completed)
+                      )
                     }
                   >
                     Sélectionner
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={restoreSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
                     🔁
                   </button>
                   <button
+                    className="delete-visible-btn"
                     onClick={deleteSelectedTasks}
                     disabled={selectedIds.length === 0}
                   >
@@ -303,6 +516,7 @@ const Tasks = () => {
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
                 selectAllVisibleTasks={selectAllVisibleTasks}
+                togglePinnedTask={togglePinnedTask}
               />
             ) : filter === 'week' ? (
               <TasksWeekView
@@ -314,6 +528,7 @@ const Tasks = () => {
                 showNotification={showNotification}
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
+                togglePinnedTask={togglePinnedTask}
               />
             ) : filter === 'completed' ? (
               <CompletedTasks
@@ -325,6 +540,7 @@ const Tasks = () => {
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
                 selectAllVisibleTasks={selectAllVisibleTasks}
+                togglePinnedTask={togglePinnedTask}
               />
             ) : (
               <TasksList
@@ -337,6 +553,7 @@ const Tasks = () => {
                 showNotification={showNotification}
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
+                togglePinnedTask={togglePinnedTask}
               />
             )}
           </div>

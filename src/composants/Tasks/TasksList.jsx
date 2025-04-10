@@ -111,8 +111,7 @@ const TasksList = ({
                 >
                     ✓
                 </button>
-                <button onClick={() => togglePinnedTask(task)}
-                >
+                <button onClick={() => togglePinned(task)}>
                     {task.pinned ? "📍" : "📌"}
                 </button>
             </div>
