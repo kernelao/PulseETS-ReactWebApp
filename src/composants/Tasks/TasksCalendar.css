@@ -1,0 +1,148 @@
+.calendar-wrapper {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .calendar-container {
+    flex: 1;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 280px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  .calendar-task-list {
+    flex: 2;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    min-width: 300px;
+  }
+  
+  /* ✅ Harmonisé avec les vues jour/semaine */
+  .calendar-task-line {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    justify-content: space-between;
+    transition: background 0.3s;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* Partie gauche : case à cocher, titre, tag, priorité */
+  .calendar-task-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+    min-width: 0;
+  }
+  
+  .task-title-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .task-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+  
+  .calendar-task-line .tag-badge {
+    background-color: #e0ffe0;
+    color: #2e7d32;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+  
+  /* Priorité */
+  .priority-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .priority-low {
+    background-color: green;
+  }
+  
+  .priority-medium {
+    background-color: orange;
+  }
+  
+  .priority-high {
+    background-color: red;
+  }
+  
+  /* Boutons */
+  .calendar-task-line .task-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  
+  .calendar-task-line button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .calendar-task-line button:hover {
+    background-color: #388e3c;
+  }
+  
+  /* ✅ Tâches dans le calendrier */
+  .calendar-day-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 5px;
+  }
+  
+  .calendar-task {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .calendar-task:hover {
+    background-color: #367c39;
+  }
+  
+  .priority-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    align-self: center; /* ✅ centre verticalement dans flex */
+  }
+  

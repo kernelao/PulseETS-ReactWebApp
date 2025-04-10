@@ -1,7 +1,8 @@
 import React from 'react'
-import Tasks from '../../composants/tasks/Tasks'
+import Tasks from '../../composants/Tasks/Tasks'
 
 const Taches = () => {
+ 
   
   return <Tasks />
 }

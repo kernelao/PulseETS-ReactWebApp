@@ -1,0 +1,48 @@
+.boutique-admin-container {
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+.avatars-admin-section, .themes-admin-section {
+    margin-top: 30px;
+}
+
+.avatars-grid, .themes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.avatar-item, .theme-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.avatar-info, .theme-info {
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    margin-top: 10px;
+}
+
+ul {
+    padding-left: 20px;
+}
