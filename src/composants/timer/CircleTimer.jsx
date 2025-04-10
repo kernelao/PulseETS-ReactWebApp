@@ -1,13 +1,9 @@
-import React, { useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'; 
 import './CircleTimer.css';
 import alarmSoundFile from "./alarmepulse.mp3"; 
 
-
 function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
-
-function CirclePom() {
-
   const [startTime, setStartTime] = useState(null);
   const [mode, setMode] = useState('pomodoro'); 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -19,26 +15,16 @@ function CirclePom() {
   const alarmSound = useRef(null);
   const alarmTimeoutRef = useRef(null);
 
-  const duration ={
-
-    pomodoro: pomodoro * 60,
-    pauseCourte: pauseCourte * 60,
-    pauseLongue: pauseLongue * 60,
-
-       pomodoro :25*60,
-       pauseCourte: 5*60,
-       pauseLongue: 15*60,
-
-       
+  const duration = {
+    pomodoro: (pomodoro ?? 25) * 60,
+    pauseCourte: (pauseCourte ?? 5) * 60,
+    pauseLongue: (pauseLongue ?? 15) * 60,
   };
-  
+
   useEffect(() => {
     alarmSound.current = new Audio(alarmSoundFile);
     alarmSound.current.loop = true; 
   }, []);
-
-
-  
 
   const stopAlarm = () => {
     if (alarmSound.current) {
@@ -55,18 +41,15 @@ function CirclePom() {
       alarmSound.current.play();
       alarmTimeoutRef.current = setTimeout(() => {
         stopAlarm();
-      }, 5500); // arrete apres 5,5 seconde (+/-4 bar)
+      }, 5500); // arrete après 5,5 secondes
     }
   };
 
   const handleStart = () => {
-    if (auto) {
-      setAutoActive(true);
-    }
-    setStartTime(new Date()); // capture l’heure du début
+    if (auto) setAutoActive(true);
+    setStartTime(new Date());
     setIsPlaying(true);
   };
-
 
   const handlePause = () => setIsPlaying(false);
 
@@ -79,7 +62,6 @@ function CirclePom() {
     setAutoActive(false);
   };
 
-
   const handleModeChange = (newMode) => {
     setMode(newMode);
     setIsPlaying(false);
@@ -87,22 +69,18 @@ function CirclePom() {
     stopAlarm();
   };
 
-
   const handleAutoToggle = () => {
     setAuto(prev => {
       const next = !prev;
-      if (!next) {
-        setAutoActive(false);
-      }
+      if (!next) setAutoActive(false);
       return next;
     });
   };
 
   const sendSessionToAPI = async () => {
     const token = localStorage.getItem("token");
-  
-    const endedAt = new Date(); // heure de fin maintenant
-  
+    const endedAt = new Date();
+
     const response = await fetch("http://localhost:8000/api/pomodoro-session", {
       method: "POST",
       headers: {
@@ -110,8 +88,8 @@ function CirclePom() {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        startedAt: startTime.toISOString(),   
-        endedAt: endedAt.toISOString(),      
+        startedAt: startTime?.toISOString(),
+        endedAt: endedAt.toISOString(),
         pomodoros_completes: pomodoroCount,
         pomodoroDuration: duration.pomodoro,
         shortBreak: duration.pauseCourte,
@@ -119,19 +97,20 @@ function CirclePom() {
         autoStart: auto
       })
     });
-  
+
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Erreur API :", errorData);
       return;
     }
+
     const data = await response.json();
     console.log("Réponse de l'API :", data);
   };
 
   const handleComplete = () => {
     playAlarm();
-    sendSessionToAPI(); 
+    sendSessionToAPI();
 
     if (Notification.permission === 'granted') {
       new Notification(`[PULSE] Fin de ${mode === 'pomodoro' ? 'la session de travail' : mode === 'pauseCourte' ? 'la pause courte' : 'la pause longue'}`);
@@ -165,24 +144,22 @@ function CirclePom() {
     return { shouldRepeat: false };
   };
 
-
   const getButtonStyle = (btnMode) => ({
-    backgroundColor: mode === btnMode ? ' #8997e6' : '#10217f',
-    color: mode === btnMode ? 'white' : 'white',
+    backgroundColor: mode === btnMode ? '#8997e6' : '#10217f',
+    color: 'white',
     border: '1px solid #ccc',
     margin: '5px',
     padding: '10px 20px',
     borderRadius: '5px',
     cursor: 'pointer'
   });
-  
 
   return (
-    <div className="cercle_main" >
+    <div className="cercle_main">
       <div className='btn_timer_container'>
-        <button onClick={() => handleModeChange('pomodoro')}  style={getButtonStyle('pomodoro')} className='timer_btn animated_btn'>Pomodoro</button>
-        <button onClick={() => handleModeChange('pauseCourte')}  style={getButtonStyle('pauseCourte')} className='timer_btn animated_btn'>Courte Pause</button>
-        <button onClick={() => handleModeChange('pauseLongue')}style={getButtonStyle('pauseLongue')}  className='timer_btn animated_btn'>Longue Pause</button>
+        <button onClick={() => handleModeChange('pomodoro')} style={getButtonStyle('pomodoro')} className='timer_btn animated_btn'>Pomodoro</button>
+        <button onClick={() => handleModeChange('pauseCourte')} style={getButtonStyle('pauseCourte')} className='timer_btn animated_btn'>Courte Pause</button>
+        <button onClick={() => handleModeChange('pauseLongue')} style={getButtonStyle('pauseLongue')} className='timer_btn animated_btn'>Longue Pause</button>
       </div>
 
       <div className="cercle_box">
@@ -190,33 +167,28 @@ function CirclePom() {
           key={timerKey}
           isPlaying={isPlaying}
           duration={duration[mode]}
-          colors={[ "#10217f","#091245","#060B26"]}
-          colorsTime={[duration, duration / 2, 5]}
+          colors={["#10217f", "#091245", "#060B26"]}
+          colorsTime={[duration[mode], duration[mode] / 2, 5]}
           onComplete={handleComplete}
         >
-           {({ remainingTime }) => {
-          const minutes = Math.floor(remainingTime / 60);
-          const seconds = remainingTime % 60;
-          return (
-            <div style={{ fontSize: '32px' }}>
-              {`${minutes}:${seconds.toString().padStart(2, '0')}`}
-            </div>
-          );
-        }}
-      </CountdownCircleTimer>
+          {({ remainingTime }) => {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            return (
+              <div style={{ fontSize: '32px' }}>
+                {`${minutes}:${seconds.toString().padStart(2, '0')}`}
+              </div>
+            );
+          }}
+        </CountdownCircleTimer>
       </div>
 
-        <div className='button_srt_container'>
-         
-           
-              <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
-              <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
-              <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
-      
-        
-        </div>
+      <div className='button_srt_container'>
+        <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
+        <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
+        <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
+      </div>
 
-        
       <div className="auto_cont">
         <label>
           <input type="checkbox" checked={auto} onChange={handleAutoToggle} />
@@ -227,11 +199,6 @@ function CirclePom() {
       <div className="txt_pom_comsecutif">
         <strong>Pomodoros consécutifs : {pomodoroCount} / 4</strong>
       </div>
-
-
-
-
-      
     </div>
   );
 }
