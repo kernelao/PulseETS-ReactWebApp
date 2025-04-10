@@ -17,11 +17,11 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
   const alarmSound = useRef(null);
   const alarmTimeoutRef = useRef(null);
 
-
   const duration = {
-    pomodoro: (pomodoro ?? 25) * 60,
-    pauseCourte: (pauseCourte ?? 5) * 60,
-    pauseLongue: (pauseLongue ?? 15) * 60,
+    pomodoro: pomodoro * 60,
+    pauseCourte: pauseCourte * 60,
+    pauseLongue: pauseLongue * 60,
+
 
   };
 
@@ -45,7 +45,8 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
       alarmSound.current.play();
       alarmTimeoutRef.current = setTimeout(() => {
         stopAlarm();
-      }, 5500); // arrete après 5,5 secondes
+
+      }, 5500); // arrête après 5,5 secondes
     }
   };
 
@@ -83,6 +84,7 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
 
   const sendSessionToAPI = async () => {
     const token = localStorage.getItem("token");
+
     const endedAt = new Date();
 
     const response = await fetch("http://localhost:8000/api/pomodoro-session", {
@@ -185,6 +187,12 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
             );
           }}
         </CountdownCircleTimer>
+      </div>
+
+      <div className='button_srt_container'>
+        <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
+        <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
+        <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
       </div>
 
       <div className='button_srt_container'>
