@@ -1,9 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../components/Layout/Reglages/Reglages.css";
 import horloge from "../../assets/horloge.svg";  //icone d'horloge
 import Pinceau from "../../assets/pinceau.svg";  //icone de pinceau
 import { ThemeContext } from "../../context/ThemeContext"; //pour le changement de themes
 import { useOutletContext } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext"; // pour utiliser le token
+//import axios from 'axios';
+import axios from '../../api/Axios';
+
 
 const Reglages = () => {
 
@@ -13,43 +17,81 @@ const Reglages = () => {
   //const [pauseLongue, setPauseLongue] = useState(15);
   const [themeChoisi, setThemeChoisi] = useState(theme);
   const { pomodoro, setPomodoro, pauseCourte, setPauseCourte, pauseLongue, setPauseLongue } = useOutletContext();
+  const [reglageId, setReglageId] = useState(null);
 
- // const handleSubmit = (e) => { //pour le choix de theme
- //   e.preventDefault();
- //   changeTheme(themeChoisi);
- // };
+  const { token, isAuthenticated } = useAuth(); // on récupère le token JWT
+  if (!isAuthenticated) return <Navigate to="/connexion" />;
+
+  useEffect(() => {
+    if (!token) {
+      console.warn("Pas de token trouvé !");
+      return;
+    }
+
+    async function fetchOrCreateReglage() {
+      try {
+        console.log("Token dans useEffect :", token); // 👈 log ici
+        const res = await axios.get(`/reglages/me`);
+        /*, {
+          headers: { Authorization: `Bearer ${token}` },
+        });*/
+
+        console.log("Réponse reçue :", res.data); // 👈 log ici
+  
+        const reglage = res.data;
+  
+        setPomodoro(reglage.pomodoro);
+        setPauseCourte(reglage.courtePause);
+        setPauseLongue(reglage.longuePause);
+        setThemeChoisi(reglage.theme);
+        changeTheme(reglage.theme);
+        setReglageId(reglage.id);
+      } catch (err) {
+        console.error("Erreur lors du chargement des réglages :", err);
+      }
+    }
+  
+    fetchOrCreateReglage();
+  }, [token]);
+  
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // Préparer les données à envoyer
-  const data = {
-    pomodoro,
-    pauseCourte,
-    pauseLongue,
-    theme: themeChoisi,
-  };
-
-  // Envoi des réglages au backend via une requête POST
-  try {
-    const response = await fetch("/api/reglages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (response.ok) {
-      console.log("Réglages enregistrés avec succès !");
-    } else {
-      console.error("Erreur lors de l'enregistrement des réglages");
+    e.preventDefault();
+    changeTheme(themeChoisi);
+  
+    console.log("Token envoyé au PUT :", token); // 👈 ici aussi
+  
+    if (!reglageId) {
+      console.error("ID manquant, reglageId =", reglageId); // 👈 Ajoute ça
+      alert("ID du réglage non défini !");
+      return;
     }
-  } catch (error) {
-    console.error("Erreur réseau : ", error);
-  }
-};
-
+  
+    try {
+      await axios.put(
+        `/reglages/${reglageId}`,
+        {
+          pomodoro: parseInt(pomodoro),
+          short_break: parseInt(pauseCourte),
+          long_break: parseInt(pauseLongue),
+          theme: themeChoisi,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
+      );
+  
+      alert("Réglages sauvegardés !");
+    } catch (error) {
+      console.error("Erreur Axios complète :", error);
+      alert("Erreur : " + JSON.stringify(error.response?.data || error.message));
+    }
+  };
+  
+  
   return (
     <div id="app">
     <div id="mainReglages" className={(theme|| "").replace(" ", "-").toLowerCase()}>

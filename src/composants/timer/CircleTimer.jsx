@@ -1,12 +1,9 @@
-import React, { useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'; 
 import './CircleTimer.css';
 import alarmSoundFile from "./alarmepulse.mp3"; 
 
-
 function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
-
-function CirclePom() {
 
   const [startTime, setStartTime] = useState(null);
   const [mode, setMode] = useState('pomodoro'); 
@@ -19,26 +16,16 @@ function CirclePom() {
   const alarmSound = useRef(null);
   const alarmTimeoutRef = useRef(null);
 
-  const duration ={
-
+  const duration = {
     pomodoro: pomodoro * 60,
     pauseCourte: pauseCourte * 60,
     pauseLongue: pauseLongue * 60,
-
-       pomodoro :25*60,
-       pauseCourte: 5*60,
-       pauseLongue: 15*60,
-
-       
   };
-  
+
   useEffect(() => {
     alarmSound.current = new Audio(alarmSoundFile);
     alarmSound.current.loop = true; 
   }, []);
-
-
-  
 
   const stopAlarm = () => {
     if (alarmSound.current) {
@@ -55,7 +42,7 @@ function CirclePom() {
       alarmSound.current.play();
       alarmTimeoutRef.current = setTimeout(() => {
         stopAlarm();
-      }, 5500); // arrete apres 5,5 seconde (+/-4 bar)
+      }, 5500); // arrête après 5,5 secondes
     }
   };
 
@@ -66,7 +53,6 @@ function CirclePom() {
     setStartTime(new Date()); // capture l’heure du début
     setIsPlaying(true);
   };
-
 
   const handlePause = () => setIsPlaying(false);
 
@@ -79,14 +65,12 @@ function CirclePom() {
     setAutoActive(false);
   };
 
-
   const handleModeChange = (newMode) => {
     setMode(newMode);
     setIsPlaying(false);
     setTimerKey(prev => prev + 1);
     stopAlarm();
   };
-
 
   const handleAutoToggle = () => {
     setAuto(prev => {
@@ -100,7 +84,6 @@ function CirclePom() {
 
   const sendSessionToAPI = async () => {
     const token = localStorage.getItem("token");
-  
     const endedAt = new Date(); // heure de fin maintenant
   
     const response = await fetch("http://localhost:8000/api/pomodoro-session", {
@@ -165,7 +148,6 @@ function CirclePom() {
     return { shouldRepeat: false };
   };
 
-
   const getButtonStyle = (btnMode) => ({
     backgroundColor: mode === btnMode ? ' #8997e6' : '#10217f',
     color: mode === btnMode ? 'white' : 'white',
@@ -175,7 +157,6 @@ function CirclePom() {
     borderRadius: '5px',
     cursor: 'pointer'
   });
-  
 
   return (
     <div className="cercle_main" >
@@ -206,17 +187,12 @@ function CirclePom() {
       </CountdownCircleTimer>
       </div>
 
-        <div className='button_srt_container'>
-         
-           
-              <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
-              <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
-              <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
-      
-        
-        </div>
+      <div className='button_srt_container'>
+        <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
+        <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
+        <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
+      </div>
 
-        
       <div className="auto_cont">
         <label>
           <input type="checkbox" checked={auto} onChange={handleAutoToggle} />
@@ -227,11 +203,6 @@ function CirclePom() {
       <div className="txt_pom_comsecutif">
         <strong>Pomodoros consécutifs : {pomodoroCount} / 4</strong>
       </div>
-
-
-
-
-      
     </div>
   );
 }
