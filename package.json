@@ -18,6 +18,7 @@
     "axios": "^1.8.4",
     "date-fns": "^4.1.0",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.487.0",
     "react": "^19.0.0",
     "react-calendar": "^5.1.0",
     "react-countdown-circle-timer": "^3.2.1",
