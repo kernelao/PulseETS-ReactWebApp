@@ -2,11 +2,11 @@
 .tasks-container {
   display: flex;
   min-height: 100vh;
-  background-color: #e6f4e6;
+  background-color: #f4f7f4; /* modifié */
   padding: 20px;
   gap: 20px;
   overflow: hidden;
-  margin-top: 30px;
+  margin-top: 0; /* ✅ corrigé ici */
 }
 
 /* 🌿 Panneau gauche : Filtres + Tags */
@@ -14,7 +14,7 @@
   width: 220px; /* 🔥 Fixe plus étroit, assez pour le contenu */
   min-width: 200px;
   max-width: 250px;
-  background-color: #c3e6c3;
+  background-color: #d9eeda; /* modifié */
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -29,7 +29,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: #dff2d8;
+  background-color: #eaf4ea; /* modifié */
   padding: 20px;
   border-radius: 10px;
   overflow: hidden;
@@ -43,7 +43,7 @@
 }
 
 .tasks-filter button {
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 10px;
@@ -57,7 +57,7 @@
 }
 
 .tasks-filter button:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 /* 🌿 Tags */
@@ -80,7 +80,7 @@
 }
 
 .tag-input-container button {
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 10px 15px;
@@ -90,7 +90,7 @@
 }
 
 .tag-input-container button:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 .tags-list {
@@ -115,7 +115,7 @@
 }
 
 .tag-buttons button {
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 8px 12px;
@@ -125,22 +125,20 @@
 }
 
 .tag-buttons button:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 /* 🌿 Panneau droit : Tâches */
 .right-panel {
   flex-grow: 1;
-  background-color: #dff2d8;
+  background-color: #eaf4ea; /* modifié */
   padding: 20px;
   border-radius: 10px;
   position: relative;
   display: flex;
   flex-direction: column;
-  height: calc(
-    100vh - 40px
-  ); /* prend toute la hauteur sauf le padding extérieur */
-  overflow: hidden; /* empêche scroll global, mais autorise le scroll interne */
+  height: calc(100vh - 40px);
+  overflow: hidden;
 }
 
 .right-content {
@@ -187,22 +185,22 @@
 }
 
 .task-buttons button {
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  min-width: 40px; /* ✅ Taille minimale */
-  max-width: 120px; /* ✅ Taille maximale si texte */
-  width: auto; /* ✅ Adapté au contenu */
-  flex: 0 0 auto; /* ✅ Pas d’étirement */
+  min-width: 40px;
+  max-width: 120px;
+  width: auto;
+  flex: 0 0 auto;
   text-align: center;
 }
 
 .task-buttons button:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 /* 🌿 Formulaire d'ajout */
@@ -210,19 +208,19 @@
   position: sticky;
   bottom: 0;
   left: 0;
-  background-color: #dff2d8;
+  background-color: #eaf4ea; /* modifié */
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  border-top: 2px solid #c3e6c3;
+  border-top: 2px solid #d9eeda; /* modifié */
   z-index: 10;
   align-items: center;
   justify-content: center;
 }
 .tasks-form input,
 .tasks-form select {
-  height: 40px; /* ✅ Uniformise toutes les hauteurs */
+  height: 40px;
   padding: 8px;
   font-size: 14px;
   border-radius: 5px;
@@ -236,22 +234,22 @@
 }
 
 .tasks-form select {
-  width: 110px; /* ✅ Moins large */
+  width: 110px;
 }
 
 .tasks-form button {
   flex: 0 0 auto;
   padding: 10px 25px;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   cursor: pointer;
   font-size: 14px;
-  height: 40px; /* ✅ Même hauteur que les inputs */
+  height: 40px;
 }
 .tasks-form button:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 /* 🌿 Vue Détail */
@@ -283,7 +281,7 @@
 
 .task-details button {
   align-self: flex-end;
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 8px 15px;
@@ -292,7 +290,7 @@
 }
 
 .task-details button:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 /* 🌿 Taille du texte */
@@ -310,16 +308,16 @@
   margin-bottom: 8px;
 }
 .tag-search input {
-  width: calc(100% - 2px); /* 🔧 empêche tout débordement */
+  width: calc(100% - 2px);
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #aaa;
-  box-sizing: border-box; /* ✅ prend bien en compte les bordures */
+  box-sizing: border-box;
 }
 
 /* 🌿 Badge de tag */
 .tag-badge {
-  background-color: #4caf50;
+  background-color: #388e3c; /* modifié */
   color: white;
   padding: 5px 10px;
   margin-left: 10px;
@@ -331,7 +329,7 @@
 }
 
 .tag-badge:hover {
-  background-color: #367c39;
+  background-color: #2e7031; /* modifié */
 }
 
 /* 🌿 Titre des vues */
@@ -349,9 +347,10 @@
   color: #2f5e2f;
   text-align: center;
   margin-bottom: 15px;
-  border-bottom: 2px solid #c3e6c3;
+  border-bottom: 2px solid #d9eeda; /* modifié */
   padding-bottom: 5px;
 }
+
 /* 🌿 Modale d'édition */
 .modal-overlay {
   position: fixed;
@@ -375,13 +374,17 @@
   flex-direction: column;
   gap: 10px;
 }
+
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-
+  width: 100%;
+  background-color: #f4f7f4; /* modifié */
+  overflow-x: hidden;
 }
+
 .task-header {
   display: flex;
   justify-content: space-between;
@@ -396,7 +399,7 @@ body {
   color: #2f5e2f;
   margin: 0;
   padding-bottom: 5px;
-  border-bottom: 2px solid #c3e6c3;
+  border-bottom: 2px solid #d9eeda; /* modifié */
   flex: 1;
 }
 
@@ -408,9 +411,9 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  max-width: 150px; /* ✅ Limite la largeur */
-  width: fit-content; /* ✅ Ne s'étire pas */
-  white-space: nowrap; /* ✅ Ne saute pas à la ligne */
+  max-width: 150px;
+  width: fit-content;
+  white-space: nowrap;
 }
 
 .delete-visible-btn:hover {
@@ -443,10 +446,9 @@ body {
   overflow: hidden;
 }
 
-
 .tasks-page {
   display: flex;
-  justify-content: center; /* centre horizontalement */
-  align-items: center;     /* centre verticalement si tu veux aussi */
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
