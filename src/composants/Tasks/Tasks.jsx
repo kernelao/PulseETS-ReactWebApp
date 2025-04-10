@@ -8,6 +8,10 @@ import TasksWeekView from './TasksWeekView'
 import CompletedTasks from './CompletedTasks'
 import Notification from './Notification'
 import './Tasks.css'
+import { createTache, deleteTache } from '../../api/tachesApi'
+import { fetchTaches } from '../../api/tachesApi'
+import { updateTache, completeTache } from '../../api/tachesApi' // ajoute completeTache si ce n'est pas déjà fait
+import { restoreTache } from '../../api/tachesApi'
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
@@ -27,114 +31,277 @@ const Tasks = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTaches()
+        console.log('Tâches récupérées:', fetchedTasks)
+  
+        const mappedTasks = fetchedTasks.map((t) => ({
+          id: t.id,
+          title: t.titre, // 🟢 CORRECTION ICI
+          tag: t.tag,
+          dueDate: t.dueDate,
+          priority: t.priority,
+          completed: t.completed,
+          pinned: t.pinned,
+          description: t.description || '',
+          createdAt: t.createdAt
+        }))
+  
+        setTasks(mappedTasks)
+      } catch (error) {
+        console.error("Erreur lors de la récupération des tâches", error)
+      }
+    }
+    loadTasks()
+  }, [])
+  
+  
+
   const showNotification = (message, type = 'info') => {
     setNotification({ message, type })
     setTimeout(() => setNotification({ message: '', type: '' }), 3000)
   }
 
-  const addTask = (title, tag, dueDate, priority = 'moyenne') => {
-    const dateToUse = dueDate ? new Date(dueDate) : new Date()
-    dateToUse.setHours(0, 0, 0, 0)
-    setTasks([
-      ...tasks,
-      {
-        id: Date.now(),
-        title,
+  const addTask = async (title, tag, dueDate, priority = 'moyenne') => {
+    try {
+      // Normalisation de la date (s'il n'y a pas de dueDate, on prend la date du jour)
+      const dateToUse = dueDate ? new Date(dueDate) : new Date();
+      // On met la date à minuit (en UTC pour éviter les décalages de fuseaux horaires)
+      dateToUse.setUTCHours(0, 0, 0, 0);
+  
+      // Préparer les données de la tâche
+      const tacheData = {
+        titre: title,
         tag,
-        dueDate: dateToUse.toISOString(),
-        description: '',
-        createdAt: new Date().toISOString(),
-        completed: false,
+        dueDate: dateToUse.toISOString().split('T')[0], // yyyy-mm-dd
         priority,
+        completed: false,
         pinned: false,
-      },
-    ])
-    showNotification('✅ Nouvelle tâche ajoutée !')
-  }
+        description: '',
+      };
+  
+      // Créer la tâche via l'API
+      const newTaskFromApi = await createTache(tacheData);
+  
+      // Préparer la tâche pour l'affichage
+      const newTask = {
+        id: newTaskFromApi.id,
+        title: newTaskFromApi.titre,
+        tag: newTaskFromApi.tag,
+        dueDate: newTaskFromApi.dueDate,
+        priority: newTaskFromApi.priority,
+        completed: newTaskFromApi.completed,
+        pinned: newTaskFromApi.pinned,
+        description: newTaskFromApi.description || '',
+        createdAt: newTaskFromApi.createdAt,
+      };
+  
+      // Mise à jour de l'état avec la nouvelle tâche
+      setTasks((prev) => [...prev, newTask]);
+  
+      // Notification
+      showNotification('✅ Nouvelle tâche ajoutée (API) !');
+    } catch (error) {
+      console.error('Erreur ajout tâche :', error);
+      showNotification('❌ Erreur lors de l’ajout', 'error');
+    }
+  };
+  
+  
 
-  const updateTask = (
-    id,
-    newTitle,
-    newTag,
-    newDate,
-    completed = null,
-    newPriority = null,
-    pinned = null
-  ) => {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          const updatedTask = {
-            ...task,
-            title: newTitle,
-            tag: newTag,
-            dueDate: newDate
-              ? new Date(newDate + 'T00:00:00').toISOString()
-              : task.dueDate,
-          }
-          if (completed !== null) updatedTask.completed = completed
-          if (newPriority !== null) updatedTask.priority = newPriority
-          if (pinned !== null) updatedTask.pinned = pinned
-          return updatedTask
-        }
-        return task
-      })
-    )
-    if (completed === true) {
+const updateTask = async (
+  id,
+  newTitle,
+  newTag,
+  newDate,
+  completed = null,
+  newPriority = null,
+  pinned = null
+) => {
+  try {
+    // Si on demande uniquement la complétion, utilise completeTache
+    if (completed === true && newTitle === null && newTag === null && newDate === null) {
+      const updatedFromApi = await completeTache(id)
+      setTasks(tasks.map(t => t.id === id ? {
+        ...t,
+        completed: updatedFromApi.completed
+      } : t))
       showNotification('✅ Tâche complétée !')
-    } else if (completed === null) {
-      showNotification('✏️ Tâche modifiée !')
+      return
+    }
+
+    const taskToUpdate = tasks.find(t => t.id === id)
+    const data = {
+      titre: newTitle ?? taskToUpdate.title,
+      tag: newTag ?? taskToUpdate.tag,
+      dueDate: newDate ?? taskToUpdate.dueDate,
+      priority: newPriority ?? taskToUpdate.priority,
+      completed: completed ?? taskToUpdate.completed,
+      pinned: pinned ?? taskToUpdate.pinned,
+      description: taskToUpdate.description
+    }
+
+    const updated = await updateTache(id, data)
+
+    setTasks(tasks.map(t => t.id === id ? {
+      ...t,
+      title: updated.titre,
+      tag: updated.tag,
+      dueDate: updated.dueDate,
+      priority: updated.priority,
+      completed: updated.completed,
+      pinned: updated.pinned,
+      description: updated.description
+    } : t))
+
+    showNotification('✏️ Tâche modifiée !')
+  } catch (err) {
+    console.error('Erreur updateTask', err)
+    showNotification('❌ Erreur lors de la modification', 'error')
+  }
+}
+
+  
+
+  const deleteTask = async (id) => {
+    try {
+      await deleteTache(id)
+      setTasks(tasks.filter((task) => task.id !== id))
+      if (selectedTask?.id === id) setSelectedTask(null)
+      showNotification('🗑️ Tâche supprimée (API) !')
+    } catch (error) {
+      console.error('Erreur suppression tâche', error)
+      showNotification('❌ Erreur lors de la suppression', 'error')
     }
   }
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id))
-    if (selectedTask?.id === id) setSelectedTask(null)
-    showNotification('🗑️ Tâche supprimée !')
+  const deleteSelectedTasks = async () => {
+    try {
+      await Promise.all(
+        selectedIds.map(async (id) => {
+          await deleteTache(id) // appel API
+        })
+      )
+  
+      setTasks(tasks.filter((task) => !selectedIds.includes(task.id)))
+      setSelectedIds([])
+      showNotification('🗑️ Tâches supprimées (API) !')
+    } catch (err) {
+      console.error('Erreur suppression multiple', err)
+      showNotification('❌ Erreur lors de la suppression', 'error')
+    }
   }
+  
 
-  const deleteSelectedTasks = () => {
-    setTasks(tasks.filter((task) => !selectedIds.includes(task.id)))
-    setSelectedIds([])
-    showNotification('🗑️ Tâches supprimées !')
+  const completeSelectedTasks = async () => {
+    try {
+      const updatedTasks = await Promise.all(
+        selectedIds.map(async (id) => {
+          const updated = await updateTache(id, { completed: true })
+          return {
+            ...tasks.find((task) => task.id === id),
+            completed: updated.completed
+          }
+        })
+      )
+  
+      setTasks((prev) =>
+        prev.map((task) =>
+          selectedIds.includes(task.id)
+            ? updatedTasks.find((ut) => ut.id === task.id) || task
+            : task
+        )
+      )
+  
+      setSelectedIds([])
+      showNotification('✅ Tâches complétées (API) !')
+    } catch (err) {
+      console.error('Erreur lors de la complétion multiple', err)
+      showNotification('❌ Erreur lors de la complétion', 'error')
+    }
   }
+  
 
-  const completeSelectedTasks = () => {
-    const updated = tasks.map((task) => {
-      if (selectedIds.includes(task.id)) {
-        return { ...task, completed: true }
-      }
-      return task
-    })
-    setTasks(updated)
-    setSelectedIds([])
-    showNotification('✅ Tâches complétées !')
+  const restoreSelectedTasks = async () => {
+    try {
+      const updatedTasks = await Promise.all(
+        selectedIds.map(async (id) => {
+          const updated = await updateTache(id, { completed: false })
+          return {
+            ...tasks.find((task) => task.id === id),
+            completed: updated.completed
+          }
+        })
+      )
+  
+      setTasks((prev) =>
+        prev.map((task) =>
+          selectedIds.includes(task.id)
+            ? updatedTasks.find((ut) => ut.id === task.id) || task
+            : task
+        )
+      )
+  
+      setSelectedIds([])
+      showNotification('🔁 Tâches restaurées (API) !')
+    } catch (err) {
+      console.error('Erreur restauration multiple', err)
+      showNotification('❌ Erreur restauration', 'error')
+    }
   }
+  
 
-  const restoreSelectedTasks = () => {
-    const updated = tasks.map((task) => {
-      if (selectedIds.includes(task.id) && task.completed) {
-        return { ...task, completed: false }
-      }
-      return task
-    })
-    setTasks(updated)
-    setSelectedIds([])
-    showNotification('🔁 Tâches restaurées !')
+  const removeTag = async (id) => {
+    try {
+      const taskToUpdate = tasks.find((t) => t.id === id);
+      const updated = await updateTache(id, {
+        titre: taskToUpdate.title,
+        tag: '',
+        dueDate: taskToUpdate.dueDate,
+        priority: taskToUpdate.priority,
+        completed: taskToUpdate.completed,
+        pinned: taskToUpdate.pinned,
+        description: taskToUpdate.description
+      });
+  
+      setTasks(tasks.map((t) =>
+        t.id === id ? { ...t, tag: updated.tag } : t
+      ));
+  
+      showNotification('🏷️ Tag supprimé !');
+    } catch (err) {
+      console.error('Erreur suppression tag', err);
+      showNotification('❌ Erreur suppression tag', 'error');
+    }
   }
+  
 
-  const removeTag = (id) => {
-    setTasks(
-      tasks.map((task) => (task.id === id ? { ...task, tag: '' } : task))
-    )
+  const saveDescription = async (id, description) => {
+    try {
+      const taskToUpdate = tasks.find((t) => t.id === id);
+      const updated = await updateTache(id, {
+        titre: taskToUpdate.title,
+        tag: taskToUpdate.tag,
+        dueDate: taskToUpdate.dueDate,
+        priority: taskToUpdate.priority,
+        completed: taskToUpdate.completed,
+        pinned: taskToUpdate.pinned,
+        description: description
+      });
+  
+      setTasks(tasks.map((t) =>
+        t.id === id ? { ...t, description: updated.description } : t
+      ));
+  
+      showNotification('💾 Description enregistrée !');
+    } catch (err) {
+      console.error('Erreur sauvegarde description', err);
+      showNotification('❌ Erreur sauvegarde', 'error');
+    }
   }
-
-  const saveDescription = (id, description) => {
-    setTasks(
-      tasks.map((task) => (task.id === id ? { ...task, description } : task))
-    )
-  }
-
+  
   const getFilterTitle = () => {
     switch (filter) {
       case 'day':
@@ -182,19 +349,63 @@ const Tasks = () => {
     return matchDate && !task.completed && matchTag
   })
 
-  const restoreTask = (id) => {
-    const taskToRestore = tasks.find((task) => task.id === id)
-    if (taskToRestore) {
-      updateTask(
-        taskToRestore.id,
-        taskToRestore.title,
-        taskToRestore.tag,
-        taskToRestore.dueDate?.slice(0, 10),
-        false
-      )
-      showNotification('🔁 Tâche restaurée !')
+  const restoreTask = async (id) => {
+    try {
+      const taskToRestore = tasks.find((task) => task.id === id)
+      if (!taskToRestore) return
+  
+      const updated = await updateTache(id, {
+        titre: taskToRestore.title,
+        tag: taskToRestore.tag,
+        dueDate: taskToRestore.dueDate?.slice(0, 10),
+        priority: taskToRestore.priority,
+        pinned: taskToRestore.pinned,
+        completed: false,
+        description: taskToRestore.description
+      })
+  
+      setTasks(tasks.map((t) =>
+        t.id === id
+          ? {
+              ...t,
+              completed: updated.completed
+            }
+          : t
+      ))
+  
+      showNotification('🔁 Tâche restaurée (API) !')
+    } catch (error) {
+      console.error('Erreur restauration tâche unique', error)
+      showNotification('❌ Erreur restauration', 'error')
     }
   }
+  
+  const togglePinnedTask = async (task) => {
+    try {
+      const updated = await updateTache(task.id, {
+        titre: task.title,
+        tag: task.tag,
+        dueDate: task.dueDate,
+        priority: task.priority,
+        completed: task.completed,
+        pinned: !task.pinned,
+        description: task.description,
+      });
+  
+      setTasks(tasks.map((t) =>
+        t.id === task.id ? {
+          ...t,
+          pinned: updated.pinned
+        } : t
+      ));
+  
+      showNotification(updated.pinned ? '📍 Tâche épinglée !' : '📌 Tâche désépinglée !');
+    } catch (err) {
+      console.error('Erreur épinglage tâche', err);
+      showNotification('❌ Erreur lors de l’épinglage', 'error');
+    }
+  }
+  
 
   const toggleTaskSelection = (id) => {
     setSelectedIds((prev) =>
@@ -305,6 +516,7 @@ const Tasks = () => {
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
                 selectAllVisibleTasks={selectAllVisibleTasks}
+                togglePinnedTask={togglePinnedTask}
               />
             ) : filter === 'week' ? (
               <TasksWeekView
@@ -316,6 +528,7 @@ const Tasks = () => {
                 showNotification={showNotification}
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
+                togglePinnedTask={togglePinnedTask}
               />
             ) : filter === 'completed' ? (
               <CompletedTasks
@@ -327,6 +540,7 @@ const Tasks = () => {
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
                 selectAllVisibleTasks={selectAllVisibleTasks}
+                togglePinnedTask={togglePinnedTask}
               />
             ) : (
               <TasksList
@@ -339,6 +553,7 @@ const Tasks = () => {
                 showNotification={showNotification}
                 selectedIds={selectedIds}
                 toggleTaskSelection={toggleTaskSelection}
+                togglePinnedTask={togglePinnedTask}
               />
             )}
           </div>

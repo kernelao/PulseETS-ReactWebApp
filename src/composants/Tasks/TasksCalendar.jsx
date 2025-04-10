@@ -159,7 +159,8 @@ const TasksCalendar = ({
     <button onClick={() => openEditModal(task)}>Modifier</button>
     <button onClick={() => deleteTask(task.id)}>Supprimer</button>
     <button style={{ backgroundColor: "#28a745" }} onClick={() => handleComplete(task)}>✓</button>
-    <button onClick={() => togglePin(task)}>{task.pinned ? "📍" : "📌"}</button>
+    <button onClick={() => togglePinnedTask(task)}
+    >{task.pinned ? "📍" : "📌"}</button>
   </div>
 </div>
 

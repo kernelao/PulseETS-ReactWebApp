@@ -109,7 +109,8 @@ const TasksWeekView = ({
                                 <button onClick={() => openEditModal(task)}>Modifier</button>
                                 <button onClick={() => deleteTask(task.id)}>Supprimer</button>
                                 <button style={{ backgroundColor: "#28a745" }} onClick={() => handleComplete(task)}>✓</button>
-                                <button onClick={() => togglePin(task)}>
+                                <button onClick={() => togglePinnedTask(task)}
+                                >
                                     {task.pinned ? "📍" : "📌"}
                                 </button>
                             </div>
