@@ -3,28 +3,59 @@ import "../../components/Layout/Reglages/Reglages.css";
 import horloge from "../../assets/horloge.svg";  //icone d'horloge
 import Pinceau from "../../assets/pinceau.svg";  //icone de pinceau
 import { ThemeContext } from "../../context/ThemeContext"; //pour le changement de themes
+import { useOutletContext } from 'react-router-dom';
 
 const Reglages = () => {
 
   const { theme, changeTheme } = useContext(ThemeContext);
-  const [pomodoro, setPomodoro] = useState(25);
-  const [pauseCourte, setPauseCourte] = useState(5);
-  const [pauseLongue, setPauseLongue] = useState(15);
+  //const [pomodoro, setPomodoro] = useState(25);
+  //const [pauseCourte, setPauseCourte] = useState(5);
+  //const [pauseLongue, setPauseLongue] = useState(15);
   const [themeChoisi, setThemeChoisi] = useState(theme);
+  const { pomodoro, setPomodoro, pauseCourte, setPauseCourte, pauseLongue, setPauseLongue } = useOutletContext();
 
-  const handleSubmit = (e) => { //pour le choix de theme
-    e.preventDefault();
-    changeTheme(themeChoisi);
+ // const handleSubmit = (e) => { //pour le choix de theme
+ //   e.preventDefault();
+ //   changeTheme(themeChoisi);
+ // };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Préparer les données à envoyer
+  const data = {
+    pomodoro,
+    pauseCourte,
+    pauseLongue,
+    theme: themeChoisi,
   };
 
-  return (
+  // Envoi des réglages au backend via une requête POST
+  try {
+    const response = await fetch("/api/reglages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
+    if (response.ok) {
+      console.log("Réglages enregistrés avec succès !");
+    } else {
+      console.error("Erreur lors de l'enregistrement des réglages");
+    }
+  } catch (error) {
+    console.error("Erreur réseau : ", error);
+  }
+};
+
+  return (
+    <div id="app">
     <div id="mainReglages" className={(theme|| "").replace(" ", "-").toLowerCase()}>
 
-      <Navbar />
-
       <div id="reglages">
-        <h2 id="titreMainReglages">Paramètre</h2>
+        <h2 id="titreMainReglages">Réglages</h2>
         <hr className="barreReglages"/>
         <form onSubmit={handleSubmit}>
           <section id="minuteurReglages">
@@ -80,6 +111,7 @@ const Reglages = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

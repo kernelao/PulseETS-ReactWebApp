@@ -9,6 +9,10 @@ const SidebarLayout = ({ data }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
+  const [pomodoro, setPomodoro] = useState(25);
+  const [pauseCourte, setPauseCourte] = useState(5);
+  const [pauseLongue, setPauseLongue] = useState(15);
+
   return (
     <IconContext.Provider value={{ color: '#fff' }}>
       <div className="sidebar-layout">
@@ -35,7 +39,7 @@ const SidebarLayout = ({ data }) => {
 
         {/* Contenu principal */}
         <div className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
-          <Outlet />
+        <Outlet context={{ pomodoro, setPomodoro, pauseCourte, setPauseCourte, pauseLongue, setPauseLongue }} />
         </div>
       </div>
     </IconContext.Provider>
