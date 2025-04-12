@@ -3,6 +3,7 @@ import CircleTimer from './CircleTimer.jsx';
 import QuickPanneau from './QuickPanneau.jsx';
 
 const TimerPom = ({ pomodoro, pauseCourte, pauseLongue }) => {
+
   return (
     <div className="all_timer_container">
       {/* On passe les valeurs à CircleTimer */}
@@ -16,7 +17,9 @@ const TimerPom = ({ pomodoro, pauseCourte, pauseLongue }) => {
       <QuickPanneau />
     </div>
   );
+
 };
+
 
 
 export default TimerPom;
