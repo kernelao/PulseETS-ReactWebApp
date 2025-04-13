@@ -6,7 +6,7 @@ import { UserSidebarData } from '../composants/sidebar/UserSidebarData'
 // Pages utilisateur
 import Dashboard from "../pages/utilisateur/Dashboard";
 import Profil from "../pages/utilisateur/Profil";
-//import Reglages from "../pages/utilisateur/Settings";
+import Reglages from "../pages/utilisateur/Reglages";
 import Pomodoro from "../pages/utilisateur/Pomodoro";
 import Notes from "../pages/utilisateur/Notes";
 import Taches from "../pages/utilisateur/Taches";
@@ -23,7 +23,7 @@ const PrivateRoutes = () => {
       <Route element={<SidebarLayout data={UserSidebarData} />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="profil" element={<Profil />} />
-        {/* <Route path="reglages" element={<Reglages />} /> */}
+        <Route path="reglages" element={<Reglages />} />
         <Route path="pomodoro" element={<Pomodoro />} />
         <Route path="notes" element={<Notes />} />
         <Route path="taches" element={<Taches />} />

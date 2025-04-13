@@ -41,8 +41,8 @@ const Reglages = () => {
         const reglage = res.data;
   
         setPomodoro(reglage.pomodoro);
-        setPauseCourte(reglage.courtePause ?? 5);
-        setPauseLongue(reglage.longuePause ?? 15);
+        setPauseCourte(reglage.courte_pause ?? 5);
+        setPauseLongue(reglage.longue_pause ?? 15);
         setThemeChoisi(reglage.theme);
         changeTheme(reglage.theme);
         setReglageId(reglage.id);
@@ -72,8 +72,8 @@ const Reglages = () => {
         `/reglages/${reglageId}`,
         {
           pomodoro: parseInt(pomodoro),
-          short_break: parseInt(pauseCourte),
-          long_break: parseInt(pauseLongue),
+          courte_pause: parseInt(pauseCourte),
+          longue_pause: parseInt(pauseLongue),
           theme: themeChoisi,
         },
         {
