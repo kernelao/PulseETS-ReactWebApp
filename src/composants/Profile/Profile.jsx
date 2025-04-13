@@ -11,7 +11,7 @@ function Profile() {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [isAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
   const [availableAvatars, setAvailableAvatars] = useState([]);
-  const [pointsPulse, setPointsPulse] = useState(0); // Nouvelle variable pour les points Pulse
+  const [pulsePoints, setPointsPulse] = useState(0); // Nouvelle variable pour les points Pulse
   const [recompenses, setRecompenses] = useState([]); // Nouvelle variable pour les récompenses
   const [oldPsw, setOldPsw] = useState("");
   const [newPsw, setNewPsw] = useState("");
@@ -182,7 +182,7 @@ function Profile() {
       {/* Affichage des points Pulse */}
       <div className="points-pulse-container">
         <h2 className="h2Profile">Points Pulse</h2>
-        <p>Points actuels : {pointsPulse}</p>
+        <p className="points">Points actuels : {pulsePoints}</p>
       </div>
 
       <div className="securite_container">
