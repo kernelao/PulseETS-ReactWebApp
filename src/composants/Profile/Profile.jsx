@@ -38,7 +38,7 @@ function Profile() {
       });
       alert("Mot de passe modifié avec succès !");
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/connexion";
     } catch (err) {
       const message = err.response?.data?.message || "Erreur lors de la modification du mot de passe";
       if (message.toLowerCase().includes("ancien")) {
@@ -61,7 +61,7 @@ function Profile() {
       });
       alert("Courriel modifié avec succès !");
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/connexion";
     } catch (err) {
       const message = err.response?.data?.message || "Erreur lors de la modification du courriel";
       if (message.toLowerCase().includes("ancien")) {

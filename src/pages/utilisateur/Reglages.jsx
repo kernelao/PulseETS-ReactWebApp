@@ -18,6 +18,8 @@ const Reglages = () => {
   const [themeChoisi, setThemeChoisi] = useState(theme);
   const { pomodoro, setPomodoro, pauseCourte, setPauseCourte, pauseLongue, setPauseLongue } = useOutletContext();
   const [reglageId, setReglageId] = useState(null);
+  const [disponiblesThemes, setDisponiblesThemes] = useState([]);
+
 
   const { token, isAuthenticated } = useAuth(); // on récupère le token JWT
   if (!isAuthenticated) return <Navigate to="/connexion" />;
@@ -52,6 +54,14 @@ const Reglages = () => {
     }
   
     fetchOrCreateReglage();
+
+    axios.get('/boutique/profile')
+    .then(res => {
+      setDisponiblesThemes(res.data.unlockedThemes || []);
+    })
+    .catch(err => {
+      console.error("Erreur chargement des thèmes disponibles :", err);
+    });
   }, [token]);
   
 
@@ -139,10 +149,11 @@ const Reglages = () => {
                 value={themeChoisi}
                 onChange={(e) => setThemeChoisi(e.target.value)}
               >
-                <option value="Mode zen">Mode zen</option>
-                <option value="Mode nuit">Mode nuit</option>
-                <option value="Mode jour">Mode jour</option>
+                {disponiblesThemes.map((theme, i) => (
+                  <option key={i} value={theme}>{theme}</option>
+                ))}
               </select>
+
             </label>
           </section>
 

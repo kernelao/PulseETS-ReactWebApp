@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AVATAR from '/src/assets/image_avatar';
 import './Boutique.css';
 import axios from '../../api/Axios';
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Boutique = () => {
   const [avatars, setAvatars] = useState([]);
@@ -14,6 +15,8 @@ const Boutique = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [previewTheme, setPreviewTheme] = useState(null);
+  const { changeTheme } = useContext(ThemeContext);
+
 
 
   const defaultAvatars = [
@@ -142,6 +145,7 @@ const Boutique = () => {
         themeName: selectedTheme.name
       });
       setMessage(res.data.message);
+      changeTheme(selectedTheme.name); // 👈 applique le thème immédiatement
     } catch (err) {
       setMessage(err.response?.data?.message || "Erreur");
     }
