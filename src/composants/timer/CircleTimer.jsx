@@ -94,8 +94,9 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        startedAt: startTime?.toISOString(),
-        endedAt: endedAt.toISOString(),
+        //Ajuste l'heure UTC pour refleter correctement l'heure locale (Montreal), pour eviter erreur de date dans stats
+        startedAt: new Date(startTime.getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString(),
+        endedAt: new Date(endedAt.getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString(),        
         pomodoros_completes: pomodoroCount,
         pomodoroDuration: duration.pomodoro,
         shortBreak: duration.pauseCourte,
