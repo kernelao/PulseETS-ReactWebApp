@@ -14,7 +14,9 @@ import Boutique from "../pages/utilisateur/Boutique";
 import Aide from "../pages/utilisateur/Aide";
 
 const PrivateRoutes = () => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isReady } = useAuth()
+
+  if (!isReady) return null
 
   if (!isAuthenticated) return <Navigate to="/connexion" replace />
 

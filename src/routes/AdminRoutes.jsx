@@ -10,7 +10,9 @@ import GestionBoutique from '../pages/admin/GestionBoutique'
 import GestionReglages from '../pages/admin/GestionReglages'
 
 const AdminRoutes = () => {
-  const { isAuthenticated, isAdmin } = useAuth()
+  const { isAuthenticated, isAdmin, isReady } = useAuth()
+
+  if (!isReady) return null
 
   if (!isAuthenticated || !isAdmin) {
     return <Navigate to="/connexion" replace />
@@ -25,8 +27,8 @@ const AdminRoutes = () => {
         <Route path="reglages" element={<GestionReglages />} />
 
         {/* Redirection par défaut */}
-        <Route index element={<Navigate to="adminDashboard" replace />} />
-        <Route path="*" element={<Navigate to="adminDashboard" replace />} />
+        <Route index element={<AdminDashboard />} />
+        <Route path="*" element={<AdminDashboard />} />
       </Route>
     </Routes>
   )
