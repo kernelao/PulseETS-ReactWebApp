@@ -21,24 +21,32 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [token, setToken] = useState(null)
+  const [isReady, setIsReady] = useState(false)
 
-  // 🔄 Chargement automatique au démarrage
+  // chargement automatique au démarrage
   useEffect(() => {
     const storedToken = localStorage.getItem('token')
     if (storedToken) {
       try {
         const decoded = jwtDecode(storedToken)
+        console.log('🔐 Token décodé :', decoded)
+  
         const isExpired = decoded.exp * 1000 < Date.now()
-
+  
         if (!isExpired) {
           setToken(storedToken)
           setIsAuthenticated(true)
-          setIsAdmin(
-            decoded.role === 'ROLE_ADMIN' ||
-              decoded.role === 'admin' ||
-              (Array.isArray(decoded.role) &&
-                decoded.role.includes('ROLE_ADMIN'))
-          )
+  
+          const roleIsAdmin = (() => {
+            if (!decoded.role) return false
+            if (typeof decoded.role === 'string') return decoded.role.includes("ADMIN")
+            if (Array.isArray(decoded.role)) return decoded.role.some(r => r.includes("ADMIN"))
+            return false
+          })()
+  
+          console.log('🎩 Est admin ?', roleIsAdmin)
+  
+          setIsAdmin(roleIsAdmin)
         } else {
           localStorage.removeItem('token')
         }
@@ -47,9 +55,10 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('token')
       }
     }
+    setIsReady(true)
   }, [])
 
-  // 🔐 Connexion réelle
+  // connexion réelle
   const login = (newToken, role) => {
     localStorage.setItem('token', newToken)
     setToken(newToken)
@@ -61,7 +70,7 @@ const AuthProvider = ({ children }) => {
     )
   }
 
-  // 🚪 Déconnexion
+  // déconnexion
   const logout = () => {
     localStorage.removeItem('token')
     setToken(null)
@@ -69,7 +78,7 @@ const AuthProvider = ({ children }) => {
     setIsAdmin(false)
   }
 
-  // 🧪 Simulation d'utilisateur (dev uniquement)
+  // simulation d'utilisateur (dev uniquement)
   const simulateUser = () => {
     if (process.env.NODE_ENV === 'development') {
       const fakeToken = createFakeJWT('ROLE_USER')
@@ -80,7 +89,7 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  // 🧪 Simulation d'admin (dev uniquement)
+  // simulation d'admin (dev uniquement)
   const simulateAdmin = () => {
     if (process.env.NODE_ENV === 'development') {
       const fakeToken = createFakeJWT('ROLE_ADMIN')
@@ -91,7 +100,7 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  // 🔁 Réinitialisation simulation
+  // réinitialisation simulation
   const resetSimulation = () => {
     if (process.env.NODE_ENV === 'development') {
       logout()
@@ -100,6 +109,7 @@ const AuthProvider = ({ children }) => {
   }
 
   const value = {
+    isReady,
     isAuthenticated,
     isAdmin,
     token,

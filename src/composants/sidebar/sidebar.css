@@ -96,7 +96,6 @@
 
 /* Contenu principal */
 .main-content {
-  padding: 2rem;
   margin-left: 70px;
   transition: margin-left 350ms ease;
   width: 100%;
@@ -109,4 +108,36 @@
 /* Empêche les paragraphes d'être centrés à cause d'autres CSS globaux */
 .main-content p {
   text-align: left !important;
+}
+
+.logout-item {
+  margin-top: auto;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.logout-item a {
+  color: white;
+}
+
+.logout-item a span {
+  color: white;
+}
+
+.nav-menu-items-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.nav-menu-items,
+.nav-menu-bottom {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu-bottom {
+  margin-bottom: 1rem;
 }
