@@ -47,7 +47,7 @@
     position: absolute;
     top: 10;
     right: 0;
-    background-color: #2f80ed;
+    background-color: #3345a7;
     color: white;
     border: none;
     border-radius: 8px;        
@@ -101,6 +101,10 @@
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
+
+  .mode-nuit .summary-column > div {
+    background-color: #171a38;
+  }
   
   .summary-column p {
     font-size: 14px;
@@ -115,3 +119,12 @@
     color: #2f80ed;
   }
   
+/*couleur tableau stats*/
+   .mode-nuit .stats-container {
+    background-color: #171a38;
+  }
+  
+  .mode-zen .stats-container {
+    background-color: #cfe4d9;
+  }
+ 
