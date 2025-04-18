@@ -27,8 +27,8 @@ p {
   text-align: center;
 }
 
-input[type='text'],
-input[type='password'],
+input[type="text"],
+input[type="password"],
 button {
   font-size: 22px;
   padding: 0.25rem;
@@ -72,8 +72,8 @@ button {
 }
 
 @media (max-width: 600px) {
-  input[type='text'],
-  input[type='password'],
+  input[type="text"],
+  input[type="password"],
   button {
     width: 60%;
     font-size: 18px;

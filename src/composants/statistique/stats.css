@@ -1,0 +1,117 @@
+.stats-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    width: 90%;
+    padding: 0 40px;
+  }
+  
+  /* CHART SECTION */
+  .stats-container {
+    flex-basis: 80%;
+    background: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    max-width: 1900px;
+    position: relative;
+  }
+  
+  /* HEADER + BUTTON */
+  .stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin-bottom: 8px;
+    position: relative;
+  }
+  
+  .stats-header h3 {
+    font-size: 22px;
+    margin: 0;
+  }
+  
+  .button-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  .stats-header button {
+    width: 120px;              
+    text-align: center;
+    padding: 6px 10px;
+    font-size: 13px;           
+    position: absolute;
+    top: 10;
+    right: 0;
+    background-color: #2f80ed;
+    color: white;
+    border: none;
+    border-radius: 8px;        
+    cursor: pointer;
+    height: fit-content;
+    line-height: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);   
+    transition: all 0.2s ease;                 
+  }
+  
+  .stats-header button:hover {
+    background-color: #1c60c4;
+    transform: translateY(-1px);              
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+  }
+  
+  .stats-header button:active {
+    transform: translateY(1px);               
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* SUMMARY SECTION */
+  .stats-summary {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 25px;  
+}
+  
+  .summary-section h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #444;
+    align-self: flex-end;
+  }
+  
+  /* STAT BOXES */
+  .summary-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  
+  .summary-column > div {
+    background-color: #f5f8ff;
+    width: 130px;
+    text-align: right;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .summary-column p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  
+  .summary-column strong,
+  .summary-column span {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2f80ed;
+  }
+  

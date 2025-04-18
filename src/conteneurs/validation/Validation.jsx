@@ -20,7 +20,7 @@ const INSCRIPTION_URL = '/inscription'
 
 
 const Validation = () => {
-  const { login } = useAuth() // ✅ Import du login
+  const { login } = useAuth() 
   const navigate = useNavigate()
   const userRef = useRef()
   const errRef = useRef()
@@ -70,7 +70,7 @@ const Validation = () => {
       
 
       const token = response?.data?.token
-      const role = response?.data?.role || 'user' // <- récupère le rôle renvoyé par Symfony
+      const role = response?.data?.role || 'user'
 
       if (token) {
         login(token, role)
