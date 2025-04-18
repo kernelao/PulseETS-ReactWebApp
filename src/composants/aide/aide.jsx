@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './aide.css';
 import axios from './../../api/Axios';
-
+import { ThemeContext } from "../../context/ThemeContext";
 
 const AideMain = () => {
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(" ", "-");
+
   const [objet, setObjet] = useState('');
   const [type, setType] = useState('question');
   const [message, setMessage] = useState('');
@@ -36,6 +39,7 @@ const AideMain = () => {
       setFeedback("Erreur lors de l'envoi du message.");
     }
   };
+
   const chargerHistorique = async () => {
     try {
       const res = await axios.get('/aide/utilisateur');
@@ -53,7 +57,7 @@ const AideMain = () => {
   };
 
   return (
-    <div className="aideMain">
+    <div className={`aideMain mode-${themeClass}`}>
       <div className="aideContact">
         <h2>Nous contacter</h2>
 
@@ -122,39 +126,39 @@ const AideMain = () => {
         {feedback && <p className="aideFeedback">{feedback}</p>}
 
         {afficherHistorique && (
-  <div className="modal-overlay">
-    <div className="modal-content">
-      <button className="modal-close-btn" onClick={() => setAfficherHistorique(false)}>
-        Fermer
-      </button>
-      <h3>Historique de vos messages</h3>
-      <ul className="historiqueListe">
-  {[...historique]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .map((msg) => (
-      <li key={msg.id} className="messageCard">
-        <div className="messageHeader">
-          <div className="objet">{msg.objet}</div>
-          <div className="date">{msg.date ? new Date(msg.date).toLocaleString() : '—'}</div>
-        </div>
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button className="modal-close-btn" onClick={() => setAfficherHistorique(false)}>
+                Fermer
+              </button>
+              <h3>Historique de vos messages</h3>
+              <ul className="historiqueListe">
+                {[...historique]
+                  .sort((a, b) => new Date(b.date) - new Date(a.date))
+                  .map((msg) => (
+                    <li key={msg.id} className="messageCard">
+                      <div className="messageHeader">
+                        <div className="objet">{msg.objet}</div>
+                        <div className="date">{msg.date ? new Date(msg.date).toLocaleString() : '—'}</div>
+                      </div>
 
-        <div className="messageBody">
-          <p><strong>Message :</strong> {msg.contenu}</p>
-          <p><strong>Priorité :</strong> {msg.priorite}</p>
-        </div>
+                      <div className="messageBody">
+                        <p><strong>Message :</strong> {msg.contenu}</p>
+                        <p><strong>Priorité :</strong> {msg.priorite}</p>
+                      </div>
 
-        {msg.reponse && (
-          <div className="reponseBloc">
-            <strong>Réponse de l’équipe :</strong>
-            <p>{msg.reponse}</p>
+                      {msg.reponse && (
+                        <div className="reponseBloc">
+                          <strong>Réponse de l’équipe :</strong>
+                          <p>{msg.reponse}</p>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         )}
-      </li>
-  ))}
-</ul>
-    </div>
-  </div>
-)}
       </div>
     </div>
   );

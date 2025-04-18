@@ -12,8 +12,9 @@ import { createTache, deleteTache } from '../../api/tachesApi'
 import { fetchTaches } from '../../api/tachesApi'
 import { updateTache, completeTache } from '../../api/tachesApi' // ajoute completeTache si ce n'est pas déjà fait
 import { restoreTache } from '../../api/tachesApi'
+import { ThemeContext } from "../../context/ThemeContext"; 
 
-const Tasks = () => {
+constTasks = () => {
   const [tasks, setTasks] = useState([])
   const [selectedTask, setSelectedTask] = useState(null)
   const [filter, setFilter] = useState('day')
