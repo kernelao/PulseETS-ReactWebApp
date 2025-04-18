@@ -54,7 +54,7 @@ p {
 }
 
 .mode-nuit {
-  --bg-color: #0b0624;
+  --bg-color: #0b0626;
   --text-color: #dcdcdc;
   background-color: var(--bg-color);
   color: var(--text-color);

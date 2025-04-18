@@ -348,12 +348,12 @@ textarea {
 }
 
 .app.mode-nuit {
-  background-color: #0b0624;
+  background-color: #0b0626;
   color: #e0e0e0;
 }
 
 .app.mode-nuit .sidebar {
-  background-color: #0b0624;
+  background-color: #0b0626;
   border-right: 1px solid #444;
 }
 
@@ -372,7 +372,7 @@ textarea {
 }
 
 .app.mode-nuit .editor {
-  background-color: #0b0624;
+  background-color: #0b0626;
   color: #f0f0f0;
 }
 

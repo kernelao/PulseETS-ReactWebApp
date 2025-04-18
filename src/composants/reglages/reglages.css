@@ -124,7 +124,7 @@
 }
 
 #mainReglages.mode-nuit {
-  background-color: #0b0624;
+  background-color: #0b0626;
 }
 
 #mainReglages.mode-nuit #reglages {
@@ -207,7 +207,8 @@
 .mode-zen #reglages { background-color: #e6f5e1; }
 .mode-zen #boutonEnregistrerReglages { background-color: #9cccb5; }
 
-.mode-nuit #mainReglages { background-color: #0b0624; }
+.mode-nuit #mainReglages { background-color: #0b0626; }
+.mode-nuit #boutonEnregistrerReglages { background-color: #2a387f; }
 
 .mode-jour #mainReglages { background-color: #eef5f8; }
 .mode-jour #reglages { background-color: white; }
