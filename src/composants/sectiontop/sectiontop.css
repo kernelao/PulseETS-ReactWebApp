@@ -2,28 +2,41 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 80px 20px;
-  text-align: center;
-  color: white;
-
-  /* Ces 3 lignes évitent le "margin collapsing" */
-  display: flow-root;
+  min-height: 75vh; /* donne une hauteur visible pleine page */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  overflow: hidden;
+  color: white;
+  padding: 150px 20px;
+}
+
+.section-top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* overlay plus intense pour la lisibilité */
+  z-index: 1;
 }
 
 .section-top-content {
-  background-color: rgba(0, 0, 0, 0.5); /* facultatif */
-  padding: 20px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5); /* pour adoucir le contraste */
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
   max-width: 800px;
-  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .section-top h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
 .section-top p {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
 }

@@ -27,9 +27,9 @@ p {
   text-align: center;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='password'],
+input[type="text"],
+input[type="email"],
+input[type="password"],
 button,
 textarea {
   font-size: 22px;
@@ -100,9 +100,9 @@ button {
 }
 
 @media (max-width: 600px) {
-  input[type='text'],
-  input[type='email'],
-  input[type='password'],
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
   button,
   textarea {
     width: 60%;
