@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Recompenses from '/src/composants/Recompenses/Recompenses.jsx';
 import './Profile.css';
 import api from "../../api/Axios";
 import AVATAR,  { avatarMap } from '/src/assets/image_avatar'
+import { ThemeContext } from '../../context/ThemeContext';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -18,6 +19,8 @@ function Profile() {
   const [oldPswError, setOldPswError] = useState("");
   const [newPswError, setNewPswError] = useState("");
   const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(' ', '-');
 
 
   const [oldEmail, setOldEmail] = useState("");
@@ -151,6 +154,7 @@ function Profile() {
   if (error) return <p>Erreur : {error}</p>;
 
   return (
+    <div className={`profile_container ${themeClass}`}>
     <div className="profile_container">
       <h1 className="h1Profile">Profile</h1>
       <div className="profile_image" onClick={handleAvatarClick}>
@@ -272,6 +276,7 @@ function Profile() {
         <Recompenses recompenses={recompenses} /> {/* Passer les récompenses au composant */}
       </div>
     </div>
+  </div>
   );
 }
 

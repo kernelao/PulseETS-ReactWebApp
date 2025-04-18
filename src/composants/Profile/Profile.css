@@ -1,182 +1,164 @@
-.profile_container{
-    background-color: #080b25;
-    height: auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    min-height: 100vh;
-    color: white;
-}
-
-.h1Profile {
+.profile_container {
+    padding-top: 1rem;     
+    padding-bottom: 2rem;
+    align-items: center;   
+  }
+  
+  .profile_container > .points-pulse-container,
+  .profile_container > .securite_container,
+  .profile_container > .recompenses_container {
+    width: 90%;
+    max-width: 600px;
+    margin: 1rem 0;            /* espace vertical */
+  }
+  
+  .points-pulse-container,
+  .securite_container,
+  .recompenses_container {
+    background-color: #fff;
+    color: #000;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+  }
+  
+  .points-pulse-container {
     text-align: center;
-}
-
-.avatars-container{
+  }
+  .points-pulse-container p {
+    background-color: #3345a7;
+    color: #fff;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+  
+  .h1Profile,
+  .h2Profile {
+    margin: 0 0 1rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  .securite_container .h2Profile,
+  .recompenses_container .h2Profile {
+    text-align: left;
+  }
+  
+  .btnProfile {
+    display: inline-block;
+    background-color: #2f80ed;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    font-size: 1rem;
     cursor: pointer;
-}
-
-.profile-image {
+    transition: background-color 0.2s, transform 0.1s;
+  }
+  .btnProfile:hover {
+    background-color: #1c60c4;
+    transform: translateY(-1px);
+  }
+  .btnProfile:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  
+  .profile_image {
+    margin: 1rem auto;
+    text-align: center;
+  }
+  .profile-img {
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: inline-block;
+    margin: 0 auto;
+  }
+  
+  .popup-box {
+    max-width: 350px;
+    z-index: 1001;
+  }
+  
+  .profile_container.mode-nuit .points-pulse-container,
+  .profile_container.mode-nuit .securite_container,
+  .profile_container.mode-nuit .recompenses_container {
+    background-color: #171a38;
+    color: rgb(183, 181, 181);
+  }
+  .profile_container.mode-nuit .btnProfile {
+    background-color: #2d2b36;
+    color: rgb(183, 181, 181);
+  }
+  .profile_container.mode-nuit .points-pulse-container p {
+    background-color: #3345a7;
+    color: #fff;
+  }
+  
+  .profile_container > *:not(.popup-overlay) {
+    width: 90%;
+    max-width: 600px;
+    margin: 1rem auto;
+  }
+  
+  .securite_container .btnProfile {
+    width: auto;
+    max-width: 140px;
+    padding: 0.5rem 1rem;
+    background-color: #3345a7;
+    color: #fff;
+    margin: 0.5rem auto;
+    display: block;
+  }
+  .securite_container .btnProfile:hover {
+    background-color: #2a387f;
+    transform: translateY(-1px);
+  }
+  .securite_container .btnProfile:active {
+    transform: translateY(1px);
+  }
+  
+  .securite_container .h2Profile {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .recompenses_container .h2Profile {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .recompenses_container #iconeBadges,
+  .recompenses_container #iconeObjectifs {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #080b25;
-    object-fit: cover;
-    flex-wrap: nowrap;
-    cursor: pointer;
-}
-
-.securite_container{
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
-    background-color: #272738;
-    align-content: center;
-    padding: 10px 10px;
-    margin: 15px 15px;
-    width: 95%;
-    height: auto;
-}
-
-.securite_container .h2Profile{
-    text-align: center;
-    padding: 10px;
-    margin: 0;
-}
-
-.modifier_section {
-    margin: 10px 0;
-    text-align: center;
-}
-
-.points-pulse-container p{
-    font-size: 1.2rem;
-    font-weight: bold;
-    background: #3345a7;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.btnProfile{
-    border-radius: 8px;
-    border-color: 1px black;
-    background-color: #1e1847;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 200px;
-    margin-top: 3%;
-    margin-bottom: 2%;
-    font-size: 16px;
-    color: white;
-}
-
-.btnProfile:hover {
-    background-color: #9ca0d0;
-    color: white;
-}
-
-.popup-overlay {
+    gap: 15px;
+    margin: 35px 0;
+  }
+  
+  .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-}
-
-.popup-box {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    display: flex;
-    align-items: center;
-}
-
-.popup-box .formProfile {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.popup-box .inputProfile {
-border-radius: 8px;
-padding: 10px;
-width: 80%;
-margin-bottom: 10px;
-}
-
-.popup-box .btnProfile {
-    width: 100%;
-    padding: 10px;
-    background-color: #ababb4;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.popup-box .btnProfile:hover {
-    background-color: #9ca0d0;
-}
-
-.popup-box .inputProfile::placeholder {
-    color: black;
-}
-
-.inputProfile::placeholder{
-    color: black;
-}
-
-.boite_formulaire{
-    border-radius: 8px;
-    border: none;
-    background-color: #ababb4;
-    padding: 10px;
-    width: 50%;
-    margin-left: 2%;
-}
-
-.inputProfile:hover::placeholder {
-    color: white;
-}
-
-.recompenses_container{
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: #272738;
-    padding: 10px 10px;
-    margin: 15px 15px;
-    height: auto;
-    width: 95%;
-    align-items: center;
-}
-.recompenses_container .h2Profile{
-    margin: 0;
-}
-
-.boite_formulaire:hover{
-    background-color: #9ca0d0;
-}
-
-.h2Profile{
-justify-self: center;
-}
+  }
+  
+  .popup-overlay .popup-box {
+    margin-left: 15rem;
+  }
+  
+  .popup-overlay .popup-box .btnProfile {
+    width: auto;
+    max-width: 120px;
+    padding: 0.5rem 0.75rem;
+  }
+  
