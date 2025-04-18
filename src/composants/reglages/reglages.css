@@ -47,7 +47,6 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0;
-  color: #24332a;
 }
 
 #ligne2Reglages {
@@ -164,7 +163,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #24332a;
 }
 
 .barreReglages {
@@ -210,16 +208,39 @@
 .spanReglages {
   font-size: 1rem;
   font-weight: bold;
-  color: #24332a;
 }
 
 .mode-zen #mainReglages { background-color: #9cccb5; }
 .mode-zen #reglages { background-color: #e6f5e1; }
 .mode-zen #boutonEnregistrerReglages { background-color: #9cccb5; }
 
-.mode-nuit #mainReglages { background-color: #0b0626; }
-.mode-nuit #boutonEnregistrerReglages { background-color: #2a387f; }
+.mode-nuit #mainReglages { background-color: #0b0626; 
+color: #eaeaea;}
+.mode-nuit .sousTitreReglages {
+  color: #eaeaea;}
+.mode-nuit #boutonEnregistrerReglages {
+  background-color: #2a387f;
+color: #eaeaea; }
+.mode-nuit #titreMainReglages {
+  color: #eaeaea;
+}
+.mode-nuit label {
+  color: #eaeaea;
+}
 
 .mode-jour #mainReglages { background-color: #eef5f8; }
 .mode-jour #reglages { background-color: white; }
 .mode-jour #boutonEnregistrerReglages { background-color: #a6d4ff; }
+
+.mode-zen #mainReglages {
+  color: #0b0626;}
+  .mode-zen .sousTitreReglages {
+    color: #0b0626;}
+  .mode-zen #boutonEnregistrerReglages {
+  color: #0b0626; }
+  .mode-zen #titreMainReglages {
+    color: #0b0626;
+  }
+  .mode-zen label {
+    color: #0b0626;
+  }
