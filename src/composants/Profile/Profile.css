@@ -9,7 +9,7 @@
   .profile_container > .recompenses_container {
     width: 90%;
     max-width: 600px;
-    margin: 1rem 0;            /* espace vertical */
+    margin: 1rem 0;     
   }
   
   .points-pulse-container,
@@ -162,22 +162,17 @@
     padding: 0.5rem 0.75rem;
   }
 
-
-  /* Vert pâle pour les rectangles blancs (mode par défaut) */
 .mode-zen .points-pulse-container,
 .mode-zen .securite_container,
 .mode-zen .recompenses_container {
-  background-color: #e6f5e1; /* Vert pâle */
+  background-color: #e6f5e1; 
 }
 
-/* Vert plus sombre pour le mode nuit, pour conserver le contraste */
 .mode-zen .profile_container.mode-nuit .points-pulse-container,
 .mode-zen .profile_container.mode-nuit .securite_container,
 .mode-zen .profile_container.mode-nuit .recompenses_container {
-  background-color: #24332a; /* Vert foncé, adapté pour mode nuit */
+  background-color: #24332a;
 }
-
-
 
 .mode-zen .rectProfile { background-color: #9cccb5; }
 

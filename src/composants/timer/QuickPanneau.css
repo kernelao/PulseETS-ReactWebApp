@@ -46,7 +46,7 @@
   max-height: 500px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #10217f #E0EDD4; /* barre bleue sur fond vert pâle */
+  scrollbar-color: #10217f #E0EDD4; 
 }
 
 .sliding-panel.open::-webkit-scrollbar {
@@ -151,8 +151,6 @@
   flex-grow: 1;
 }
 
-/*taches rapides*/
-
 .task-row {
   display: flex;
   align-items: center;
@@ -232,7 +230,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Menu déroulant */
 .dropdown-menu {
   position: absolute;
   top: 28px;
@@ -279,21 +276,14 @@
   transform: rotate(180deg);
 }
 
-/* Le panneau coulissant */
 .sliding-panel {
-  /* on enlève la bordure bleue */
   border: none;
-  /* coins arrondis */
   border-radius: 12px;
-  /* fond existant (whitesmoke) on le garde */
   background-color: whitesmoke;
 }
 
-/* Le wrapper autour du panneau si tu veux qu’il prenne toute la hauteur */
 .sliding-panel-wrapper {
-  /* pour pouvoir faire défiler si besoin */
   min-height: 100vh;
-  /* coins arrondis aussi */
   border-radius: 12px;
 }
 
@@ -304,16 +294,11 @@
   border-radius: 8px;
 }
 
-/* 1) Empêche tout scroll dans le timer */
+
 .cercle_main {
   overflow: hidden;
 }
 
-/* —————————————————————————————— */
-/* 16. SUPPRIMER TOUT SCROLL DANS LE PANEL */
-/* —————————————————————————————— */
-
-/* On retire la limite de hauteur et toute barre de scroll */
 .sliding-panel,
 .sliding-panel.open {
   max-height: none !important;
@@ -322,16 +307,14 @@
   overflow-x: hidden !important;
 }
 
-/* Si le wrapper crée un scroll, on le désactive aussi */
+
 .sliding-panel-wrapper {
   max-height: none !important;
   height: auto !important;
   overflow: hidden !important;
 }
 
-/* —————————————————————————————— 
-   SUPPRESSION DU SCROLL (override minimal) 
-   —————————————————————————————— */
+
 .cercle_main,
 .sliding-panel-wrapper,
 .sliding-panel,
@@ -342,22 +325,13 @@
   height: auto;
 }
 
-/* ===================================================
-   MODE NUIT : RECTANGLES EN GRIS FONCÉ
-   =================================================== */
-
-/* 1) Le fond global du panneau (wrapper) */
 .profile_container.mode-nuit .sliding-panel-wrapper {
   background-color: #2d2d2d;
 }
 
-/* 2) Le fond du panel lui‑même */
 .profile_container.mode-nuit .sliding-panel-wrapper .sliding-panel {
   background-color: #3a3a3a;
-  border-color: #3a3a3a;  /* harmonise la bordure */
-}
-
-/* Si tu veux aussi que le texte devienne plus clair */
+  border-color: #3a3a3a;  
 .profile_container.mode-nuit .sliding-panel-wrapper,
 .profile_container.mode-nuit .sliding-panel-wrapper .sliding-panel {
   color: #dcdcdc;
@@ -389,53 +363,40 @@
   background-color: #2b2b2b;
   color:            #e0e0e0;
 }
-/* ——————————————————————————————
-   MODE NUIT : épurer les encadrés blancs
-   —————————————————————————————— */
 
-/* 1) Fond du panel entier */
 .sliding-panel-wrapper.mode-nuit {
   background-color: #2b2b2b;
   color:            #e0e0e0;
 }
 
-/* 2) Fond du panneau intérieur (la carte) */
 .sliding-panel-wrapper.mode-nuit .sliding-panel {
   background-color: #2b2b2b;
   border-color:     #2b2b2b;
 }
 
-/* 3) Fond de chaque item (li) */
 .sliding-panel-wrapper.mode-nuit .item-row {
   background-color: #373737;
   border-color:     #373737;
 }
 
-/* 4) Texte des items en clair */
 .sliding-panel-wrapper.mode-nuit .task-text,
 .sliding-panel-wrapper.mode-nuit .note-text {
   color: #e0e0e0;
 }
 
-/* 5) Menu déroulant assorti */
 .sliding-panel-wrapper.mode-nuit .dropdown-menu {
   background:      #373737;
   border-color:    #373737;
   color:           #e0e0e0;
 }
 
-/* 6) Bouton “+” et inputs en gris foncé */
 .sliding-panel-wrapper.mode-nuit .add-btn {
-  background-color: #3345a7; /* conserve ton bleu pour le “+” */
+  background-color: #3345a7; 
 }
 .sliding-panel-wrapper.mode-nuit .sliding-input {
   background-color: #2b2b2b;
   color:            #e0e0e0;
 }
-
-/* ——————————————————————————————
-   QuickPanneau.css
-   —————————————————————————————— */
 
    .sliding-panel-wrapper {
     width: 100%;
@@ -628,11 +589,6 @@
     background-color: #f2f2f2;
   }
   
-  /* ——————————————————————————————
-     OVERRIDES THÈME
-     —————————————————————————————— */
-  
-  /* MODE NUIT → gris foncé */
   .sliding-panel-wrapper.mode-nuit .sliding-panel {
     background-color: #2d2b36;
     border-color:     #2d2b36;
@@ -651,7 +607,6 @@
     color:            #e0e0e0;
   }
   
-  /* MODE ZEN → vert pâle */
   .sliding-panel-wrapper.mode-zen .sliding-panel {
     background-color: #cfe4d9;
     border-color:     #cfe4d9;
@@ -669,28 +624,24 @@
     background-color: #0b0624;
   }
   
-/* scope uniquement aux boutons de la sliding-panel */
 .sliding-panel .add-btn,
 .sliding-panel .menu-btn,
 .sliding-panel .save-btn {
-  background-color: #b8cdd8; /* ton gris/bleu pâle */
+  background-color: #b8cdd8; 
   color: white;
   border-color: #b8cdd8;
 }
 
-/* hover un peu plus sombre */
 .sliding-panel .add-btn:hover,
 .sliding-panel .menu-btn:hover,
 .sliding-panel .save-btn:hover {
   background-color: #a0b8cc;
 }
 
-/* et si tu veux recolorer l'icône chevron aussi */
 .sliding-panel .chevron-toggle {
   color: #b8cdd8;
 }
 
-/* hover pour le chevron */
 .sliding-panel .chevron-toggle:hover {
   color: #a0b8cc;
 }

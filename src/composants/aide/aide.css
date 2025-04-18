@@ -58,7 +58,7 @@ select.aideInput {
   height: 40px;
   font-size: 1rem;
   border-radius: 10px;
-  border: 1px solid #dce7d2;
+  border: none;
   background-color: #f6fbf1;
   box-sizing: border-box;
 }

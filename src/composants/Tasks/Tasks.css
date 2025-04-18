@@ -1,18 +1,16 @@
-/* 🌿 Conteneur principal */
 .tasks-container {
   display: flex;
   min-height: 100vh;
   padding: 20px;
   gap: 20px;
-  margin-top: 0; /* ✅ corrigé ici */
+  margin-top: 0;
 }
 
-/* 🌿 Panneau gauche : Filtres + Tags */
 .left-panel {
-  width: 220px; /* 🔥 Fixe plus étroit, assez pour le contenu */
+  width: 220px;
   min-width: 200px;
   max-width: 250px;
-  background-color: #d9eeda; /* modifié */
+  background-color: #d9eeda; 
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -26,12 +24,11 @@
   max-height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #eaf4ea; /* modifié */
+  background-color: #eaf4ea; 
   padding: 20px;
   border-radius: 10px;
 }
 
-/* 🌿 Filtres */
 .tasks-filter {
   display: flex;
   flex-direction: column;
@@ -51,7 +48,6 @@
   width: 100%;
 }
 
-/* 🌿 Tags */
 .tasks-tags {
   margin-top: 20px;
 }
@@ -109,11 +105,9 @@
   font-size: 14px;
 }
 
-
-/* 🌿 Panneau droit : Tâches */
 .right-panel {
   flex-grow: 1;
-  background-color: #eaf4ea; /* modifié */
+  background-color: #eaf4ea; 
   padding: 20px;
   border-radius: 10px;
   position: relative;
@@ -128,7 +122,6 @@
   padding-right: 5px;
 }
 
-/* 🌿 Affinage affichage tâches (compact et centré) */
 .tasks-list {
   display: flex;
   flex-direction: column;
@@ -179,17 +172,16 @@
   text-align: center;
 }
 
-/* 🌿 Formulaire d'ajout */
 .tasks-form {
   position: sticky;
   bottom: 0;
   left: 0;
-  background-color: #eaf4ea; /* modifié */
+  background-color: #eaf4ea; 
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  border-top: 2px solid #d9eeda; /* modifié */
+  border-top: 2px solid #d9eeda; 
   z-index: 10;
   align-items: center;
   justify-content: center;
@@ -224,7 +216,6 @@
   height: 40px;
 }
 
-/* 🌿 Vue Détail */
 .task-details {
   background-color: white;
   padding: 20px;
@@ -260,12 +251,10 @@
   cursor: pointer;
 }
 
-/* 🌿 Taille du texte */
 .tasks-container * {
   font-size: 1rem;
 }
 
-/* 🌿 Barre de recherche de tag */
 .tag-search {
   margin-top: 20px;
 }
@@ -282,9 +271,8 @@
   box-sizing: border-box;
 }
 
-/* 🌿 Badge de tag */
 .tag-badge {
-  background-color: #388e3c; /* modifié */
+  background-color: #388e3c; 
   color: white;
   padding: 5px 10px;
   margin-left: 10px;
@@ -296,10 +284,9 @@
 }
 
 .tag-badge:hover {
-  background-color: #2e7031; /* modifié */
+  background-color: #2e7031; 
 }
 
-/* 🌿 Titre des vues */
 .task-view-title {
   font-size: 22px;
   font-weight: bold;
@@ -312,11 +299,10 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 15px;
-  border-bottom: 2px solid #d9eeda; /* modifié */
+  border-bottom: 2px solid #d9eeda; 
   padding-bottom: 5px;
 }
 
-/* 🌿 Modale d'édition */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -346,7 +332,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #f4f7f4; /* modifié */
+  background-color: #f4f7f4;
 }
 
 .task-header {
@@ -362,7 +348,7 @@ body {
   font-weight: bold;
   margin: 0;
   padding-bottom: 5px;
-  border-bottom: 2px solid #d9eeda; /* modifié */
+  border-bottom: 2px solid #d9eeda;
   flex: 1;
 }
 
@@ -445,11 +431,19 @@ body {
 }
 
 .tasks-page.mode-jour {
-  background-color: #cfdbe1;
+  background-color: #eef5f8;
   color: #333;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.tasks-page.mode-jour .left-panel,
+
+.tasks-page.mode-jour .left-panel
+{
+  background-color: #eef5f8;
+  color: #333;
+  border-color: #ccc;
+}
+
 .tasks-page.mode-jour .right-panel,
 .tasks-page.mode-jour .tasks-form,
 .tasks-page.mode-jour .task-item,
@@ -464,8 +458,8 @@ body {
 .tasks-page.mode-jour .tasks-filter button,
 .tasks-page.mode-jour .tasks-form button,
 .tasks-page.mode-jour .delete-visible-btn {
-  background-color: #cfdbe1;
-  color: white;
+  background-color: #a6d4ff;
+  color: black;
 }
 
 .tasks-page.mode-zen {
@@ -496,4 +490,14 @@ body {
 .tasks-page.mode-zen .tasks-filter button:hover,
 .tasks-page.mode-zen .delete-visible-btn:hover {
   background-color: #9ad89a;
+}
+
+.mode-nuit .tag-search input {
+  background-color: grey;
+  border: none;
+  color: #f0f0f0;
+}
+
+.mode-nuit .tag-search input::placeholder {
+  color: #aaa;
 }

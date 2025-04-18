@@ -134,22 +134,19 @@
 
 #mainReglages.mode-nuit #themeTitreReglages,
 #mainReglages.mode-nuit #minuteurTitreReglages {
-  background-color: #171a38;
+  background-color: #292c4b;
   border-radius: 10px;
 }
 
 #mainReglages.mode-nuit .minuteurChoixReglages,
 #mainReglages.mode-nuit .selectReglages {
-  background-color: #49484f;
-  color: rgb(183, 181, 181);
+  background-color: grey;
+  color: #f0f0f0;
+  border: none;
 }
 
 #mainReglages.mode-jour {
   background-color: #cfdbe1;
-}
-
-#mainReglages.mode-jour #reglages {
-  background-color: #eef5f8;
 }
 
 .sousTitreReglages {
@@ -212,6 +209,6 @@
 
 .mode-nuit #mainReglages { background-color: #0b0624; }
 
-.mode-jour #mainReglages { background-color: #d0e8ff; }
-.mode-jour #reglages { background-color: whitesmoke; }
-.mode-jour #boutonEnregistrerReglages { background-color: #d0e8ff; }
+.mode-jour #mainReglages { background-color: #eef5f8; }
+.mode-jour #reglages { background-color: white; }
+.mode-jour #boutonEnregistrerReglages { background-color: #a6d4ff; }

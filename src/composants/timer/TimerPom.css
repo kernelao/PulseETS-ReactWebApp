@@ -13,17 +13,10 @@
     width: 150px;
 }
 
-
-/* 1) Empêche tout scroll dans le timer */
 .cercle_main {
     overflow: hidden;
   }
   
-/* —————————————————————————————— */
-/* 16. SUPPRIMER TOUT SCROLL DANS LE PANEL */
-/* —————————————————————————————— */
-
-/* On retire la limite de hauteur et toute barre de scroll */
 .sliding-panel,
 .sliding-panel.open {
   max-height: none !important;
@@ -32,7 +25,6 @@
   overflow-x: hidden !important;
 }
 
-/* Si le wrapper crée un scroll, on le désactive aussi */
 .sliding-panel-wrapper {
   max-height: none !important;
   height: auto !important;
