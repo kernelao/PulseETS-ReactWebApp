@@ -3,6 +3,10 @@ import AVATAR from '/src/assets/image_avatar';
 import './Boutique.css';
 import axios from '../../api/Axios';
 import { ThemeContext } from "../../context/ThemeContext";
+import "../../components/common/theme.css";
+import ThemeWrapper from "../../components/common/ThemeWrapper";
+
+
 
 const Boutique = () => {
   const [avatars, setAvatars] = useState([]);
@@ -15,7 +19,10 @@ const Boutique = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [previewTheme, setPreviewTheme] = useState(null);
-  const { changeTheme } = useContext(ThemeContext);
+  const { theme, changeTheme } = useContext(ThemeContext);
+  const appliedThemeClass = theme.startsWith("Mode ")
+  ? theme.toLowerCase().replace(/\s/g, "-")
+  : `theme-${theme.toLowerCase().replace(/\s/g, "-")}`;
 
 
 
@@ -140,20 +147,33 @@ const Boutique = () => {
 
   const handleApplyTheme = async () => {
     if (!selectedTheme) return;
+  
     try {
-      const res = await axios.post(`/user/theme/apply`, {
-        themeName: selectedTheme.name
+      // Appliquer dans le backend
+      const reglageRes = await axios.get('/reglages/me');
+      const reglageId = reglageRes.data.id;
+  
+      await axios.put(`/reglages/${reglageId}`, {
+        pomodoro: reglageRes.data.pomodoro,
+        courte_pause: reglageRes.data.courte_pause,
+        longue_pause: reglageRes.data.longue_pause,
+        theme: selectedTheme.name
       });
-      setMessage(res.data.message);
-      changeTheme(selectedTheme.name); // 👈 applique le thème immédiatement
+  
+      // Appliquer dans le frontend (visuel immédiat)
+      changeTheme(selectedTheme.name);
+      setMessage("Thème appliqué avec succès !");
     } catch (err) {
-      setMessage(err.response?.data?.message || "Erreur");
+      console.error("Erreur lors de l'application du thème :", err);
+      setMessage(err.response?.data?.message || "Erreur lors de l'application.");
     }
   };
+  
 
   return (
-    <div className={`boutiqueContainer ${previewTheme ? 'theme-' + previewTheme : ''}`}>
-        <h1 className="h1Boutique">Boutique</h1>
+    <ThemeWrapper>
+    <div className={`boutiqueContainer ${appliedThemeClass}`}>
+      <h1 className="h1Boutique">Boutique</h1>
         <p className="points">Points PULSE : {pulsePoints}</p>
         <div className="profile_image">
             <img src={selectedAvatar?.image || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
@@ -265,6 +285,7 @@ const Boutique = () => {
         )}
 
     </div>
+    </ThemeWrapper>
 );
 };
 

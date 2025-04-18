@@ -335,3 +335,28 @@
 body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.theme-steampunk .boutiqueContainer {
+    background-color: #704214;
+    color: #d3a15c;
+    font-family: 'Bitter', serif;
+  }
+  
+  .theme-neon-lights .boutiqueContainer {
+    background-color: #ff0099;
+    color: #ffff00;
+    font-family: 'Varela Round', sans-serif;
+  }
+  
+  .theme-minimalist .boutiqueContainer {
+    background-color: #ffffff;
+    color: #333;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  .theme-space .boutiqueContainer {
+    background-color: #000022;
+    color: #00b5e2;
+    font-family: 'Space Mono', monospace;
+  }
+  

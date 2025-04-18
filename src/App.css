@@ -68,3 +68,45 @@ p {
 }
 
 
+.theme-cyberpunk {
+  background-color: #0f0f0f;
+  color: #00ff00;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.theme-steampunk {
+  background-color: #403326;
+  color: #e5c185;
+  font-family: 'Bitter', serif;
+}
+
+.theme-space {
+  background-color: #000022;
+  color: #00b5e2;
+  font-family: 'Space Mono', monospace;
+}
+
+.theme-dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.theme-neon-lights {
+  background-color: #ff00cc;
+  color: #ffff00;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.theme-vintage {
+  background-color: #f5cba7;
+  color: #8e4b10;
+  font-family: 'Georgia', serif;
+}
+
+.theme-minimalist {
+  background-color: #ffffff;
+  color: #333333;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+

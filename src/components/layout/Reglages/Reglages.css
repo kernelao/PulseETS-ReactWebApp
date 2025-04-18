@@ -124,65 +124,6 @@
   margin-top: 0;
 }
 
-#mainReglages.mode-zen {
-  background-color: #9cccb5; 
-}
-
-#mainReglages.mode-zen #reglages {
-  background-color: #cfe4d9; /* Couleur de fond de #reglages en mode nuit */
-  color: rgb(80, 80, 80); /* Couleur du texte en mode nuit */
-}
-
-#mainReglages.mode-zen #boutonEnregistrerReglages {
-  background-color: #9cccb5; /* Couleur de fond de #reglages en mode nuit */
-}
-  
-#mainReglages.mode-nuit {
-  background-color: #0b0624;
-}
-
-#mainReglages.mode-nuit #reglages {
-  background-color: #171a38; /* Couleur de fond de #reglages en mode nuit */
-  color: rgb(149, 140, 140); /* Couleur du texte en mode nuit */
-}
-
-#mainReglages.mode-nuit #boutonEnregistrerReglages {
-  background-color: #2d2b36; /* Couleur de fond de #reglages en mode nuit */
-  color: rgb(149, 140, 140);
-}
-
-#mainReglages.mode-nuit #themeTitreReglages {
-  background-color: #2d2b36;
-  border-radius: 10px;
-}
-
-#mainReglages.mode-nuit #minuteurTitreReglages {
-  background-color: #2d2b36;
-  border-radius: 10px;
-}
-
-#mainReglages.mode-nuit .minuteurChoixReglages {
-  background-color: #49484f;
-  color: rgb(183, 181, 181);
-}
-
-#mainReglages.mode-nuit .selectReglages {
-  background-color: #49484f;
-  color: rgb(183, 181, 181);
-}
-  
-#mainReglages.mode-jour {
-  background-color: #cfdbe1;
-}
-
-#mainReglages.mode-jour #reglages {
-  background-color: #eef5f8; /* Couleur de fond de #reglages en mode nuit */
-}
-
-#mainReglages.mode-jour #boutonEnregistrerReglages {
-  background-color: #cfdbe1; /* Couleur de fond de #reglages en mode nuit */
-}
-
 .sousTitreReglages {
   font-size: 1.2rem;
   font-weight: bold;

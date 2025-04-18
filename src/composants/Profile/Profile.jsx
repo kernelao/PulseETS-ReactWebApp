@@ -3,6 +3,8 @@ import Recompenses from '/src/composants/Recompenses/Recompenses.jsx';
 import './Profile.css';
 import api from "../../api/Axios";
 import AVATAR,  { avatarMap } from '/src/assets/image_avatar'
+import ThemeWrapper from "../../components/common/ThemeWrapper";
+
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -151,6 +153,7 @@ function Profile() {
   if (error) return <p>Erreur : {error}</p>;
 
   return (
+    <ThemeWrapper>
     <div className="profile_container">
       <h1 className="h1Profile">Profile</h1>
       <div className="profile_image" onClick={handleAvatarClick}>
@@ -179,7 +182,6 @@ function Profile() {
         </div>
       )}
 
-      {/* Affichage des points Pulse */}
       <div className="points-pulse-container">
         <h2 className="h2Profile">Points Pulse</h2>
         <p>Points actuels : {pointsPulse}</p>
@@ -194,7 +196,6 @@ function Profile() {
           <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
         </div>
 
-        {/* Popup pour modification mot de passe */}
         {isPasswordPopupOpen && (
           <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
             <div className="popup-box" onClick={(e) => e.stopPropagation()}>
@@ -230,7 +231,6 @@ function Profile() {
           </div>
         )}
 
-        {/* Popup pour modification email */}
         {isEmailPopupOpen && (
           <div className="popup-overlay" onClick={() => setIsEmailPopupOpen(false)}>
             <div className="popup-box" onClick={(e) => e.stopPropagation()}>
@@ -272,6 +272,7 @@ function Profile() {
         <Recompenses recompenses={recompenses} /> {/* Passer les récompenses au composant */}
       </div>
     </div>
+    </ThemeWrapper>
   );
 }
 

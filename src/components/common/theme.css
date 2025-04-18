@@ -1,0 +1,145 @@
+/* ========================
+   THEMES APPLIQUÉS GLOBALEMENT
+   POUR Reglages.jsx via #mainReglages
+========================= */
+
+/* --- Mode zen --- */
+.mode-zen #mainReglages {
+    background-color: #9cccb5;
+  }
+  .mode-zen #mainReglages #reglages {
+    background-color: #cfe4d9;
+    color: rgb(80, 80, 80);
+  }
+  .mode-zen #mainReglages #boutonEnregistrerReglages {
+    background-color: #9cccb5;
+  }
+  
+  /* --- Mode nuit --- */
+  .mode-nuit #mainReglages {
+    background-color: #0b0624;
+  }
+  .mode-nuit #mainReglages #reglages {
+    background-color: #171a38;
+    color: rgb(149, 140, 140);
+  }
+  .mode-nuit #mainReglages #boutonEnregistrerReglages {
+    background-color: #2d2b36;
+    color: rgb(149, 140, 140);
+  }
+  .mode-nuit #mainReglages #themeTitreReglages,
+  .mode-nuit #mainReglages #minuteurTitreReglages {
+    background-color: #2d2b36;
+    border-radius: 10px;
+  }
+  .mode-nuit #mainReglages .minuteurChoixReglages,
+  .mode-nuit #mainReglages .selectReglages {
+    background-color: #49484f;
+    color: rgb(183, 181, 181);
+  }
+  
+  /* --- Mode jour --- */
+  .mode-jour #mainReglages {
+    background-color: #cfdbe1;
+  }
+  .mode-jour #mainReglages #reglages {
+    background-color: #eef5f8;
+  }
+  .mode-jour #mainReglages #boutonEnregistrerReglages {
+    background-color: #cfdbe1;
+  }
+  
+  /* --- Steampunk --- */
+  .theme-steampunk #mainReglages {
+    background-color: #704214;
+  }
+  .theme-steampunk #mainReglages #reglages {
+    background-color: #8a5e3b;
+    color: #e5c185;
+  }
+  .theme-steampunk #mainReglages #boutonEnregistrerReglages {
+    background-color: #a3744f;
+    color: white;
+  }
+  
+  /* --- Neon Lights --- */
+  .theme-neon-lights #mainReglages {
+    background-color: #ff0099;
+  }
+  .theme-neon-lights #mainReglages #reglages {
+    background-color: #ff66cc;
+    color: #ffff00;
+  }
+  .theme-neon-lights #mainReglages #boutonEnregistrerReglages {
+    background-color: #cc00aa;
+    color: black;
+  }
+  
+  /* --- Minimalist --- */
+  .theme-minimalist #mainReglages {
+    background-color: #ffffff;
+  }
+  .theme-minimalist #mainReglages #reglages {
+    background-color: #f4f4f4;
+    color: #222;
+  }
+  .theme-minimalist #mainReglages #boutonEnregistrerReglages {
+    background-color: #dddddd;
+    color: #222;
+  }
+  
+  /* --- Space --- */
+  .theme-space #mainReglages {
+    background-color: #000022;
+  }
+  .theme-space #mainReglages #reglages {
+    background-color: #111144;
+    color: #00b5e2;
+  }
+  .theme-space #mainReglages #boutonEnregistrerReglages {
+    background-color: #003366;
+    color: white;
+  }
+  
+  /* --- Cyberpunk --- */
+  .theme-cyberpunk #mainReglages {
+    background-color: #0f0f0f;
+  }
+  .theme-cyberpunk #mainReglages #reglages {
+    background-color: #1a1a1a;
+    color: #00ff00;
+    font-family: 'Orbitron', sans-serif;
+  }
+  .theme-cyberpunk #mainReglages #boutonEnregistrerReglages {
+    background-color: #00ff00;
+    color: #0f0f0f;
+  }
+  
+  /* --- Dark Mode --- */
+  .theme-dark-mode #mainReglages {
+    background-color: #121212;
+  }
+  .theme-dark-mode #mainReglages #reglages {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+  }
+  .theme-dark-mode #mainReglages #boutonEnregistrerReglages {
+    background-color: #333333;
+    color: #ffffff;
+  }
+  
+  /* --- Vintage --- */
+  .theme-vintage #mainReglages {
+    background-color: #f5cba7;
+  }
+  .theme-vintage #mainReglages #reglages {
+    background-color: #f9e0c7;
+    color: #8e4b10;
+    font-family: 'Georgia', serif;
+  }
+  .theme-vintage #mainReglages #boutonEnregistrerReglages {
+    background-color: #d35400;
+    color: white;
+  }
+  
