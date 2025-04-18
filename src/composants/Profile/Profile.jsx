@@ -157,14 +157,7 @@ function Profile() {
   return (
 
     <ThemeWrapper>
-    <div className={`profile_container ${themeClass}`}>
-    <div className="profile_container">
-      <h1 className="h1Profile">Profile</h1>
-      <div className="profile_image" onClick={handleAvatarClick}>
-        <img src={selectedAvatar || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
-      </div>
-    <div className={`profile_container ${themeClass}`}>
-
+    <div className={`profile_wrapper ${themeClass}`}>
       <div className="profile_container">
         <h1 className="h1Profile">Profile</h1>
         <div className="profile_image" onClick={handleAvatarClick}>
@@ -185,9 +178,6 @@ function Profile() {
           </div>
         )}
 
-        <div className="points-pulse-container">
-          <h2 className="h2Profile">Points Pulse</h2>
-          <p className="rectProfile">Points actuels : {pointsPulse}</p>
       <div className="points-pulse-container">
         <h2 className="h2Profile">Points Pulse</h2>
         <p className="rectProfile">Points actuels : {pointsPulse}</p>
@@ -201,15 +191,6 @@ function Profile() {
         <div className="modifier_section">
           <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
         </div>
-
-        <div className="securite_container">
-          <h2 className="h2Profile">Sécurité</h2>
-          <div className="modifier_section">
-            <button className="btnProfile" onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
-          </div>
-          <div className="modifier_section">
-            <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
-          </div>
 
           {isPasswordPopupOpen && (
           <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
@@ -259,10 +240,6 @@ function Profile() {
         <Recompenses recompenses={recompenses} /> {/* Passer les récompenses au composant */}
       </div>
       </div>
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
   </ThemeWrapper>
   );
