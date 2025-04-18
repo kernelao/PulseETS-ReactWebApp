@@ -47,6 +47,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0;
+  color: #24332a;
 }
 
 #ligne2Reglages {
@@ -155,7 +156,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: grey;
+  color: #24332a;
 }
 
 .barreReglages {
@@ -201,6 +202,7 @@
 .spanReglages {
   font-size: 1rem;
   font-weight: bold;
+  color: #24332a;
 }
 
 .mode-zen #mainReglages { background-color: #9cccb5; }

@@ -5,6 +5,9 @@
     gap: 48px;
     width: 90%;
     padding: 0 40px;
+    flex: 1;
+    height: 100%;
+    box-sizing: border-box;
   }
   
   /* CHART SECTION */
@@ -17,6 +20,7 @@
     overflow: hidden;
     max-width: 1900px;
     position: relative;
+    width: 100%;
   }
   
   /* HEADER + BUTTON */
@@ -138,3 +142,4 @@
     background-color: #a6d4ff;
   }
  
+  

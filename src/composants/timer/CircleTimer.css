@@ -178,7 +178,7 @@
    .all_timer_container.mode-zen .timer_btn {
      background-color: #9cccb5 !important;
      border-color:     #9cccb5 !important;
-     color:            #ffffff !important;
+     color: #24332a           !important;
    }
    
    .all_timer_container.mode-zen button:hover,

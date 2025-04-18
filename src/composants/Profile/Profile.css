@@ -174,13 +174,16 @@
   background-color: #24332a;
 }
 
-.mode-zen .rectProfile { background-color: #9cccb5; }
+.mode-zen .rectProfile {
+  background-color: #9cccb5; 
+  color: #24332a;}
 
 .mode-nuit .rectProfile { background-color: #2a387f; }
 
 .mode-jour .rectProfile { background-color: #a6d4ff; }
 
-.mode-zen .btnProfile { background-color: #9cccb5; }
+.mode-zen .btnProfile { background-color: #9cccb5;
+  color: #24332a; }
 
 .mode-nuit .btnProfile  { background-color: #2a387f; }
 
