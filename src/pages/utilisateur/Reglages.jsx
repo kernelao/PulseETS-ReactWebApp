@@ -10,7 +10,6 @@ import axios from '../../api/Axios';
 import ThemeSelect from "../../components/common/ThemeSelect";
 import ThemeWrapper from "../../components/common/ThemeWrapper";
 import "../../components/common/theme.css";
-import React from "react";
 import ReglagesMain from "../../composants/reglages/reglages.jsx";
 
 
