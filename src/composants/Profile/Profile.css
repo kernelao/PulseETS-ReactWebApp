@@ -161,4 +161,20 @@
     max-width: 120px;
     padding: 0.5rem 0.75rem;
   }
+
+
+  /* Vert pâle pour les rectangles blancs (mode par défaut) */
+.mode-zen .points-pulse-container,
+.mode-zen .securite_container,
+.mode-zen .recompenses_container {
+  background-color: #e6f5e1; /* Vert pâle */
+}
+
+/* Vert plus sombre pour le mode nuit, pour conserver le contraste */
+.mode-zen .profile_container.mode-nuit .points-pulse-container,
+.mode-zen .profile_container.mode-nuit .securite_container,
+.mode-zen .profile_container.mode-nuit .recompenses_container {
+  background-color: #24332a; /* Vert foncé, adapté pour mode nuit */
+}
+
   
