@@ -47,6 +47,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0;
+  color: #24332a;
 }
 
 #ligne2Reglages {
@@ -114,12 +115,39 @@
   opacity: 0.5;
 }
 
-#minuteurTitreReglages{
-  display: flex;  
-  align-items: center; 
-  gap: 8px;   
-  margin-bottom: 1rem;
-  margin-top: 0;
+#mainReglages.mode-zen {
+  background-color: #9cccb5; 
+}
+
+#mainReglages.mode-zen #reglages {
+  background-color: #cfe4d9;
+  color: rgb(80, 80, 80);
+}
+
+#mainReglages.mode-nuit {
+  background-color: #0b0626;
+}
+
+#mainReglages.mode-nuit #reglages {
+  background-color: #171a38;
+  color: rgb(149, 140, 140);
+}
+
+#mainReglages.mode-nuit #themeTitreReglages,
+#mainReglages.mode-nuit #minuteurTitreReglages {
+  background-color: #292c4b;
+  border-radius: 10px;
+}
+
+#mainReglages.mode-nuit .minuteurChoixReglages,
+#mainReglages.mode-nuit .selectReglages {
+  background-color: grey;
+  color: #f0f0f0;
+  border: none;
+}
+
+#mainReglages.mode-jour {
+  background-color: #cfdbe1;
 }
 
 #mainReglages.mode-zen {
@@ -163,6 +191,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #24332a;
 }
 
 .barreReglages {
@@ -208,6 +237,7 @@
 .spanReglages {
   font-size: 1rem;
   font-weight: bold;
+  color: #24332a;
 }
 
 .mode-zen #mainReglages { background-color: #9cccb5; }
@@ -227,6 +257,8 @@ color: #eaeaea; }
 .mode-nuit label {
   color: #eaeaea;
 }
+.mode-nuit #mainReglages { background-color: #0b0626; }
+.mode-nuit #boutonEnregistrerReglages { background-color: #2a387f; }
 
 .mode-jour #mainReglages { background-color: #eef5f8; }
 .mode-jour #reglages { background-color: white; }

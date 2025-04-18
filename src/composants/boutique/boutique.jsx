@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AVATAR from '/src/assets/image_avatar';
 import './Boutique.css';
 import axios from '../../api/Axios';
 import { ThemeContext } from "../../context/ThemeContext";
 import "../../components/common/theme.css";
 import { ThemeWrapper } from "../../components/common/ThemeWrapper";
+import ThemeWrapper from "../../components/common/ThemeWrapper";
+
+
 import { ThemeContext } from '../../context/ThemeContext';
 
 const Boutique = () => {
