@@ -186,7 +186,7 @@ function Profile() {
       {/* Affichage des points Pulse */}
       <div className="points-pulse-container">
         <h2 className="h2Profile">Points Pulse</h2>
-        <p className="rectProfile">Points actuels : {pointsPulse}</p>
+        <p>Points actuels : {pointsPulse}</p>
       </div>
 
       <div className="securite_container">

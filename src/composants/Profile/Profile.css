@@ -177,17 +177,4 @@
   background-color: #24332a; /* Vert foncé, adapté pour mode nuit */
 }
 
-
-
-.mode-zen .rectProfile { background-color: #9cccb5; }
-
-.mode-nuit .rectProfile { background-color: #2a387f; }
-
-.mode-jour .rectProfile { background-color: #a6d4ff; }
-
-.mode-zen .btnProfile { background-color: #9cccb5; }
-
-.mode-nuit .btnProfile  { background-color: #2a387f; }
-
-.mode-jour .btnProfile  { background-color: #a6d4ff; }
-
+  
