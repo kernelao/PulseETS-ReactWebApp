@@ -5,6 +5,9 @@
     gap: 48px;
     width: 90%;
     padding: 0 40px;
+    flex: 1;
+    height: 100%;
+    box-sizing: border-box;
   }
   
   /* CHART SECTION */
@@ -17,6 +20,7 @@
     overflow: hidden;
     max-width: 1900px;
     position: relative;
+    width: 100%;
   }
   
   /* HEADER + BUTTON */
@@ -47,7 +51,7 @@
     position: absolute;
     top: 10;
     right: 0;
-    background-color: #2f80ed;
+    background-color: #3345a7;
     color: white;
     border: none;
     border-radius: 8px;        
@@ -59,7 +63,7 @@
   }
   
   .stats-header button:hover {
-    background-color: #1c60c4;
+    background-color: #8b95c7;
     transform: translateY(-1px);              
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
   }
@@ -101,6 +105,10 @@
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
+
+  .mode-nuit .summary-column > div {
+    background-color: #171a38;
+  }
   
   .summary-column p {
     font-size: 14px;
@@ -114,4 +122,24 @@
     font-weight: bold;
     color: #2f80ed;
   }
+  
+/*couleur tableau stats*/
+   .mode-nuit .stats-container {
+    background-color: #171a38;
+  }
+  
+  .mode-zen .stats-container {
+    background-color: #cfe4d9;
+  }
+
+  .mode-zen #voirOption {
+    background-color: #9cccb5;
+  }
+  .mode-nuit #voirOption {
+    background-color: #2a387f;
+  }
+  .mode-jour #voirOption {
+    background-color: #a6d4ff;
+  }
+ 
   

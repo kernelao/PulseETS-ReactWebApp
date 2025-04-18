@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Recompenses from '/src/composants/Recompenses/Recompenses.jsx';
 import './Profile.css';
 import api from "../../api/Axios";
 import AVATAR,  { avatarMap } from '/src/assets/image_avatar'
 import ThemeWrapper from "../../components/common/ThemeWrapper";
-
+import { ThemeContext } from '../../context/ThemeContext';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -20,6 +20,8 @@ function Profile() {
   const [oldPswError, setOldPswError] = useState("");
   const [newPswError, setNewPswError] = useState("");
   const [isPasswordPopupOpen, setIsPasswordPopupOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(' ', '-');
 
 
   const [oldEmail, setOldEmail] = useState("");
@@ -153,76 +155,58 @@ function Profile() {
   if (error) return <p>Erreur : {error}</p>;
 
   return (
+
     <ThemeWrapper>
-    <div className="profile_container">
-      <h1 className="h1Profile">Profile</h1>
-      <div className="profile_image" onClick={handleAvatarClick}>
-        <img src={selectedAvatar || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
-      </div>
 
-      {isAvatarPopupOpen && (
-        <div className="popup-overlay" onClick={() => setIsAvatarPopupOpen(false)}>
-          <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-            <h3 className="h3Profile">Choisir un avatar</h3>
-            <div className="avatars-container">
-              {availableAvatars.map((avatar) => (
-                <img
-                  key={avatar.id}
-                  src={avatar.image}
-                  alt="Avatar"
-                  className={`avatar-img ${selectedAvatar === avatar.image ? "selected" : ""}`}
-                  onClick={() => handleAvatarSelect(avatar)}
-                />
-              ))}
+    <div className={`profile_container ${themeClass}`}>
+
+      <div className="profile_container">
+        <h1 className="h1Profile">Profile</h1>
+        <div className="profile_image" onClick={handleAvatarClick}>
+          <img src={selectedAvatar || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
+        </div>
+
+        {isAvatarPopupOpen && (
+          <div className="popup-overlay" onClick={() => setIsAvatarPopupOpen(false)}>
+            <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+              <h3 className="h3Profile">Choisir un avatar</h3>
+              <div className="avatars-container">
+                {availableAvatars.map((avatar) => (
+                  <img key={avatar.id} src={avatar.image} alt="Avatar" className={`avatar-img ${selectedAvatar === avatar.image ? "selected" : ""}`} onClick={() => handleAvatarSelect(avatar)}/>
+                ))}
+              </div>
+              <button className="btnProfile" onClick={() => window.location.href = '/app/boutique'}>Aller à la boutique</button>
             </div>
-            <button className="btnProfile" onClick={() => window.location.href = '/app/boutique'}>
-              Aller à la boutique
-            </button>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="points-pulse-container">
-        <h2 className="h2Profile">Points Pulse</h2>
-        <p>Points actuels : {pointsPulse}</p>
-      </div>
-
-      <div className="securite_container">
-        <h2 className="h2Profile">Sécurité</h2>
-        <div className="modifier_section">
-          <button className="btnProfile" onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
-        </div>
-        <div className="modifier_section">
-          <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
+        <div className="points-pulse-container">
+          <h2 className="h2Profile">Points Pulse</h2>
+          <p className="rectProfile">Points actuels : {pointsPulse}</p>
         </div>
 
-        {isPasswordPopupOpen && (
+        <div className="securite_container">
+          <h2 className="h2Profile">Sécurité</h2>
+          <div className="modifier_section">
+            <button className="btnProfile" onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
+          </div>
+          <div className="modifier_section">
+            <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
+          </div>
+
+          {isPasswordPopupOpen && (
           <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
             <div className="popup-box" onClick={(e) => e.stopPropagation()}>
               <h3 className="h3Profile">Modifier mot de passe</h3>
               <form className="formProfile" onSubmit={handlePasswordSubmit}>
                 <div>
                   <label>Ancien mot de passe</label>
-                  <input
-                    className="inputProfile"
-                    type="password"
-                    value={oldPsw}
-                    onChange={(e) => setOldPsw(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                  />
+                  <input className="inputProfile" type="password" value={oldPsw} onChange={(e) => setOldPsw(e.target.value)} placeholder="••••••••" required/>
                   {oldPswError && <p style={{ color: "red" }}>{oldPswError}</p>}
                 </div>
                 <div>
                   <label>Nouveau mot de passe</label>
-                  <input
-                    className="inputProfile"
-                    type="password"
-                    value={newPsw}
-                    onChange={(e) => setNewPsw(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                  />
+                  <input className="inputProfile" type="password" value={newPsw} onChange={(e) => setNewPsw(e.target.value)} placeholder="••••••••" required/>
                   {newPswError && <p style={{ color: "red" }}>{newPswError}</p>}
                 </div>
                 <button className="btnProfile" type="submit" disabled={loading}>Enregistrer</button>
@@ -238,26 +222,12 @@ function Profile() {
               <form className="formProfile" onSubmit={handleEmailSubmit}>
                 <div>
                   <label>Ancien courriel</label>
-                  <input
-                    className="inputProfile"
-                    type="email"
-                    value={oldEmail}
-                    onChange={(e) => setOldEmail(e.target.value)}
-                    placeholder="Ancien courriel"
-                    required
-                  />
+                  <input className="inputProfile" type="email" value={oldEmail} onChange={(e) => setOldEmail(e.target.value)} placeholder="Ancien courriel" required/>
                   {oldEmailError && <p style={{ color: "red" }}>{oldEmailError}</p>}
                 </div>
                 <div>
                   <label>Nouveau courriel</label>
-                  <input
-                    className="inputProfile"
-                    type="email"
-                    value={newEmail}
-                    onChange={(e) => setNewEmail(e.target.value)}
-                    placeholder="Nouveau courriel"
-                    required
-                  />
+                  <input className="inputProfile" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="Nouveau courriel" required/>
                   {newEmailError && <p style={{ color: "red" }}>{newEmailError}</p>}
                 </div>
                 <button className="btnProfile" type="submit" disabled={loading}>Enregistrer</button>
@@ -271,8 +241,9 @@ function Profile() {
         <h2 className="h2Profile">Récompenses</h2>
         <Recompenses recompenses={recompenses} /> {/* Passer les récompenses au composant */}
       </div>
+      </div>
     </div>
-    </ThemeWrapper>
+  </ThemeWrapper>
   );
 }
 

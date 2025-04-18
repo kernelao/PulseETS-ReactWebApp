@@ -20,17 +20,12 @@
     
 }
 
-
-
 .text_cercle{
-
     font-size: xx-large;
     font-family: Arial, black serif;
 }
 
 .cercle_box{
-
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,58 +58,147 @@
     transform: scale(0.95);
 }
 
-
-
 .auto_cont{
-
-
   display: flex;
-
   flex-direction: row;
   justify-content: center;
 }
-  .txt_pom_comsecutif{
 
+  .txt_pom_comsecutif{
     display: flex;
     flex-direction: row;
     justify-content: center;
-
   }
 
-
 .btn_timer_container{
-   
     margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin-left: 20px;
     margin-right: 20px;
-   
-   
 }
+
 .cercle_main{
     background-color:white;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    
+    gap: 10px;   
     border-style: solid;
     border-color: black;
-
     margin-left: 50px;
-    margin-right: 50px;
-
-    
+    margin-right: 50px;  
 }
 
-
 .button_srt_container{
-
     margin-bottom: 10px;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+
+.cercle_main {
+  border: none;
+  border-radius: 12px;
+  background-color: white;
+  min-height: 100%;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cercle_main {
+  overflow: hidden;
+}
+
+.sliding-panel,
+.sliding-panel.open {
+  max-height: none !important;
+  height: auto !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+
+.sliding-panel-wrapper {
+  max-height: none !important;
+  height: auto !important;
+  overflow: hidden !important;
+}
+
+.cercle_main {
+  overflow: hidden;
+}
+
+.sliding-panel,
+.sliding-panel.open {
+  max-height: none;
+  height: auto;
+  overflow: hidden;
+}
+
+.sliding-panel-wrapper {
+  overflow: hidden;
+}
+
+.mode-nuit .cercle_main {
+  background-color: #171a38;
+  color:            #fff;
+}
+
+.timer_btn,
+.start_btn {
+  border: none !important;
+  outline: none !important;
+}
+
+.cercle_main,
+.cercle_box {
+  border: none !important;
+}
+
+   .all_timer_container.mode-zen .cercle_main {
+    background-color: #cfe4d9;
+  }
+
+.cercle_main.mode-jour,
+.all_timer_container.mode-jour .cercle_main {
+  background-color: whitesmoke; 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+   .all_timer_container.mode-zen button,
+   .all_timer_container.mode-zen .animated_btn,
+   .all_timer_container.mode-zen .start_btn,
+   .all_timer_container.mode-zen .timer_btn {
+     background-color: #9cccb5 !important;
+     border-color:     #9cccb5 !important;
+     color: #24332a           !important;
+   }
+   
+   .all_timer_container.mode-zen button:hover,
+   .all_timer_container.mode-zen .animated_btn:hover {
+     background-color: #85b49d !important; 
+   }
+   
+.all_timer_container.mode-jour .timer_btn,
+.all_timer_container.mode-jour .start_btn,
+.all_timer_container.mode-jour .animated_btn {
+  background-color: #a6d4ff !important;
+  color:            #000000 !important;
+}
+
+.sliding-panel-wrapper.mode-jour .add-btn,
+.sliding-panel-wrapper.mode-jour .menu-btn,
+.sliding-panel-wrapper.mode-jour .save-btn {
+  background-color: #a6d4ff !important;
+  color:            #000000 !important;
+}
+.sliding-panel-wrapper.mode-jour .chevron-toggle:hover {
+  color: #a0b8cc !important;
 }

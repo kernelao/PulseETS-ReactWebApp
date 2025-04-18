@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import welcomeImage from "../../assets/images/welcome-image2.jpg";
 import axios from './../../api/Axios';
 import "./notes.css";
+import { ThemeContext } from "../../context/ThemeContext"; 
+
 
 const TYPEWRITER_TEXT = "Commencez à organiser vos idées dès maintenant !";
 
 function IntroductionNote() {
   const animatedRef = useRef(null);
+  
 
   useEffect(() => {
     let index = 0;
@@ -59,6 +62,9 @@ export default function NotesApp() {
   const noteOptionsRef = useRef(null);
   const addCategoryRef = useRef(null);
   const addNoteRef = useRef(null);
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(' ', '-');
+
 
   useEffect(() => {
     async function fetchNotes() {
@@ -301,7 +307,7 @@ function handleEditNoteTitle(noteId, newTitle) {
 
 
   return (
-    <div className="app">
+<div className={`app ${themeClass}`}>
       <div className="sidebar">
         <div className="sidebar-header">
           <h2>Notes</h2>
@@ -345,7 +351,8 @@ function handleEditNoteTitle(noteId, newTitle) {
         {folders.map((folder) => {
           const isOpen = !!openFolders[folder.name];
           return (
-            <div key={folder.name} className="folder">
+            <div className={`app ${themeClass}`}>
+              <div key={folder.name} className="folder">
               <div className="folder-title" onClick={() =>
                 setOpenFolders((prev) => ({ ...prev, [folder.name]: !prev[folder.name] }))
               }>
@@ -490,6 +497,7 @@ function handleEditNoteTitle(noteId, newTitle) {
                 </div>
               )}
             </div>
+            </div>
           );
         })}
       </div>
@@ -506,6 +514,7 @@ function handleEditNoteTitle(noteId, newTitle) {
                   ↩ Undo
                 </button>
               </div>
+              
             </>
           )
         ) : (

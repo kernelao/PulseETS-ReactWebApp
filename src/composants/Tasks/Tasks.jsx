@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import TasksFilter from './TasksFilter'
 import TasksList from './TasksList'
 import TaskDetails from './TaskDetails'
@@ -12,6 +12,7 @@ import { createTache, deleteTache } from '../../api/tachesApi'
 import { fetchTaches } from '../../api/tachesApi'
 import { updateTache, completeTache } from '../../api/tachesApi' // ajoute completeTache si ce n'est pas déjà fait
 import { restoreTache } from '../../api/tachesApi'
+import { ThemeContext } from "../../context/ThemeContext"; 
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
@@ -20,6 +21,9 @@ const Tasks = () => {
   const [tagSearch, setTagSearch] = useState('')
   const [notification, setNotification] = useState({ message: '', type: '' })
   const [selectedIds, setSelectedIds] = useState([])
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(" ", "-"); // Ex: "Zen mode" -> "zen-mode"
+
 
   // 🔒 Bloquer le scroll global uniquement sur cette page
   useEffect(() => {
@@ -419,7 +423,7 @@ const updateTask = async (
   }
 
   return (
-    <div className="tasks-page">
+  <div className={`tasks-page ${themeClass}`}>
       <div className="tasks-container">
         <div className="left-panel" style={{ position: 'relative' }}>
           <h2 className="tasks-title">Vue Des Jours</h2>

@@ -4,9 +4,8 @@ import './Boutique.css';
 import axios from '../../api/Axios';
 import { ThemeContext } from "../../context/ThemeContext";
 import "../../components/common/theme.css";
-import ThemeWrapper from "../../components/common/ThemeWrapper";
-
-
+import { ThemeWrapper } from "../../components/common/ThemeWrapper";
+import { ThemeContext } from '../../context/ThemeContext';
 
 const Boutique = () => {
   const [avatars, setAvatars] = useState([]);
@@ -23,7 +22,7 @@ const Boutique = () => {
   const appliedThemeClass = theme.startsWith("Mode ")
   ? theme.toLowerCase().replace(/\s/g, "-")
   : `theme-${theme.toLowerCase().replace(/\s/g, "-")}`;
-
+const themeClass = theme.toLowerCase().replace(' ', '-');
 
 
   const defaultAvatars = [
@@ -174,6 +173,8 @@ const Boutique = () => {
     <ThemeWrapper>
     <div className={`boutiqueContainer ${appliedThemeClass}`}>
       <h1 className="h1Boutique">Boutique</h1>
+<div className={`boutiqueContainer ${previewTheme ? 'theme-' + previewTheme : ''} mode-${themeClass}`}>
+        <h1 className="h1Boutique">Boutique</h1>
         <p className="points">Points PULSE : {pulsePoints}</p>
         <div className="profile_image">
             <img src={selectedAvatar?.image || AVATAR.defaultavatar} alt="Image de profil" className="profile-img" />
@@ -284,6 +285,7 @@ const Boutique = () => {
         </div>
         )}
 
+    </div>
     </div>
     </ThemeWrapper>
 );

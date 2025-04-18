@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './QuickPanneau.css';
 import { Plus, MoreVertical, Check, ChevronUp } from 'lucide-react';
+import { ThemeContext } from '../../context/ThemeContext';
 
 export default function QuickPanneau() {
   const [isOpen, setIsOpen] = useState(true);
@@ -14,6 +15,10 @@ export default function QuickPanneau() {
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [taskMenuId, setTaskMenuId] = useState(null);
+
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(' ', '-');
+  
 
   const handleAddNote = () => {
     if (!noteInput.trim()) return;
@@ -50,7 +55,7 @@ export default function QuickPanneau() {
   };
 
   return (
-    <div className="sliding-panel-wrapper">
+    <div className={`sliding-panel-wrapper ${themeClass}`}>
       <div className="toggle-icon-wrapper" onClick={() => setIsOpen(!isOpen)}>
         <ChevronUp
           className={`chevron-toggle ${isOpen ? 'rotate-down' : ''}`}

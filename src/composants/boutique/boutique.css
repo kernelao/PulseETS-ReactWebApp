@@ -157,7 +157,6 @@
     background-color: #3a6c29;
 }
 
-/* Thèmes dynamiques */
 .theme-cyberpunk {
     background-color: #0f0f0f;
     color: #00ff00;
@@ -200,7 +199,6 @@
     font-family: 'Helvetica Neue', sans-serif;
 }
 
-/* Bouton de sélection du thème */
 .theme-box {
     padding: 15px;
     margin: 15px;
@@ -220,7 +218,6 @@
     pointer-events: none;
 }
 
-/* Styles de la grille de thèmes */
 .themes-container {
     display: flex;
     flex-direction: column;
@@ -234,7 +231,6 @@
     width: 100%;
 }
 
-/* Descriptions des thèmes */
 .theme-name {
     font-size: 1.5rem;
     font-weight: bold;
@@ -252,7 +248,6 @@
     color: #4e8733;
 }
 
-/* Pop-up pour afficher plus de détails sur le thème */
 .popup-overlay-theme {
     position: fixed;
     top: 0;
@@ -360,3 +355,71 @@ body {
     font-family: 'Space Mono', monospace;
   }
   
+.boutiqueContainer.mode-zen {
+    --bg-main: #e6f0d9;
+    --bg-secondary: #f3f7ec;
+    --text-color: #333;
+    --card-bg: #cfe2c1;
+    --card-hover: #b7d0a8;
+  }
+  
+  .boutiqueContainer.mode-jour {
+    --bg-main: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-color: #222;
+    --card-bg: #d7e6f8;
+    --card-hover: #bcd8f7;
+  }
+  
+  .boutiqueContainer.mode-nuit {
+    --bg-main: #171a38;
+    --bg-secondary: #1e214e;
+    --text-color: #c7c9e1;
+    --card-bg: #29305a;
+    --card-hover: #334082;
+  }
+  
+  .boutiqueContainer {
+    background-color: var(--bg-main);
+    color: var(--text-color);
+  }
+  
+  .theme-box,
+  .avatars {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+  }
+  
+  .theme-box:hover,
+  .avatars:hover {
+    background-color: var(--card-hover);
+  }
+  
+  .popup-box {
+    background-color: var(--bg-secondary);
+    color: var(--text-color);
+  }
+  
+  .points {
+    background-color: var(--card-hover);
+    color: #fff;
+  }
+  
+  .purchase-btn,
+  .close-btn {
+    background-color: var(--card-hover);
+    color: white;
+  }
+  
+  .purchase-btn:hover,
+  .close-btn:hover {
+    background-color: var(--card-bg);
+  }
+
+.mode-zen .points { background-color: #e6f5e1;
+                    color:#000022 }
+
+.mode-nuit .points { background-color: #2a387f; }
+
+.mode-jour .points { background-color: #a6d4ff; }
+
