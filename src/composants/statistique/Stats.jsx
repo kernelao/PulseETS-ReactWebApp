@@ -71,7 +71,7 @@ const Stats = () => {
       <div className="stats-container">
         <div className="stats-header">
           <h3>Statistiques</h3>
-          <button onClick={toggleMode}>
+          <button id="voirOption" onClick={toggleMode}>
             Voir {mode === 'pomodoro' ? 'Tâches' : 'Pomodoro'}
           </button>
         </div>
