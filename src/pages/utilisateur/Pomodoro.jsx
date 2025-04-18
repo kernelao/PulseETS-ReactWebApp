@@ -9,11 +9,8 @@ const Pomodoro = () => {
   const { pomodoro, pauseCourte, pauseLongue } = useOutletContext();
   
   // Passer les valeurs à TimerPom
-  return (
-    <ThemeWrapper>
-    <TimerPom pomodoro={pomodoro} pauseCourte={pauseCourte} pauseLongue={pauseLongue} />
-    </ThemeWrapper>
-  )
+  return <TimerPom pomodoro={pomodoro} pauseCourte={pauseCourte} pauseLongue={pauseLongue} />;
+
 }
 
 export default Pomodoro;
