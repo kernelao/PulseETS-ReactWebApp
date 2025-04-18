@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 import Greeting from './Greeting';
 import Stats from './Stats';
 import axios from './../../api/Axios';
@@ -6,24 +7,21 @@ import './dash.css';
 
 const Dash = () => {
   const [username, setUsername] = useState('User');
+  const { theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(' ', '-');
 
   useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const res = await axios.get('/dashboard');
-        setUsername(res.data.user?.username || 'User');
-      } catch (err) {
-        console.error('Erreur en récupérant le nom d’utilisateur:', err);
-      }
-    };
-
-    fetchUsername();
+    axios.get('/dashboard')
+      .then(res => setUsername(res.data.user?.username || 'User'))
+      .catch(console.error);
   }, []);
 
   return (
-    <div className="dashboard-container">
+    <div className={`dashboard-container ${themeClass}`}>
       <Greeting username={username} />
-      <Stats />
+      <div className="stats-wrapper">
+        <Stats />
+      </div>
     </div>
   );
 };

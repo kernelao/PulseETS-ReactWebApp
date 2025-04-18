@@ -1,4 +1,3 @@
-/* Main Layout */
 .app {
   display: flex;
   height: 100vh;
@@ -6,9 +5,8 @@
   background: #f5f5f5;
 }
 
-/* Sidebar */
 .sidebar {
-  width: 240px; /* Increased for more space */
+  width: 240px; 
   background: #d6e2c5;
   padding: 10px;
   overflow-y: auto;
@@ -20,14 +18,12 @@
   margin-bottom: 10px;
 }
 
-/* Sidebar header row (titre + “+” boutton) */
 .sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* The “+” button pour nv categories */
 .add-category-btn {
   background: none;
   border: none;
@@ -40,7 +36,6 @@
   color: #000;
 }
 
-/* Input pour new categories */
 .add-category-input {
   display: flex;
   margin-top: 5px;
@@ -65,13 +60,11 @@
   background: #9fb27c;
 }
 
-/* 3) Folder Styling */
 .folder {
   position: relative;
 
 }
 
-/* General folder title style */
 .folder-title {
   display: flex;
   align-items: center;
@@ -86,7 +79,6 @@
 
 }
 
-/* Bienvenue fichier */
 .bienvenue-folder .folder-title {
   font-size: 15px;
   font-weight: bold;
@@ -123,7 +115,6 @@
   background: #dddddd8a;
 }
 
-/* Folder Menu*/
 .folder-options-menu {
   position: absolute;
   top: 32px;
@@ -152,7 +143,6 @@
   background: #f0f0f0;
 }
 
-/* Notes item et conteneur */
 .notes {
   max-width: 300px;
   margin-left: 5px;
@@ -242,7 +232,7 @@
 .note-options-menu button:hover {
   background: #f0f0f0;
 }
-/* Editor Section */
+
 .editor {
   flex: 1;
   padding: 20px;
@@ -305,7 +295,6 @@ textarea {
   cursor: not-allowed;
 }
 
-/* “Add note” input (dans le fichier)*/
 .add-note-input {
   display: flex;
   margin-top: 5px;
@@ -330,7 +319,6 @@ textarea {
   background: #9fb27c;
 }
 
-/* “Welcome” page styles (Pour intro) */
 .welcome-page {
   padding: 20px;
   text-align: center;
@@ -357,4 +345,157 @@ textarea {
   width: 80%;
   max-width: 500px;
   height: auto;
+}
+
+.app.mode-nuit {
+  background-color: #0b0626;
+  color: #e0e0e0;
+}
+
+.app.mode-nuit .sidebar {
+  background-color: #0b0626;
+  border-right: 1px solid #444;
+}
+
+.app.mode-nuit .folder-title {
+  background-color: #171a38;
+  color: #fff;
+}
+
+.app.mode-nuit .note-item {
+  background-color: #171a38;
+  color: #f0f0f0;
+}
+
+.app.mode-nuit .note-item.active {
+  background-color: #39485c;
+}
+
+.app.mode-nuit .editor {
+  background-color: #0b0626;
+  color: #f0f0f0;
+}
+
+.app.mode-nuit textarea {
+  background-color: #181818;
+  color: #ffffff;
+  border-color: #444;
+}
+
+.app.mode-nuit .undo-btn {
+  background-color: #444;
+  color: white;
+}
+
+.app.mode-jour {
+  background-color: #eaf2fd;
+  color: #000;
+}
+
+.app.mode-jour .sidebar {
+  background-color: #ebf5fa;
+  border-right: 1px solid #ccc;
+}
+
+.app.mode-jour .folder-title {
+  background-color: #a6d4ff;
+  color: #000;
+}
+
+.app.mode-jour .note-item {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.app.mode-jour .note-item.active {
+  background-color: #e1e8f3;
+}
+
+.app.mode-jour .editor {
+  background-color: whitesmoke;
+  color: #000;
+}
+
+.app.mode-jour textarea {
+  background-color: #fff;
+  color: #000;
+  border-color: #ccc;
+}
+
+.app.mode-jour .undo-btn {
+  background-color: #ddd;
+  color: #000;
+}
+.app.mode-jour .add-category-btn,
+.app.mode-jour .add-note-btn,
+.app.mode-jour .add-category-input button,
+.app.mode-jour .add-note-input button {
+  background-color: #a6d4ff;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.app.mode-jour .add-category-input button:hover,
+.app.mode-jour .add-note-input button:hover {
+  background-color: #a6d4ff;
+}
+
+.app.mode-zen {
+  background-color: #cfe4d9;
+  color: #1e1e1e;
+}
+
+.app.mode-zen .sidebar {
+  background-color: #cfe4d9;
+  border-right: 1px solid #aacdbf;
+}
+
+.app.mode-zen .folder-title {
+  background-color: #9cccb5;
+  color: #1e1e1e;
+}
+
+.app.mode-zen .note-item {
+  background-color: #ffffff;
+  color: #1e1e1e;
+}
+
+.app.mode-zen .note-item.active {
+  background-color: #9cccb5;
+}
+
+.app.mode-zen .editor {
+  background-color: #ffffff;
+  color: #1e1e1e;
+}
+
+.app.mode-zen textarea {
+  background-color: #f0fef8;
+  color: #1e1e1e;
+  border-color: #b5dac9;
+}
+
+.app.mode-zen .undo-btn {
+  background-color: #9cccb5;
+  color: #ffffff;
+}
+
+.app.mode-zen .add-category-btn,
+.app.mode-zen .add-note-btn,
+.app.mode-zen .add-category-input button,
+.app.mode-zen .add-note-input button {
+  background-color: #9cccb5;
+  color: #1e1e1e;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.app.mode-zen .add-category-input button:hover,
+.app.mode-zen .add-note-input button:hover {
+  background-color: #77a08e;
 }

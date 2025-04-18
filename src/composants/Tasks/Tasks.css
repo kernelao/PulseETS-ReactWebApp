@@ -1,20 +1,16 @@
-/* 🌿 Conteneur principal */
 .tasks-container {
   display: flex;
   min-height: 100vh;
-  background-color: #f4f7f4; /* modifié */
   padding: 20px;
   gap: 20px;
-  overflow: hidden;
-  margin-top: 0; /* ✅ corrigé ici */
+  margin-top: 0;
 }
 
-/* 🌿 Panneau gauche : Filtres + Tags */
 .left-panel {
-  width: 220px; /* 🔥 Fixe plus étroit, assez pour le contenu */
+  width: 220px;
   min-width: 200px;
   max-width: 250px;
-  background-color: #d9eeda; /* modifié */
+  background-color: #d9eeda; 
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -26,16 +22,13 @@
   flex: 1;
   min-width: 0;
   max-height: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: #eaf4ea; /* modifié */
+  background-color: #eaf4ea; 
   padding: 20px;
   border-radius: 10px;
-  overflow: hidden;
 }
 
-/* 🌿 Filtres */
 .tasks-filter {
   display: flex;
   flex-direction: column;
@@ -43,7 +36,6 @@
 }
 
 .tasks-filter button {
-  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 10px;
@@ -56,11 +48,6 @@
   width: 100%;
 }
 
-.tasks-filter button:hover {
-  background-color: #2e7031; /* modifié */
-}
-
-/* 🌿 Tags */
 .tasks-tags {
   margin-top: 20px;
 }
@@ -80,17 +67,12 @@
 }
 
 .tag-input-container button {
-  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-}
-
-.tag-input-container button:hover {
-  background-color: #2e7031; /* modifié */
 }
 
 .tags-list {
@@ -115,7 +97,6 @@
 }
 
 .tag-buttons button {
-  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 8px 12px;
@@ -124,21 +105,15 @@
   font-size: 14px;
 }
 
-.tag-buttons button:hover {
-  background-color: #2e7031; /* modifié */
-}
-
-/* 🌿 Panneau droit : Tâches */
 .right-panel {
   flex-grow: 1;
-  background-color: #eaf4ea; /* modifié */
+  background-color: #eaf4ea; 
   padding: 20px;
   border-radius: 10px;
   position: relative;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 40px);
-  overflow: hidden;
 }
 
 .right-content {
@@ -147,7 +122,6 @@
   padding-right: 5px;
 }
 
-/* 🌿 Affinage affichage tâches (compact et centré) */
 .tasks-list {
   display: flex;
   flex-direction: column;
@@ -185,7 +159,6 @@
 }
 
 .task-buttons button {
-  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 8px 12px;
@@ -199,21 +172,16 @@
   text-align: center;
 }
 
-.task-buttons button:hover {
-  background-color: #2e7031; /* modifié */
-}
-
-/* 🌿 Formulaire d'ajout */
 .tasks-form {
   position: sticky;
   bottom: 0;
   left: 0;
-  background-color: #eaf4ea; /* modifié */
+  background-color: #eaf4ea; 
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  border-top: 2px solid #d9eeda; /* modifié */
+  border-top: 2px solid #d9eeda; 
   z-index: 10;
   align-items: center;
   justify-content: center;
@@ -241,18 +209,13 @@
   flex: 0 0 auto;
   padding: 10px 25px;
   border-radius: 5px;
-  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   cursor: pointer;
   font-size: 14px;
   height: 40px;
 }
-.tasks-form button:hover {
-  background-color: #2e7031; /* modifié */
-}
 
-/* 🌿 Vue Détail */
 .task-details {
   background-color: white;
   padding: 20px;
@@ -281,7 +244,6 @@
 
 .task-details button {
   align-self: flex-end;
-  background-color: #388e3c; /* modifié */
   color: white;
   border: none;
   padding: 8px 15px;
@@ -289,16 +251,10 @@
   cursor: pointer;
 }
 
-.task-details button:hover {
-  background-color: #2e7031; /* modifié */
-}
-
-/* 🌿 Taille du texte */
 .tasks-container * {
   font-size: 1rem;
 }
 
-/* 🌿 Barre de recherche de tag */
 .tag-search {
   margin-top: 20px;
 }
@@ -315,9 +271,8 @@
   box-sizing: border-box;
 }
 
-/* 🌿 Badge de tag */
 .tag-badge {
-  background-color: #388e3c; /* modifié */
+  background-color: #388e3c; 
   color: white;
   padding: 5px 10px;
   margin-left: 10px;
@@ -329,29 +284,25 @@
 }
 
 .tag-badge:hover {
-  background-color: #2e7031; /* modifié */
+  background-color: #2e7031; 
 }
 
-/* 🌿 Titre des vues */
 .task-view-title {
   font-size: 22px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 15px;
-  color: #2f5e2f;
 }
 
 .task-view-title {
   font-size: 24px;
   font-weight: bold;
-  color: #2f5e2f;
   text-align: center;
   margin-bottom: 15px;
-  border-bottom: 2px solid #d9eeda; /* modifié */
+  border-bottom: 2px solid #d9eeda; 
   padding-bottom: 5px;
 }
 
-/* 🌿 Modale d'édition */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -381,8 +332,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #f4f7f4; /* modifié */
-  overflow-x: hidden;
+  background-color: #f4f7f4;
 }
 
 .task-header {
@@ -396,10 +346,9 @@ body {
 .task-view-title {
   font-size: 24px;
   font-weight: bold;
-  color: #2f5e2f;
   margin: 0;
   padding-bottom: 5px;
-  border-bottom: 2px solid #d9eeda; /* modifié */
+  border-bottom: 2px solid #d9eeda;
   flex: 1;
 }
 
@@ -443,7 +392,6 @@ body {
 
 .tasks-page.no-scroll {
   height: 100vh;
-  overflow: hidden;
 }
 
 .tasks-page {
@@ -451,4 +399,105 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.tasks-container.mode-nuit {
+  background-color: #0b0626;
+  color: #eaeaea;
+}
+
+.tasks-page.mode-nuit .left-panel,
+.tasks-page.mode-nuit .right-panel,
+.tasks-page.mode-nuit .tasks-form,
+.tasks-page.mode-nuit .task-item,
+.tasks-page.mode-nuit .task-details,
+.tasks-page.mode-nuit .modal-content {
+  background-color: #171a38;
+  color: #eaeaea;
+}
+
+.tasks-page.mode-nuit .task-buttons button,
+.tasks-page.mode-nuit .tasks-filter button,
+.tasks-page.mode-nuit .tasks-form button,
+.tasks-page.mode-nuit .delete-visible-btn {
+  background-color: #2a387f;
+  color: white;
+}
+
+
+.tasks-page.mode-nuit button:hover {
+  background-color: #8b95c7 !important;
+  color: white !important;
+}
+
+.tasks-page.mode-jour {
+  background-color: #eef5f8;
+  color: #333;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.tasks-page.mode-jour .left-panel
+{
+  background-color: #eef5f8;
+  color: #333;
+  border-color: #ccc;
+}
+
+.tasks-page.mode-jour .right-panel,
+.tasks-page.mode-jour .tasks-form,
+.tasks-page.mode-jour .task-item,
+.tasks-page.mode-jour .task-details,
+.tasks-page.mode-jour .modal-content {
+  background-color: whitesmoke;
+  color: #333;
+  border-color: #ccc;
+}
+
+.tasks-page.mode-jour .task-buttons button,
+.tasks-page.mode-jour .tasks-filter button,
+.tasks-page.mode-jour .tasks-form button,
+.tasks-page.mode-jour .delete-visible-btn {
+  background-color: #a6d4ff;
+  color: black;
+}
+
+.tasks-page.mode-zen {
+  background-color: #9cccb5;
+  color: rgb(44, 42, 42);
+}
+
+.tasks-page.mode-zen .left-panel,
+.tasks-page.mode-zen .right-panel,
+.tasks-page.mode-zen .tasks-form,
+.tasks-page.mode-zen .task-item,
+.tasks-page.mode-zen .task-details,
+.tasks-page.mode-zen .modal-content {
+  background-color: #cfe4d9;
+  color: rgb(44, 42, 42);
+  border-color: #b6d9b6;
+}
+
+.tasks-page.mode-zen .task-buttons button,
+.tasks-page.mode-zen .tasks-filter button,
+.tasks-page.mode-zen .tasks-form button,
+.tasks-page.mode-zen .delete-visible-btn {
+  background-color: #9cccb5;
+  color: rgb(44, 42, 42);
+}
+
+.tasks-page.mode-zen .task-buttons button:hover,
+.tasks-page.mode-zen .tasks-filter button:hover,
+.tasks-page.mode-zen .delete-visible-btn:hover {
+  background-color: #9ad89a;
+}
+
+.mode-nuit .tag-search input {
+  background-color: grey;
+  border: none;
+  color: #f0f0f0;
+}
+
+.mode-nuit .tag-search input::placeholder {
+  color: #aaa;
 }
