@@ -13,12 +13,22 @@
     width: 150px;
 }
 
+.cercle_main {
+    overflow: hidden;
+  }
+  
+.sliding-panel,
+.sliding-panel.open {
+  max-height: none !important;
+  height: auto !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
 
-
-
-
-
-
+.sliding-panel-wrapper {
+  max-height: none !important;
+  height: auto !important;
+  overflow: hidden !important;
+}
 
  
-

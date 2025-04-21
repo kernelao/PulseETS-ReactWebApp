@@ -42,7 +42,6 @@
     cursor: not-allowed;
 }
 
-/* Ajout d'une section pour les objectifs */
 #iconeObjectifs {
     display: flex;
     flex-wrap: wrap;
@@ -78,7 +77,6 @@
     cursor: not-allowed;
 }
 
-/* Overlay pour la pop-up */
 .popup-overlay {
     position: fixed;
     top: 0;

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AVATAR from '/src/assets/image_avatar';
 import './Boutique.css';
 import axios from '../../api/Axios';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const Boutique = () => {
   const [avatars, setAvatars] = useState([]);
@@ -14,6 +15,8 @@ const Boutique = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [previewTheme, setPreviewTheme] = useState(null);
+  const { theme } = useContext(ThemeContext);
+const themeClass = theme.toLowerCase().replace(' ', '-');
 
 
   const defaultAvatars = [
@@ -148,7 +151,7 @@ const Boutique = () => {
   };
 
   return (
-    <div className={`boutiqueContainer ${previewTheme ? 'theme-' + previewTheme : ''}`}>
+<div className={`boutiqueContainer ${previewTheme ? 'theme-' + previewTheme : ''} mode-${themeClass}`}>
         <h1 className="h1Boutique">Boutique</h1>
         <p className="points">Points PULSE : {pulsePoints}</p>
         <div className="profile_image">

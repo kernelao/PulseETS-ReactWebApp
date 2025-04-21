@@ -9,9 +9,11 @@ import { useAuth } from '../../context/AuthContext';
 
 const Dash = () => {
   const [username, setUsername] = useState('User');
-  const { changeTheme } = useContext(ThemeContext);
-  const { setPomodoro, setPauseCourte, setPauseLongue } = useOutletContext();
+  const { changeTheme, theme } = useContext(ThemeContext);
+  const themeClass = theme.toLowerCase().replace(' ', '-');
+    const { setPomodoro, setPauseCourte, setPauseLongue } = useOutletContext();
   const { token } = useAuth();
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +43,12 @@ const Dash = () => {
   }, [token]);
 
   return (
-    <div className="dashboard-container">
+    
+    <div className={`dashboard-container ${themeClass}`}>
       <Greeting username={username} />
-      <Stats />
+      <div className="stats-wrapper">
+        <Stats />
+      </div>
     </div>
   );
 };
