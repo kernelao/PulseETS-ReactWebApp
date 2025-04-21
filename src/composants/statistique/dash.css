@@ -11,16 +11,18 @@ html, body {
   flex-direction: column;
   justify-content: flex-start; 
 }
-  .greeting {
+
+   .greeting {
     margin-top: 30px; 
     margin-bottom: 30px; 
     text-align: center;
+    color: #1e1e1e; 
   }
   
-  .greeting h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #000;
+  .mode-nuit .greeting {
+    color: #f0f0f0;
   }
   
-  
+  .mode-zen .greeting {
+    color: #1e3c2b;
+  }

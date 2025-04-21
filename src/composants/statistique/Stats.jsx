@@ -10,6 +10,8 @@ import {
   Legend
 } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 ChartJS.register(annotationPlugin);
 
 import './stats.css';
@@ -19,6 +21,9 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const Stats = () => {
   const [mode, setMode] = useState('pomodoro');
   const [stats, setStats] = useState(null);
+  const { theme } = useContext(ThemeContext);
+const themeClass = theme.toLowerCase().replace(' ', '-');
+
 
   const toggleMode = () => {
     setMode(prev => (prev === 'pomodoro' ? 'tasks' : 'pomodoro'));
@@ -44,13 +49,15 @@ const Stats = () => {
   const total = weekData.reduce((acc, val) => acc + val, 0);
   const average = parseFloat((total / weekData.length).toFixed(1));
 
+  const isDark = themeClass === 'mode-nuit';
+
   const data = {
     labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
     datasets: [
       {
         label: mode === 'pomodoro' ? 'Séances Pomodoro' : 'Tâches Complétées',
         data: weekData,
-        backgroundColor: '#001f3f',
+        backgroundColor: isDark ? 'rgba(77, 166, 255, 0.7)' : '#001f3f',
         borderRadius: 4,
         barThickness: 20,
       },

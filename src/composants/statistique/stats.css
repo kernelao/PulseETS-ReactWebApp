@@ -16,7 +16,7 @@
     background: #fff;
     padding: 24px; 
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 12px rgba(161, 16, 16, 0.06);
     overflow: hidden;
     max-width: 1900px;
     position: relative;
@@ -85,11 +85,10 @@
   .summary-section h4 {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #444;
+    color: #5b5858af;
     align-self: flex-end;
   }
   
-  /* STAT BOXES */
   .summary-column {
     display: flex;
     flex-direction: column;
@@ -107,12 +106,12 @@
   }
 
   .mode-nuit .summary-column > div {
-    background-color: #171a38;
+    background-color: #1f223a;
   }
   
   .summary-column p {
     font-size: 14px;
-    color: #666;
+    color: #dec8c8;
     margin-bottom: 6px;
   }
   
@@ -120,7 +119,7 @@
   .summary-column span {
     font-size: 22px;
     font-weight: bold;
-    color: #001f3f;
+    color: #b0b9c1;
   }
   
 /*couleur tableau stats*/
@@ -142,4 +141,3 @@
     background-color: #a6d4ff;
   }
  
-  
