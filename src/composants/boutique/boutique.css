@@ -52,14 +52,24 @@
   margin-bottom: 1rem;
 }
 
+.theme
+
 .avatars-grid,
 .themes-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
   flex-grow: 1;
 }
+
+.themes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* espacement entre les cartes */
+}
+
 
 .avatars {
   width: 100px;
@@ -68,7 +78,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 12px;
-  background-color: var(--card-bg);
+  background-color: var(--bg);
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -96,13 +106,28 @@
 }
 
 .theme-box {
-  padding: 15px;
+  padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--card-hover);
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  background-color: var(--card-bg);
   color: var(--text-color);
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--card-hover);
+  width: 100%;
+  max-width: 240px;
+  text-align: center;
+  word-wrap: break-word; 
+  white-space: normal;      
+  line-height: 1.4;        
+  min-height: 120px;         
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+}
+
+.theme-box p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
 }
 
 .theme-box:hover {
@@ -279,4 +304,10 @@
   --text-color: #eaeaea;
   --card-bg: #171a38;
   --card-hover: #2a387f;
+}
+
+.theme-box:hover {
+  transform: scale(1.03);
+  background-color: var(--card-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* effet au survol */
 }

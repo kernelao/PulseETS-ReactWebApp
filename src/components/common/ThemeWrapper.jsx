@@ -15,10 +15,11 @@ const themeMap = {
 
 const ThemeWrapper = ({ children }) => {
   const { theme } = useContext(ThemeContext);
-  const mappedTheme = themeMap[theme] || 'root';
-  const appliedClass = `mode-${mappedTheme}`;
+  const mappedTheme = themeMap[theme];
+  const appliedClass = mappedTheme ? `mode-${mappedTheme}` : `mode-${theme.toLowerCase().replace(/\s+/g, '-')}`;
 
   return <div className={appliedClass}>{children}</div>;
 };
+
 
 export default ThemeWrapper;

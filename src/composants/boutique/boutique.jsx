@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import AVATAR, { avatarMap } from '/src/assets/image_avatar';
 import './Boutique.css';
 import axios from '../../api/Axios';
@@ -19,12 +19,15 @@ const Boutique = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [previewTheme, setPreviewTheme] = useState(null);
+  const [originalTheme, setOriginalTheme] = useState(null);
+
+
 
   const { theme, changeTheme } = useContext(ThemeContext);
   const { userData, setUserData } = useUser();
   const avatarKey = avatarMap[userData.avatarPrincipal || "defautavatar"];
   const avatarImage = AVATAR[avatarKey] || AVATAR.defaultavatar;
-  const themeClass = theme.toLowerCase().replace(' ', '-');
+  const themeClass = React.useMemo(() => theme.toLowerCase().replace(' ', '-'), [theme]);
 
   const defaultThemes = [
     { name: "Cyberpunk", description: "Futuriste et néon.", cost: 300 },
@@ -98,9 +101,15 @@ const Boutique = () => {
   };
 
   const handlePreviewTheme = (theme) => {
+    if (!previewTheme) {
+      originalThemeRef.current = themeClass;
+    }
+    setOriginalTheme(themeClass); 
     setPreviewTheme(theme.name);
     changeTheme(theme.name);
   };
+
+  const originalThemeRef = useRef(theme);
 
   const handleApplyTheme = async () => {
     if (!selectedTheme) return;
@@ -225,7 +234,8 @@ const Boutique = () => {
               <button className="close-btn" onClick={() => {
                 setSelectedTheme(null);
                 setPreviewTheme(null);
-                changeTheme(userData.themeName || 'Mode zen');
+                setOriginalTheme(null);
+                changeTheme(originalThemeRef.current);
                 setMessage("");
               }}>Fermer</button>
               <p>{message}</p>

@@ -394,9 +394,8 @@ function handleEditNoteTitle(noteId, newTitle) {
           const isOpen = !!openFolders[folder.name];
           return (
 <React.Fragment key={folder.name}>
-<div key={folder.name} className="folder">
-            <div key={folder.name} className="folder">
-            <div key={folder.name} className="folder-wrapper">
+<div className="folder">
+<div className="folder-wrapper">
               <div className="folder-title" onClick={() =>
                 setOpenFolders((prev) => ({ ...prev, [folder.name]: !prev[folder.name] }))
               }>
@@ -540,6 +539,7 @@ function handleEditNoteTitle(noteId, newTitle) {
                   )}
                 </div>
               )}
+            </div>
             </div>
             </React.Fragment>
           );
