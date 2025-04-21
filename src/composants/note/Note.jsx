@@ -371,7 +371,7 @@ function handleEditNoteTitle(noteId, newTitle) {
         )}
 
         {/* Bienvenue folder  */}
-        <div className="folder">
+        <div className="folder bienvenue-folder">
           <div className="folder-title" onClick={() => setOpenFolders((prev) => ({ ...prev, Bienvenue: !prev["Bienvenue"] }))}>
             <span>{openFolders["Bienvenue"] ? "▼" : "▶"} Bienvenue</span>
           </div>
@@ -393,6 +393,8 @@ function handleEditNoteTitle(noteId, newTitle) {
         {folders.map((folder) => {
           const isOpen = !!openFolders[folder.name];
           return (
+<React.Fragment key={folder.name}>
+<div key={folder.name} className="folder">
             <div key={folder.name} className="folder">
             <div key={folder.name} className="folder-wrapper">
               <div className="folder-title" onClick={() =>
@@ -539,7 +541,7 @@ function handleEditNoteTitle(noteId, newTitle) {
                 </div>
               )}
             </div>
-            </div>
+            </React.Fragment>
           );
         })}
       </div>

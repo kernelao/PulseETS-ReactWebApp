@@ -23,6 +23,12 @@ const Reglages = () => {
     async function fetchData() {
       try {
         const res = await axios.get(`/reglages/me`);
+        /*, {
+          headers: { Authorization: `Bearer ${token}` },
+        });*/
+
+        console.log("Réponse reçue :", res.data); // 👈 log ici
+  
         const reglage = res.data;
         setPomodoro(reglage.pomodoro);
         setPauseCourte(reglage.courte_pause ?? 5);
@@ -44,8 +50,12 @@ const Reglages = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     changeTheme(themeChoisi);
+  
+    console.log("Token envoyé au PUT :", token); // 👈 ici aussi
+  
 
     if (!reglageId) {
+      console.error("ID manquant, reglageId =", reglageId); // 👈 Ajoute ça
       alert("ID du réglage non défini !");
       return;
     }

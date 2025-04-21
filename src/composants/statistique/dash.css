@@ -1,18 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .dashboard-container {
-  position: fixed;        
-  top: 0;
-  left: 250px;      
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;         
-  overflow-x: hidden;         
-  padding: 1rem 2rem;          
-  box-sizing: border-box;
+  
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; 
   gap: 1rem;
   background-color: var(--note); 
-  color: #000;
+  color: var(--text);
 }
 
 .dashboard-container .stats-wrapper {
@@ -20,18 +20,13 @@
   margin: 0 auto;
 }
 
-.dashboard-container.mode-nuit {
-  background-color: #0b0626;
-  color: rgb(149, 140, 140);
-}
-.dashboard-container.mode-zen {
-  background-color: #9cccb5;
-  color: rgb(80, 80, 80);
-}
-.dashboard-container.mode-jour {
-  background-color: #eef5f8;
-  color: #000;
-}
+
+   .greeting {
+    margin-top: 30px; 
+    margin-bottom: 30px; 
+    text-align: center;
+    color: var(--text); 
+  }
 
 .dashboard-container .greeting,
 .dashboard-container .stats-wrapper {
@@ -50,11 +45,11 @@
   overflow-x: hidden;
 }
 
-.dashboard-container.mode-nuit .stats-summary .summary-section h4 {
-  color: rgb(183, 181, 181);
+.dashboard-container .stats-summary .summary-section h4 {
+  color: var(--text);
 }
 
-.dashboard-container.mode-nuit .greeting h2 {
-  color: rgb(183, 181, 181);
+.dashboard-container .greeting h2 {
+  color: var(--text);
 }
 
