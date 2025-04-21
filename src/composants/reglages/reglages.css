@@ -1,19 +1,24 @@
+/* Réglages.css : thématisation complète (Zen, Nuit, Jour + Thèmes Boutique) */
+
 #app {
   display: flex;
   height: 100vh;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  background: var(--bg-main, #f5f5f5);
+  color: var(--text-color, #24332a);
 }
 
 #mainReglages {
   padding: 2rem;
   margin: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
   left: var(--navbar-width,250px);
+  background: var(--bg-main, #f5f5f5);
+  color: var(--text-color, #24332a);
 }
 
 #reglages {
@@ -28,16 +33,17 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  flex-grow: 1;  
+  flex-grow: 1;
   overflow: auto;
   margin-left: 2rem;
+  background: var(--card-bg, white);
 }
 
 #reglagesMinuteur,
 #themeReglages {
-  width: 100%; 
+  width: 100%;
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
 }
@@ -47,7 +53,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0;
-  color: #24332a;
+  color: var(--text-color, #24332a);
 }
 
 #ligne2Reglages {
@@ -56,30 +62,18 @@
   color: gray;
 }
 
-#minuteurTitreReglages {
+#minuteurTitreReglages,
+#themeTitreReglages {
   display: flex;
   align-items: center;
   gap: 8px;
   margin: 0;
-}
-
-#themeTitreReglages {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 8px;
-  margin: 0;
+  background-color: var(--section-bg, transparent);
 }
 
 #themeReglages {
   display: flex;
-  flex-direction: column; 
-}
-
-#reglagesMinuteur {
-  display: flex;
-  justify-content: center;
-  gap: 15rem;
+  flex-direction: column;
 }
 
 #choixThemeReglages {
@@ -87,7 +81,7 @@
 }
 
 #boutonEnregistrerConteneurReglages {
-  display: flex;            
+  display: flex;
   justify-content: flex-end;
   align-items: center;
 }
@@ -99,13 +93,15 @@
   cursor: pointer;
   font-weight: bold;
   border: none;
+  background-color: var(--card-hover, #ccc);
+  color: var(--text-color, white);
 }
 
 #nomThemeReglages {
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 8px; 
+  gap: 8px;
 }
 
 #pinceauReglages,
@@ -115,96 +111,6 @@
   opacity: 0.5;
 }
 
-#mainReglages.mode-zen {
-  background-color: #9cccb5; 
-}
-
-#mainReglages.mode-zen #reglages {
-  background-color: #cfe4d9;
-  color: rgb(80, 80, 80);
-}
-
-#mainReglages.mode-nuit {
-  background-color: #0b0626;
-}
-
-#mainReglages.mode-nuit #reglages {
-  background-color: #171a38;
-  color: rgb(149, 140, 140);
-}
-
-#mainReglages.mode-nuit #themeTitreReglages,
-#mainReglages.mode-nuit #minuteurTitreReglages {
-  background-color: #292c4b;
-  border-radius: 10px;
-}
-
-#mainReglages.mode-nuit .minuteurChoixReglages,
-#mainReglages.mode-nuit .selectReglages {
-  background-color: grey;
-  color: #f0f0f0;
-  border: none;
-}
-
-#mainReglages.mode-jour {
-  background-color: #cfdbe1;
-}
-
-#mainReglages.mode-zen {
-  background-color: #9cccb5; 
-}
-
-#mainReglages.mode-zen #reglages {
-  background-color: #cfe4d9;
-  color: rgb(80, 80, 80);
-}
-
-#mainReglages.mode-nuit {
-  background-color: #0b0626;
-}
-
-#mainReglages.mode-nuit #reglages {
-  background-color: #171a38;
-  color: rgb(149, 140, 140);
-}
-
-#mainReglages.mode-nuit #themeTitreReglages,
-#mainReglages.mode-nuit #minuteurTitreReglages {
-  background-color: #292c4b;
-  border-radius: 10px;
-}
-
-#mainReglages.mode-nuit .minuteurChoixReglages,
-#mainReglages.mode-nuit .selectReglages {
-  background-color: grey;
-  color: #f0f0f0;
-  border: none;
-}
-
-#mainReglages.mode-jour {
-  background-color: #cfdbe1;
-}
-
-.sousTitreReglages {
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #24332a;
-}
-
-.barreReglages {
-  margin-top: 1rem;
-}
-
-.labelReglages {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .labelReglages,
 .selectReglages {
   padding: 8px;
@@ -212,8 +118,8 @@
   border: 1px solid #e2e6d5;
   background: #e2e6d5;
   font-weight: bold;
-  width: 100%; 
-  max-width: 200px; 
+  width: 100%;
+  max-width: 200px;
 }
 
 .labelReglages1 {
@@ -222,6 +128,7 @@
   align-items: center;
   font-weight: bold;
   gap: 0.3rem;
+  color: var(--text-color, #24332a);
 }
 
 .minuteurChoixReglages {
@@ -232,47 +139,85 @@
   border-radius: 8px;
   width: 60px;
   text-align: center;
+  color: var(--text-color, #24332a);
 }
 
 .spanReglages {
   font-size: 1rem;
   font-weight: bold;
-  color: #24332a;
+  color: var(--text-color, #24332a);
 }
 
-.mode-zen #mainReglages { background-color: #9cccb5; }
-.mode-zen #reglages { background-color: #e6f5e1; }
-.mode-zen #boutonEnregistrerReglages { background-color: #9cccb5; }
-
-.mode-nuit #mainReglages { background-color: #0b0626; 
-color: #eaeaea;}
-.mode-nuit .sousTitreReglages {
-  color: #eaeaea;}
-.mode-nuit #boutonEnregistrerReglages {
-  background-color: #2a387f;
-color: #eaeaea; }
-.mode-nuit #titreMainReglages {
-  color: #eaeaea;
+.sousTitreReglages {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-color, #24332a);
 }
-.mode-nuit label {
-  color: #eaeaea;
+
+.barreReglages {
+  margin-top: 1rem;
 }
-.mode-nuit #mainReglages { background-color: #0b0626; }
-.mode-nuit #boutonEnregistrerReglages { background-color: #2a387f; }
 
-.mode-jour #mainReglages { background-color: #eef5f8; }
-.mode-jour #reglages { background-color: white; }
-.mode-jour #boutonEnregistrerReglages { background-color: #a6d4ff; }
+/* Global Theme Variables Injected from className */
+.mode-zen {
+  --bg-main: #9cccb5;
+  --card-bg: #e6f5e1;
+  --card-hover: #9cccb5;
+  --text-color: #0b0626;
+}
+.mode-nuit {
+  --bg-main: #0b0626;
+  --card-bg: #171a38;
+  --card-hover: #2a387f;
+  --text-color: #eaeaea;
+  --section-bg: #292c4b;
+}
+.mode-jour {
+  --bg-main: #eef5f8;
+  --card-bg: white;
+  --card-hover: #a6d4ff;
+  --text-color: #24332a;
+}
+.mode-cyberpunk {
+  --bg-main: #0f0f2d;
+  --card-bg: #1a1a40;
+  --card-hover: #75b1b1;
+  --text-color: #00ffff;
+}
+.mode-steampunk {
+  --bg-main: #3e2f1c;
+  --card-bg: #5b4636;
+  --card-hover: #d1a666;
+  --text-color: #ffd699;
+}
+.mode-space {
+  --bg-main: #0c1c36;
+  --card-bg: #1b2d4f;
+  --card-hover: #355c9b;
+  --text-color: #e0e6f7;
+}
+.mode-neon-lights {
+  --bg-main: #1f0036;
+  --card-bg: #3b0066;
+  --card-hover: #783578;
+  --text-color: #ff00ff;
+}
+.mode-vintage {
+  --bg-main: #f4e2d8;
+  --card-bg: #dfc3b4;
+  --card-hover: #a1887f;
+  --text-color: #4e342e;
+}
+.mode-minimalist {
+  --bg-main: #ffffff;
+  --card-bg: #f9f9f9;
+  --card-hover: #cccccc;
+  --text-color: #333;
+}
 
-.mode-zen #mainReglages {
-  color: #0b0626;}
-  .mode-zen .sousTitreReglages {
-    color: #0b0626;}
-  .mode-zen #boutonEnregistrerReglages {
-  color: #0b0626; }
-  .mode-zen #titreMainReglages {
-    color: #0b0626;
-  }
-  .mode-zen label {
-    color: #0b0626;
-  }
+#themeTitreReglages img{
+  color: red;
+}

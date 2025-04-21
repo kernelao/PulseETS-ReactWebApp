@@ -1,0 +1,113 @@
+.boutique-admin-container {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-sizing: border-box;
+  }
+  
+  .boutique-admin-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .avatars-admin-section,
+  .themes-admin-section {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 30px;
+  }
+  
+  .avatars-grid,
+  .themes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  
+  .avatar-item,
+  .theme-item {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .avatar-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+  
+  .avatar-info,
+  .theme-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .avatar-info p,
+  .theme-info p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  input[type="checkbox"] {
+    transform: scale(1.1);
+    margin-left: 8px;
+  }
+  
+  ul {
+    padding-left: 18px;
+    margin: 8px 0 0;
+  }
+  
+  ul li {
+    font-size: 13px;
+  }
+  
+  label {
+    font-weight: bold;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 768px) {
+    .avatars-grid,
+    .themes-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+  }
+  
+  .save-bar {
+    padding: 20px;
+    background-color: #fff;
+    border-top: 2px solid #ccc;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+  }
+  
+  .save-button {
+    padding: 12px 24px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  .save-button:hover {
+    background-color: #43a047;
+  }
+  

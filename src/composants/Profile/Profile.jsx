@@ -159,11 +159,11 @@ function Profile() {
 
   return (
     <ThemeWrapper>
-      <div className={`profile_wrapper ${themeClass}`}>
-        <div className="profile_container">
+      <div className={`profile_wrapper theme-${themeClass}`}>
+        <div className={`profile_container mode-${themeClass}`}>
           <h1 className="h1Profile">Profil</h1>
-          <div className="profile_image" onClick={handleAvatarClick}>
-            <img src={avatarImage} alt="Image de profil" className="profile-img" />
+          <div className="profile_image">
+            <img src={avatarImage} onClick={handleAvatarClick} alt="Image de profil" className="profile-img" />
           </div>
 
           {isAvatarPopupOpen && (

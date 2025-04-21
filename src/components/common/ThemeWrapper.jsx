@@ -1,15 +1,22 @@
-// src/theme/theme.jsx
 import React, { useContext } from 'react';
-import { ThemeContext } from "../../context/ThemeContext";
-import "../../components/common/theme.css";
+import { ThemeContext } from '../../context/ThemeContext';
 
+const themeMap = {
+  'Nuit': 'nuit',
+  'Zen': 'zen',
+  'Jour': 'jour',
+  'Cyberpunk': 'cyberpunk',
+  'Steampunk': 'steampunk',
+  'Space': 'space',
+  'Neon Lights': 'neon',
+  'Vintage': 'vintage',
+  'Minimalist': 'minimalist',
+};
 
 const ThemeWrapper = ({ children }) => {
   const { theme } = useContext(ThemeContext);
-
-  const appliedClass = theme.startsWith("Mode ")
-    ? theme.toLowerCase().replace(/\s/g, '-')
-    : `theme-${theme.toLowerCase().replace(/\s/g, '-')}`;
+  const mappedTheme = themeMap[theme] || 'root';
+  const appliedClass = `mode-${mappedTheme}`;
 
   return <div className={appliedClass}>{children}</div>;
 };

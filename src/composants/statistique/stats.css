@@ -51,7 +51,6 @@
     position: absolute;
     top: 10;
     right: 0;
-    background-color: #3345a7;
     color: white;
     border: none;
     border-radius: 8px;        
@@ -63,7 +62,6 @@
   }
   
   .stats-header button:hover {
-    background-color: #8b95c7;
     transform: translateY(-1px);              
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
   }
@@ -72,6 +70,8 @@
     transform: translateY(1px);               
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
+
+  
   
   /* SUMMARY SECTION */
   .stats-summary {
@@ -85,7 +85,7 @@
   .summary-section h4 {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #444;
+    color: var(--text);
     align-self: flex-end;
   }
   
@@ -98,21 +98,17 @@
   }
   
   .summary-column > div {
-    background-color: #f5f8ff;
+    background-color: var(--bg);
     width: 130px;
     text-align: right;
     padding: 12px;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
-
-  .mode-nuit .summary-column > div {
-    background-color: #171a38;
-  }
   
   .summary-column p {
     font-size: 14px;
-    color: #666;
+    color: var(--text);
     margin-bottom: 6px;
   }
   
@@ -120,26 +116,27 @@
   .summary-column span {
     font-size: 22px;
     font-weight: bold;
-    color: #2f80ed;
+    color: var(--folder-hover);
   }
   
 /*couleur tableau stats*/
-   .mode-nuit .stats-container {
-    background-color: #171a38;
-  }
-  
-  .mode-zen .stats-container {
-    background-color: #cfe4d9;
+
+.stats-container{
+  background-color: var(--bg);
+}
+
+.stats-header {
+  color: var(--text);
+}
+
+  #voirOption {
+    background-color: var(--btn);
+    color: var(--btn-text);
   }
 
-  .mode-zen #voirOption {
-    background-color: #9cccb5;
+  #voirOption:hover{
+    background-color: var(--btn-hover);
   }
-  .mode-nuit #voirOption {
-    background-color: #2a387f;
-  }
-  .mode-jour #voirOption {
-    background-color: #a6d4ff;
-  }
+
  
   

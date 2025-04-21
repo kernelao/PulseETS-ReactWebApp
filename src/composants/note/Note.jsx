@@ -3,7 +3,11 @@ import welcomeImage from "../../assets/images/welcome-image2.jpg";
 import axios from './../../api/Axios';
 import "./notes.css";
 import { ThemeContext } from "../../context/ThemeContext"; 
-
+import ThemeWrapper from '../../components/common/ThemeWrapper';
+import { toast } from "react-toastify";
+import RecompensePopup from "../../components/recompenses/RecompensePopup";
+import IMAGES from '/src/assets/badges_recompenses'
+import { UserContext } from "../../context/UserContext";
 
 const TYPEWRITER_TEXT = "Commencez à organiser vos idées dès maintenant !";
 
@@ -57,6 +61,8 @@ export default function NotesApp() {
   const [editedNoteTitle, setEditedNoteTitle] = useState("");
   const [editingFolderName, setEditingFolderName] = useState(null);
   const [editedFolderName, setEditedFolderName] = useState("");
+  const { userData, setUserData } = useContext(UserContext);
+
 
   const folderOptionsRef = useRef(null);
   const noteOptionsRef = useRef(null);
@@ -65,6 +71,7 @@ export default function NotesApp() {
   const { theme } = useContext(ThemeContext);
   const themeClass = theme.toLowerCase().replace(' ', '-');
 
+  const [popupRecompense, setPopupRecompense] = useState(null);
 
   useEffect(() => {
     async function fetchNotes() {
@@ -111,6 +118,28 @@ export default function NotesApp() {
     setHistory([]);
     setHistoryIndex(-1);
   }
+
+  const handleNouvelleRecompense = (type, valeur) => {
+    toast.success(`🎉 Récompense débloquée : ${type} x${valeur} !`);
+  
+    if (valeur >= 50) {
+      // Affiche le popup uniquement pour les grosses milestones
+      const imageMap = {
+        'notesAjoutees-50': IMAGES.i50notesAdd,
+        'sessionsCompletees-50': IMAGES.i50sessionsComplete,
+        'sessionsCompletees-100': IMAGES.i100sessionsComplete,
+        'tachesCompletees-50': IMAGES.i50tachesComplete,
+        'tachesCompletees-100': IMAGES.i100tachesComplete,
+      };
+  
+      const cle = `${type}-${valeur}`;
+      setPopupRecompense({
+        image: imageMap[cle],
+        description: `Bravo ! Tu as atteint ${valeur} ${type === 'sessionsCompletees' ? 'sessions' : type.replace('Ajoutees', ' ajoutées')}.`,
+      });
+    }
+  };
+
 
   function handleContentChange(e) {
     const newContent = e.target.value;
@@ -181,6 +210,18 @@ export default function NotesApp() {
       );
       setAddingNoteTo(null);
       setNewNoteTitle("");
+      axios.get('/user/profile').then((res) => {
+        const nouvelles = res.data.recompenses.filter(r =>
+          !(userData?.recompenses ?? []).some(old => old.type === r.type && old.valeur === r.valeur)
+        );
+        
+      
+      nouvelles.forEach(({ type, valeur }) => {
+        handleNouvelleRecompense(type, valeur);
+      });
+      
+      setUserData(prev => ({ ...prev, recompenses: res.data.recompenses }));
+    });
     });
   }
 
@@ -307,6 +348,7 @@ function handleEditNoteTitle(noteId, newTitle) {
 
 
   return (
+    <ThemeWrapper>
 <div className={`app ${themeClass}`}>
       <div className="sidebar">
         <div className="sidebar-header">
@@ -351,8 +393,8 @@ function handleEditNoteTitle(noteId, newTitle) {
         {folders.map((folder) => {
           const isOpen = !!openFolders[folder.name];
           return (
-            <div className={`app ${themeClass}`}>
-              <div key={folder.name} className="folder">
+            <div key={folder.name} className="folder">
+            <div key={folder.name} className="folder-wrapper">
               <div className="folder-title" onClick={() =>
                 setOpenFolders((prev) => ({ ...prev, [folder.name]: !prev[folder.name] }))
               }>
@@ -521,6 +563,8 @@ function handleEditNoteTitle(noteId, newTitle) {
           <p className="no-note">Sélectionne une note</p>
         )}
       </div>
+      <RecompensePopup recompense={popupRecompense} onClose={() => setPopupRecompense(null)} />
     </div>
+    </ThemeWrapper>
   );
 }

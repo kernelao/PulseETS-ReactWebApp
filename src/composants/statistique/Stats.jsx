@@ -10,6 +10,7 @@ import {
   Legend
 } from 'chart.js';
 import './stats.css';
+import ThemeWrapper from '../../components/common/ThemeWrapper';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -67,6 +68,7 @@ const Stats = () => {
   };
 
   return (
+    <ThemeWrapper>
     <div className="stats-wrapper">
       <div className="stats-container">
         <div className="stats-header">
@@ -98,6 +100,7 @@ const Stats = () => {
         </div>
       </div>
     </div>
+    </ThemeWrapper>
   );
 };
 

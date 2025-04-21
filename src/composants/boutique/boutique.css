@@ -1,4 +1,4 @@
-/* BOUTIQUE PAGE COMPLETE CSS */
+/* BOUTIQUE PAGE COMPLETE CSS - corrigée avec couleurs dynamiques par thème uniquement pour la boutique */
 
 .boutiqueContainer {
   display: flex;
@@ -24,8 +24,8 @@
 }
 
 .sectionContainer {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 1rem 1rem 2rem;
@@ -47,30 +47,17 @@
   border-radius: 10px;
 }
 
-.sectionContainer::after {
-  position: sticky;
-  bottom: 0;
-  text-align: center;
-  background: linear-gradient(to top, white, transparent);
-  padding-top: 1rem;
-  font-size: 0.9rem;
-  color: #888;
-}
-
 .sectionContainer h2 {
   text-align: center;
   margin-bottom: 1rem;
 }
 
-.avatars-grid {
+.avatars-grid,
+.themes-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
-}
-
-.avatars-grid,
-.themes-grid {
   flex-grow: 1;
 }
 
@@ -108,19 +95,14 @@
   background-color: var(--card-bg);
 }
 
-.themes-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
 .theme-box {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--card-bg);
+  background-color: var(--card-hover);
   cursor: pointer;
   transition: transform 0.2s ease;
+  color: var(--text-color);
 }
 
 .theme-box:hover {
@@ -138,18 +120,15 @@
   box-shadow: 0 0 10px rgba(78, 135, 51, 0.5);
 }
 
-.theme-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.theme-description {
-  font-size: 0.95rem;
-}
-
-.theme-cost {
-  font-weight: bold;
-  color: #4e8733;
+.theme-name,
+.theme-description,
+.theme-cost,
+.h1Boutique,
+.points,
+.popup-box,
+.popup-box h2,
+.popup-box p {
+  color: var(--text-color);
 }
 
 .h1Boutique {
@@ -165,6 +144,7 @@
   padding: 0.5rem 1rem;
   border-radius: 8px;
   margin-bottom: 2rem;
+  color: var(--text-color);
 }
 
 .profile_image {
@@ -182,92 +162,10 @@
   object-fit: cover;
 }
 
-/* Dark/Zen/Light Modes */
-.boutiqueContainer.mode-zen {
-  --bg-main: #e6f0d9;
-  --bg-secondary: #f3f7ec;
-  --text-color: #333;
-  --card-bg: #cfe2c1;
-  --card-hover: #b7d0a8;
-}
-
-.boutiqueContainer.mode-jour {
-  --bg-main: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --text-color: #222;
-  --card-bg: #d7e6f8;
-  --card-hover: #bcd8f7;
-}
-
-.boutiqueContainer.mode-nuit {
-  --bg-main: #171a38;
-  --bg-secondary: #1e214e;
-  --text-color: #c7c9e1;
-  --card-bg: #29305a;
-  --card-hover: #334082;
-}
-
-.theme-box,
-.avatars {
-  background-color: var(--card-bg);
-  color: var(--text-color);
-}
-
-.theme-box:hover,
-.avatars:hover {
-  background-color: var(--card-hover);
-}
-
-.popup-box {
-  background-color: var(--bg-secondary);
-  color: var(--text-color);
-}
-
 .purchase-btn,
 .close-btn {
   background-color: var(--card-hover);
-  color: white;
-}
-
-.purchase-btn:hover,
-.close-btn:hover {
-  background-color: var(--card-bg);
-}
-
-.points {
-  background-color: var(--card-hover);
-  color: #fff;
-}
-
-.mode-zen .points { background-color: #e6f5e1; color: #000022; }
-.mode-nuit .points { background-color: #2a387f; }
-.mode-jour .points { background-color: #a6d4ff; }
-
-.popup-box {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  animation: zoomIn 0.3s;
-  color: black;
-}
-
-.popup-box .purchase-btn,
-.popup-box .close-btn {
-  max-width: 220px;
-  width: 100%;
-  margin: 0.3rem auto;
-  display: block;
-}
-
-.purchase-btn,
-.close-btn {
-  background-color: var(--card-hover);
-  color: white;
+  color: var(--text-color);
   border: none;
   cursor: pointer;
   border-radius: 8px;
@@ -279,5 +177,106 @@
 .purchase-btn:hover,
 .close-btn:hover {
   background-color: var(--card-bg);
-  color: white;
+}
+
+.popup-box {
+  background-color: var(--bg-main);
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  animation: zoomIn 0.3s;
+  color: var(--text-color);
+}
+
+.popup-box .purchase-btn,
+.popup-box .close-btn {
+  max-width: 220px;
+  width: 100%;
+  margin: 0.3rem auto;
+  display: block;
+}
+
+/* Thèmes dynamiques appliqués uniquement à .boutiqueContainer */
+.boutiqueContainer.mode-cyberpunk {
+  --bg-main: #0f0f2d;
+  --bg-secondary: #1a1a40;
+  --text-color: #00ffff;
+  --card-bg: #1a1a40;
+  --card-hover: #2d2d80;
+}
+
+.boutiqueContainer.mode-steampunk {
+  --bg-main: #3e2f1c;
+  --bg-secondary: #5b4636;
+  --text-color: #ffd699;
+  --card-bg: #5b4636;
+  --card-hover: #7a5b3c;
+}
+
+.boutiqueContainer.mode-space {
+  --bg-main: #0c1c36;
+  --bg-secondary: #1b2d4f;
+  --text-color: #e0e6f7;
+  --card-bg: #1b2d4f;
+  --card-hover: #355c9b;
+}
+
+.boutiqueContainer.mode-neon-lights {
+  --bg-main: #1f0036;
+  --bg-secondary: #3b0066;
+  --text-color: #ff00ff;
+  --card-bg: #3b0066;
+  --card-hover: #5c0099;
+}
+
+.boutiqueContainer.mode-vintage {
+  --bg-main: #f4e2d8;
+  --bg-secondary: #dfc3b4;
+  --text-color: #4e342e;
+  --card-bg: #dfc3b4;
+  --card-hover: #bca094;
+}
+
+.boutiqueContainer.mode-minimalist {
+  --bg-main: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --text-color: #333;
+  --card-bg: #f9f9f9;
+  --card-hover: #e0e0e0;
+}
+
+.boutiqueContainer.mode-dark-mode {
+  --bg-main: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-color: #e0e0e0;
+  --card-bg: #2c2c2c;
+  --card-hover: #3a3a3a;
+}
+
+.boutiqueContainer.mode-zen {
+  --bg-main: #9cccb5;
+  --bg-secondary: #e6f5e1;
+  --text-color: #0b0626;
+  --card-bg: #e6f5e1;
+  --card-hover: #9cccb5;
+}
+
+.boutiqueContainer.mode-jour {
+  --bg-main: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-color: #000000;
+  --card-bg: #ffffff;
+  --card-hover: #dbefff;
+}
+
+.boutiqueContainer.mode-nuit {
+  --bg-main: #0b0626;
+  --bg-secondary: #171a38;
+  --text-color: #eaeaea;
+  --card-bg: #171a38;
+  --card-hover: #2a387f;
 }

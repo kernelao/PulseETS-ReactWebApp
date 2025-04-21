@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import './aide.css';
 import axios from './../../api/Axios';
 import { ThemeContext } from "../../context/ThemeContext";
+import ThemeWrapper from '../../components/common/ThemeWrapper';
 
 const AideMain = () => {
   const { theme } = useContext(ThemeContext);
@@ -57,6 +58,7 @@ const AideMain = () => {
   };
 
   return (
+    <ThemeWrapper>
     <div className={`aideMain mode-${themeClass}`}>
       <div className="aideContact">
         <h2>Nous contacter</h2>
@@ -161,6 +163,7 @@ const AideMain = () => {
         )}
       </div>
     </div>
+    </ThemeWrapper>
   );
 };
 

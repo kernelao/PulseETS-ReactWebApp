@@ -1,17 +1,12 @@
-// ✅ Boutique.jsx corrigé avec :
-// - support avatars & themes
-// - popup avatars
-// - popup themes avec essayer / acheter / choisir
-// - gestion contextuelle thème + avatar
-
 import React, { useState, useEffect, useContext } from "react";
 import AVATAR, { avatarMap } from '/src/assets/image_avatar';
 import './Boutique.css';
 import axios from '../../api/Axios';
 import { ThemeContext } from "../../context/ThemeContext";
 import { useUser } from "../../context/UserContext";
-import "../../components/common/theme.css";
 import ThemeWrapper from "../../components/common/ThemeWrapper";
+
+
 
 const Boutique = () => {
   const [avatars, setAvatars] = useState([]);
@@ -27,7 +22,7 @@ const Boutique = () => {
 
   const { theme, changeTheme } = useContext(ThemeContext);
   const { userData, setUserData } = useUser();
-  const avatarKey = avatarMap[userData.avatarPrincipal || "Jon Doe"];
+  const avatarKey = avatarMap[userData.avatarPrincipal || "defautavatar"];
   const avatarImage = AVATAR[avatarKey] || AVATAR.defaultavatar;
   const themeClass = theme.toLowerCase().replace(' ', '-');
 
@@ -42,28 +37,52 @@ const Boutique = () => {
   ];
 
   useEffect(() => {
-    axios.get('/boutique/avatars').then(res => {
-      const enriched = defaultAvatars.map(local => {
-        const match = res.data.find(api => api.name === local.name);
-        return { ...local, id: match?.id ?? null };
-      });
-      setAvatars(enriched);
-    });
-
-    axios.get('/boutique/themes').then(res => {
-      const enriched = defaultThemes.map(local => {
-        const match = res.data.find(api => api.name === local.name);
-        return { ...local, id: match?.id ?? null };
-      });
-      setThemes(enriched);
-    });
-
-    axios.get('/boutique/profile').then(res => {
-      setPulsePoints(res.data.pulsePoints);
-      setUnlockedAvatars(res.data.unlockedAvatars);
-      setUnlockedThemes(res.data.unlockedThemes);
-    });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const [avatarsRes, themesRes, profileRes] = await Promise.all([
+          axios.get('/boutique/avatars'),
+          axios.get('/boutique/themes'),
+          axios.get('/boutique/profile')
+        ]);
+  
+        const unlockedAvatars = profileRes.data.unlockedAvatars || [];
+        const unlockedThemes = profileRes.data.unlockedThemes || [];
+        const pulsePoints = profileRes.data.pulsePoints || 0;
+  
+        const enrichedAvatars = avatarsRes.data
+          .filter(api => defaultAvatars.find(local => local.name === api.name))
+          .map(api => {
+            const local = defaultAvatars.find(l => l.name === api.name);
+            return {
+              ...local,
+              id: api.id,
+              owned: unlockedAvatars.includes(api.name)
+            };
+          });
+  
+        const enrichedThemes = themesRes.data
+          .filter(api => defaultThemes.find(local => local.name === api.name))
+          .map(api => {
+            const local = defaultThemes.find(l => l.name === api.name);
+            return {
+              ...local,
+              id: api.id,
+              owned: unlockedThemes.includes(api.name)
+            };
+          });
+  
+        setAvatars(enrichedAvatars);
+        setThemes(enrichedThemes);
+        setUnlockedAvatars(unlockedAvatars);
+        setUnlockedThemes(unlockedThemes);
+        setPulsePoints(pulsePoints);
+      } catch (error) {
+        console.error("Erreur de chargement de la boutique :", error);
+      }
+    };
+  
+    fetchData();
+  }, []);  
 
   const handleApplyAvatar = async () => {
     if (!selectedAvatar) return;
@@ -85,12 +104,19 @@ const Boutique = () => {
 
   const handleApplyTheme = async () => {
     if (!selectedTheme) return;
+  
+    setSelectedTheme(null);
+    setPreviewTheme(null);
+  
     setLoading(true);
     try {
       const res = await axios.post(`/user/theme/apply`, {
         themeName: selectedTheme.name,
       });
       setMessage(res.data.message);
+  
+      changeTheme(selectedTheme.name);
+  
       setUserData(prev => ({ ...prev, themeName: selectedTheme.name }));
     } catch (err) {
       setMessage(err.response?.data?.message || "Erreur lors de l'application.");
@@ -98,6 +124,7 @@ const Boutique = () => {
       setLoading(false);
     }
   };
+  
 
   const handlePurchaseAvatar = async () => {
     if (!selectedAvatar) return;
@@ -139,7 +166,6 @@ const Boutique = () => {
         </div>
 
         <div className="boutique-content">
-          {/* Avatars */}
           <div id="iconeAvatar" className="sectionContainer">
             <h2 className="h2Boutique">Avatars</h2>
             <div className="avatars-grid">
@@ -151,18 +177,15 @@ const Boutique = () => {
             </div>
           </div>
 
-          {/* Thèmes */}
           <div id="iconeThemes" className="sectionContainer">
             <h2 className="h2Boutique">Thèmes</h2>
             <div className="themes-grid">
               {themes.map((theme, i) => (
-                <div className={`theme-box ${pulsePoints >= theme.cost ? '' : 'disabled'} ${unlockedThemes.includes(theme.name) ? 'unlocked' : ''}`}>
-                  <div className={`theme-box ${pulsePoints >= theme.cost ? '' : 'disabled'}`}>
-                    <div key={i} className={`theme ${unlockedThemes.includes(theme.name) ? 'unlocked' : ''}`} onClick={() => {setSelectedTheme(theme); setMessage("");}}>
-                      <p className="theme-name">{theme.name}</p>
-                      <p className="theme-description">{theme.description}</p>
-                      <p className="theme-cost">{theme.cost} PULSE points</p>
-                    </div>
+                <div key={i} className={`theme`} onClick={() => { setSelectedTheme(theme); setMessage(""); }}>
+                  <div className={`theme-box ${pulsePoints >= theme.cost ? '' : 'disabled'} ${unlockedThemes.includes(theme.name) ? '' : 'grise'}`}>
+                    <p className="theme-name">{theme.name}</p>
+                    <p className="theme-description">{theme.description}</p>
+                    <p className="theme-cost">{theme.cost} PULSE points</p>
                   </div>
                 </div>
               ))}
@@ -170,7 +193,6 @@ const Boutique = () => {
           </div>
         </div>
 
-        {/* Popup Avatar */}
         {selectedAvatar && (
           <div className="popup-overlay">
             <div className="popup-box">
@@ -188,7 +210,6 @@ const Boutique = () => {
           </div>
         )}
 
-        {/* Popup Thème */}
         {selectedTheme && (
           <div className="popup-overlay">
             <div className="popup-box">
@@ -201,7 +222,12 @@ const Boutique = () => {
               ) : (
                 <button className="purchase-btn" onClick={handlePurchaseTheme}>Acheter</button>
               )}
-              <button className="close-btn" onClick={() => { setSelectedTheme(null); setPreviewTheme(null); setMessage(""); }}>Fermer</button>
+              <button className="close-btn" onClick={() => {
+                setSelectedTheme(null);
+                setPreviewTheme(null);
+                changeTheme(userData.themeName || 'Mode zen');
+                setMessage("");
+              }}>Fermer</button>
               <p>{message}</p>
             </div>
           </div>
@@ -214,7 +240,7 @@ const Boutique = () => {
 export default Boutique;
 
 const defaultAvatars = [
-  { name: "Jon Doe", image: AVATAR.defaultavatar, description: "Jon Doe", cost: 0 },
+  { name: "defautavatar", image: AVATAR.defaultavatar, description: "Jon Doe", cost: 0 },
   { name: "Lina", image: AVATAR.avatarchandailrose, description: "Lina", cost: 100 },
   { name: "Grey Kid", image: AVATAR.avatarchapeaugris, description: "Grey Kid", cost: 100 },
   { name: "Incognita", image: AVATAR.avatarchapeaushades, description: "Incognita", cost: 150 },
