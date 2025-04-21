@@ -1,59 +1,28 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .dashboard-container {
-  position: fixed;        
-  top: 0;
-  left: 250px;      
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;         
-  overflow-x: hidden;         
-  padding: 1rem 2rem;          
-  box-sizing: border-box;
+  
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background-color: #eef5f8; 
-  color: #000;
+  justify-content: flex-start; 
 }
 
-.dashboard-container .stats-wrapper {
-  max-width: 800px;        
-  margin: 0 auto;
-}
-
-.dashboard-container.mode-nuit {
-  background-color: #0b0626;
-  color: rgb(149, 140, 140);
-}
-.dashboard-container.mode-zen {
-  background-color: #9cccb5;
-  color: rgb(80, 80, 80);
-}
-.dashboard-container.mode-jour {
-  background-color: #eef5f8;
-  color: #000;
-}
-
-.dashboard-container .greeting,
-.dashboard-container .stats-wrapper {
-  max-width: 800px; 
-  width: 100%;
-  margin: 0 auto;  
-}
-
-.dashboard-container .greeting {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.dashboard-container .stats-wrapper {
-  overflow-x: hidden;
-}
-
-.dashboard-container.mode-nuit .stats-summary .summary-section h4 {
-  color: rgb(183, 181, 181);
-}
-
-.dashboard-container.mode-nuit .greeting h2 {
-  color: rgb(183, 181, 181);
-}
-
+   .greeting {
+    margin-top: 30px; 
+    margin-bottom: 30px; 
+    text-align: center;
+    color: #1e1e1e; 
+  }
+  
+  .mode-nuit .greeting {
+    color: #f0f0f0;
+  }
+  
+  .mode-zen .greeting {
+    color: #1e3c2b;
+  }

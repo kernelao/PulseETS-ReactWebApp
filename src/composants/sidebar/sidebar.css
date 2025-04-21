@@ -22,14 +22,14 @@
 
 /* Icône du menu */
 .menu-bars {
-  font-size: 2rem;
+  font-size: 1.9rem;
   background: none;
   cursor: pointer;
 }
 
 /* Sidebar */
 .nav-menu {
-  background-color: #060b26;
+  background-color: #EEF5F8;
   width: 80px;
   height: 100vh;
   position: fixed;
@@ -37,7 +37,7 @@
   left: 0;
   transition: width 350ms ease;
   overflow: hidden;
-  padding-top: 60px; /* Pour ne pas cacher le menu burger */
+  padding-top: 50px; /* Pour ne pas cacher le menu burger */
   z-index: 999;
 }
 
@@ -55,7 +55,7 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  height: 60px;
+  height: 53px;
 }
 
 .nav-text a {
@@ -68,7 +68,7 @@
 }
 
 .nav-text a svg {
-  font-size: 2rem;
+  font-size: 1.5rem;
   min-width: 32px;
   transition: transform 0.2s ease;
 }

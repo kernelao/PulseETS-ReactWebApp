@@ -1,0 +1,171 @@
+.admin-reglages-container {
+    max-width: 820px;
+    margin: 2rem auto;
+    background-color: #f9f9f9;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    height: calc(102vh - 5rem); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .admin-reglages-page {
+    background-color: #eef4ec; 
+
+  }
+  
+  .admin-reglages-container h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #2e7d32;
+    font-size: 1.4rem;
+  }
+  
+  .admin-reglages-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1.2rem;
+    align-items: start;
+  }
+
+  .reglage-full-width {
+    grid-column: 1 / -1;
+  }
+
+  
+  .reglage-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .reglage-group label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #444;
+    font-size: 0.95rem;
+  }
+  
+  .reglage-group input,
+  .reglage-group select {
+    padding: 0.45rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+
+  .reglage-group input,
+.reglage-group select,
+.reglage-group label {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+  
+  .btn-admin-save {
+    margin-top: 0.2rem;
+    background-color: #2e7d32;
+    color: white;
+    padding: 0.6rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-admin-save:hover {
+    background-color: #1b5e20;
+  }
+  .theme-preview {
+    margin-top: 0.8rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #444;
+  }
+  
+  .theme-box {
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 0.8rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  
+  
+  /* Couleurs selon le thème */
+  .theme-box.mode-zen {
+    background: linear-gradient(90deg, #cdeccd, #b5dcb5);
+  }
+  
+  .theme-box.mode-nuit {
+    background: linear-gradient(90deg, #22223b, #4a4e69);
+  }
+  
+  .theme-box.mode-jour {
+    background: linear-gradient(90deg, #fefae0, #eeedeb);
+  }
+
+  .btn-reset {
+    margin-top: 0rem;
+    background-color: #ccc;
+    color: #333;
+    padding: 0.5rem 1.8rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 0.9rem;
+  }
+  
+  .btn-reset:hover {
+    background-color: #bbb;
+  }
+  
+  .boutons-actions {
+    display: flex;
+    justify-content: center; /* centre toute la ligne */
+    gap: 0.2rem;
+    margin-top: 0.2rem;
+  }
+  
+  .btn-reset,
+  .btn-admin-save {
+    min-width: 160px;
+    text-align: center;
+  }
+  
+  /* Répare le X de fermeture dans le toast */
+.Toastify__toast {
+  position: relative;
+}
+
+.Toastify__close-button {
+    display: flex;
+    justify-content: right;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.2rem;
+  background: transparent;
+  font-size: 1.2rem;
+  color: #333;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+}
+
+.Toastify__close-button > svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+
+  
