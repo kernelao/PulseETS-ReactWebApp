@@ -1,7 +1,9 @@
 import React from 'react'
+import ReglageAdmin from '../../conteneurs/reglageAdmin/ReglageAdmin'
 
 const GestionReglages = () => {
-  return <div>GestionReglages</div>
+  return <ReglageAdmin />
+
 }
 
 export default GestionReglages

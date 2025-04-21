@@ -95,7 +95,7 @@ const Identification = () => {
           required
         />
 
-        <button>Se connecter</button>
+        <button className='btn'>Se connecter</button>
       </form>
 
       <p>

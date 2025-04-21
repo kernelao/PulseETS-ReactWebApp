@@ -18,7 +18,7 @@ const SidebarLayout = ({ data }) => {
   const { logout } = useAuth()
 
   return (
-    <IconContext.Provider value={{ color: '#fff' }}>
+    <IconContext.Provider value={{ color: '#060b26' }}>
       <div className="sidebar-layout">
         {/* Menu Burger ou X */}
         <div className="sidebar-navbar">

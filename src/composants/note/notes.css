@@ -1,18 +1,17 @@
-/* Main Layout */
 .app {
   display: flex;
   height: 100vh;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  background: #fff;
 }
 
-/* Sidebar */
+
 .sidebar {
-  width: 240px; /* Increased for more space */
-  background: #d6e2c5;
+  width: 240px; 
+  background: #EEF5F8;
   padding: 10px;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #dee9f857;
 }
 
 .sidebar h2 {
@@ -20,11 +19,11 @@
   margin-bottom: 10px;
 }
 
-/* Sidebar header row (titre + “+” boutton) */
+
 .sidebar-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 0 10px; /* 👈 Add horizontal padding for spacing */
 }
 
 /* The “+” button pour nv categories */
@@ -35,6 +34,7 @@
   cursor: pointer;
   padding: 5px;
   color: #333;
+  margin-left: 60%;
 }
 .add-category-btn:hover {
   color: #000;
@@ -43,57 +43,69 @@
 /* Input pour new categories */
 .add-category-input {
   display: flex;
-  margin-top: 5px;
-  gap: 5px;
-}
-.add-category-input input {
-  flex: 1;
-  padding: 6px;
-  font-size: 12px;
+  align-items: center;
+  margin-top: -9px;
+  margin-bottom: 8px;    
+  height: 30px; 
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%; 
+  background: white;
   border: 1px solid #ccc;
-  border-radius: 3px;
-}
-.add-category-input button {
-  padding: 6px;
-  font-size: 12px;
-  background: #b5cb92;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.add-category-input button:hover {
-  background: #9fb27c;
 }
 
-/* 3) Folder Styling */
+.add-category-input input {
+  flex: 1;
+  padding: 4px 8px;
+  font-size: 13px;
+  border: none;
+  outline: none;
+  height: 100%;
+  background: transparent;
+}
+
+.add-category-input button {
+  width: 30px;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333;
+}
+.add-category-input button:hover {
+  background: #dddddd8a;
+}
+
+
 .folder {
   position: relative;
 
 }
 
-/* General folder title style */
 .folder-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  padding: 5px 8px;
+  padding: 4px 8px;      
   border-radius: 4px;
-  background: #b5cb92;
-  margin-bottom: 3px;
-  font-size: 15px;
+  background: #A6D4FF;
+  margin-bottom: 2px;     
+  font-size: 14px;        
   font-weight: bold;
-
+  height: 40px;           
 }
 
 /* Bienvenue fichier */
 .bienvenue-folder .folder-title {
   font-size: 15px;
   font-weight: bold;
+  height: 25px
 }
 
 .folder-title:hover {
-  background: #c3d8a3;
+  background: #a6d4ffa1;
 }
 
 .folder-actions {
@@ -126,36 +138,43 @@
 /* Folder Menu*/
 .folder-options-menu {
   position: absolute;
-  top: 32px;
+  top: 20px;
   right: 0;
   z-index: 9999;
   background: #fff;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  min-width: 100px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  padding: 4px 0;
+  min-width: 90px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
 }
 
 .folder-options-menu button {
   background: none;
   border: none;
-  padding: 5px;
+  padding: 6px 12px;
   text-align: left;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
+  color: #333;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
+
 .folder-options-menu button:hover {
-  background: #f0f0f0;
+  background: #e2e1f2;
+  color: #111;
 }
+
 
 /* Notes item et conteneur */
 .notes {
   max-width: 300px;
   margin-left: 5px;
+  
 }
 
 .note-item {
@@ -163,20 +182,21 @@
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  padding: 6px 8px;
-  margin: 4px 0;
+  padding: 6px 6px;
+  margin: 6px 0;
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
   position: relative;
+  height: 25px;
 }
 
 .note-item:hover {
-  background: #eef2e1;
+  background: #d0e1f0c5;
 }
 
 .note-item.active {
-  background: #c3d8a3;
+  background: #cdddec;
   font-weight: bold;
 }
 
@@ -193,7 +213,12 @@
   font-size: 14px;
   background: none;
   outline: none;
-  font-weight: bold;
+  font-weight: normal;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .note-options-btn {
@@ -305,30 +330,44 @@ textarea {
   cursor: not-allowed;
 }
 
-/* “Add note” input (dans le fichier)*/
+/* “Add note” input (dans le fichier) */
 .add-note-input {
   display: flex;
-  margin-top: 5px;
-  gap: 5px;
+  align-items: center;
+  margin-top: -2px;
+  margin-bottom: 8px;
+  height: 30px;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
 }
+
 .add-note-input input {
   flex: 1;
-  padding: 6px;
-  font-size: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-.add-note-input button {
-  padding: 6px;
-  font-size: 12px;
-  background: #b5cb92;
+  padding: 4px 8px;
+  font-size: 13px;
   border: none;
-  border-radius: 3px;
+  outline: none;
+  height: 100%;
+  background: transparent;
+}
+
+.add-note-input button {
+  width: 30px;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: 16px;
   cursor: pointer;
+  color: #333;
 }
+
 .add-note-input button:hover {
-  background: #9fb27c;
+  background: #dddddd8a;
 }
+
 
 /* “Welcome” page styles (Pour intro) */
 .welcome-page {

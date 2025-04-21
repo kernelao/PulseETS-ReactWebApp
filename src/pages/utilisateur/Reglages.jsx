@@ -30,7 +30,6 @@ const Reglages = () => {
 
     async function fetchOrCreateReglage() {
       try {
-        console.log("Token dans useEffect :", token); // 👈 log ici
         const res = await axios.get(`/reglages/me`);
         /*, {
           headers: { Authorization: `Bearer ${token}` },

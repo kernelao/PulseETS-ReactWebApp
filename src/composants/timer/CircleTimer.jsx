@@ -196,12 +196,6 @@ function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
         <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
       </div>
 
-      <div className='button_srt_container'>
-        <button onClick={handleStart} className='start_btn animated_btn'>Démarrer</button>
-        <button onClick={handlePause} className='start_btn animated_btn'>Pause</button>
-        <button onClick={handleReset} className='start_btn animated_btn'>Réinitialiser</button>
-      </div>
-
       <div className="auto_cont">
         <label>
           <input type="checkbox" checked={auto} onChange={handleAutoToggle} />

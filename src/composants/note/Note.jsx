@@ -323,7 +323,7 @@ function handleEditNoteTitle(noteId, newTitle) {
         )}
 
         {/* Bienvenue folder  */}
-        <div className="folder">
+        <div className="folder bienvenue-folder">
           <div className="folder-title" onClick={() => setOpenFolders((prev) => ({ ...prev, Bienvenue: !prev["Bienvenue"] }))}>
             <span>{openFolders["Bienvenue"] ? "▼" : "▶"} Bienvenue</span>
           </div>
