@@ -30,13 +30,12 @@ const Reglages = () => {
 
     async function fetchOrCreateReglage() {
       try {
-        console.log("Token dans useEffect :", token);
         const res = await axios.get(`/reglages/me`);
         /*, {
           headers: { Authorization: `Bearer ${token}` },
         });*/
 
-        console.log("Réponse reçue :", res.data); 
+        console.log("Réponse reçue :", res.data); // 👈 log ici
   
         const reglage = res.data;
   
@@ -59,10 +58,10 @@ const Reglages = () => {
     e.preventDefault();
     changeTheme(themeChoisi);
   
-    console.log("Token envoyé au PUT :", token); 
+    console.log("Token envoyé au PUT :", token); // 👈 ici aussi
   
     if (!reglageId) {
-      console.error("ID manquant, reglageId =", reglageId); 
+      console.error("ID manquant, reglageId =", reglageId); // 👈 Ajoute ça
       alert("ID du réglage non défini !");
       return;
     }
