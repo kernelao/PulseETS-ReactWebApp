@@ -7,7 +7,7 @@
   
   .calendar-container {
     flex: 1;
-    background-color: white;
+    background-color: var(--btn);
     padding: 10px;
     border-radius: 10px;
     min-width: 280px;
@@ -17,7 +17,7 @@
   
   .calendar-task-list {
     flex: 2;
-    background-color: white;
+    background-color: var(--btn);
     padding: 15px;
     border-radius: 10px;
     max-height: 500px;
@@ -25,13 +25,18 @@
     box-sizing: border-box;
     min-width: 300px;
   }
+
+  .react-calendar {
+    background-color: var(--btn);
+    color: var(--text);
+  }
   
   /* ✅ Harmonisé avec les vues jour/semaine */
   .calendar-task-line {
     display: flex;
     align-items: center;
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: var(--note);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 10px;
     margin-bottom: 8px;
@@ -65,8 +70,8 @@
   }
   
   .calendar-task-line .tag-badge {
-    background-color: #e0ffe0;
-    color: #2e7d32;
+    background-color: var(--bg);
+    color: var(--folder);
     border-radius: 3px;
     padding: 2px 6px;
     font-size: 0.9em;
@@ -103,16 +108,16 @@
   }
   
   .calendar-task-line button {
-    background-color: #4caf50;
+    background-color: var(--bg);
     border: none;
-    color: white;
+    color: var(--text);
     padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
   }
   
   .calendar-task-line button:hover {
-    background-color: #388e3c;
+    background-color: var(--folder-hover);
   }
   
   /* ✅ Tâches dans le calendrier */
@@ -124,8 +129,8 @@
   }
   
   .calendar-task {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--btn);
+    color: var(--btn-text);
     font-size: 0.7rem;
     padding: 2px 4px;
     border-radius: 4px;
@@ -134,7 +139,7 @@
   }
   
   .calendar-task:hover {
-    background-color: #367c39;
+    background-color: var(--btn-hover);
   }
   
   .priority-indicator {

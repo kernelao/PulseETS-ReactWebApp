@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import './QuickPanneau.css';
 import { Plus, MoreVertical, Check, ChevronUp } from 'lucide-react';
 import { ThemeContext } from '../../context/ThemeContext';
+import ThemeWrapper from '../../components/common/ThemeWrapper';
 
 export default function QuickPanneau() {
   const [isOpen, setIsOpen] = useState(true);
@@ -55,11 +56,12 @@ export default function QuickPanneau() {
   };
 
   return (
+    <ThemeWrapper>
     <div className={`sliding-panel-wrapper ${themeClass}`}>
       <div className="toggle-icon-wrapper" onClick={() => setIsOpen(!isOpen)}>
         <ChevronUp
           className={`chevron-toggle ${isOpen ? 'rotate-down' : ''}`}
-          size={28}
+          size={28} color='var(--text)'
         />
       </div>
 
@@ -178,5 +180,6 @@ export default function QuickPanneau() {
         </ul>
       </div>
     </div>
+  </ThemeWrapper>
   );
 }

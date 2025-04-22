@@ -1,6 +1,5 @@
 /* ==================== STRUCTURE PRINCIPALE ==================== */
 .aideMain {
-  background-color: #e6f0d9;
   height: 100dvh;
   display: flex;
   justify-content: center;
@@ -95,7 +94,7 @@ select.aideInput {
   gap: 5px;
   padding: 0.4rem 0.8rem;
   border-radius: 8px;
-  background-color: #f6fbf1;
+  background-color: var(--folder);
   font-weight: bold;
   cursor: pointer;
 }
@@ -104,7 +103,7 @@ select.aideInput {
 /* ==================== BOUTONS ==================== */
 .aideBouton {
   margin: 1.5rem auto 0 auto;
-  color: white;
+  color: var(--btn-text);
   font-weight: bold;
   padding: 0.6rem 2.5rem;
   border: none;
@@ -115,11 +114,12 @@ select.aideInput {
 }
 
 .aideBouton:hover {
-  background-color: #1b5e20;
+  background-color: var(--btn-hover);
 }
 
 .aideBouton.secondaire {
   background-color: #888;
+  color: var(--text);
 }
 
 .aideBouton.secondaire:hover {
@@ -129,7 +129,6 @@ select.aideInput {
 .aideFeedback {
   text-align: center;
   margin-top: 1rem;
-  color: #2e7d32;
   font-weight: bold;
 }
 
@@ -245,41 +244,14 @@ select.aideInput {
   }
 }
 
-/* ============ THEME ZEN ============ */
-.mode-zen {
-  --bg-main: #9cccb5;
-  --bg-contact: #cfe4d9;
-  --text-main: #333;
-  --input-bg: #f6fbf1;
-  --accent: #9cccb5;
-}
-
-/* ============ THEME JOUR ============ */
-.mode-jour {
-  --bg-main: #f1fbfd;
-  --bg-contact: whitesmoke;
-  --text-main: #222;
-  --input-bg: #ffffff;
-  --accent: #a0b8cc;
-}
-
-/* ============ THEME NUIT ============ */
-.mode-nuit {
-  --bg-main: #0b0626;
-  --bg-contact: #171a38;
-  --text-main: #f5f5f5;
-  --input-bg: #383838;
-  --accent: #90caf9;
-}
-
 /* ============ UTILISATION DES VARIABLES CSS ============ */
 
 .aideMain {
-  background-color: var(--bg-main);
+  background-color: var(--bg);
 }
 
 .aideContact {
-  background-color: var(--bg-contact);
+  background-color: var(--note);
 }
 
 .aideContact h2,
@@ -287,19 +259,19 @@ select.aideInput {
 .messageBody,
 .messageHeader .objet,
 .reponseBloc {
-  color: var(--text-main);
+  color: var(--text);
 }
 
 .aideInput,
 textarea.aideInput,
 select.aideInput,
 .prioriteRadio {
-  background-color: var(--input-bg);
-  color: var(--text-main);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .aideBouton {
-  background-color: var(--accent);
+  background-color: var(--btn);
 }
 
 .aideBouton:hover {
@@ -307,17 +279,17 @@ select.aideInput,
 }
 
 .aideFeedback {
-  color: var(--accent);
+  color: var(--undo);
 }
 
 .reponseBloc {
-  border-left-color: var(--accent);
+  border-left-color: var(--border);
   background-color: var(--input-bg);
 }
 
 .modal-content {
-  background-color: var(--bg-contact);
-  color: var(--text-main);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .messageCard {

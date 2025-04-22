@@ -13,6 +13,13 @@ import { fetchTaches } from '../../api/tachesApi'
 import { updateTache, completeTache } from '../../api/tachesApi' // ajoute completeTache si ce n'est pas déjà fait
 import { restoreTache } from '../../api/tachesApi'
 import { ThemeContext } from "../../context/ThemeContext"; 
+import ThemeWrapper from '../../components/common/ThemeWrapper'
+import RecompensePopup from '../../components/recompenses/RecompensePopup';
+import IMAGES from '/src/assets/badges_recompenses';
+import { useUser } from '../../context/UserContext'; // si ce n'est pas encore là
+import api from '../../api/Axios';
+
+
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
@@ -22,7 +29,10 @@ const Tasks = () => {
   const [notification, setNotification] = useState({ message: '', type: '' })
   const [selectedIds, setSelectedIds] = useState([])
   const { theme } = useContext(ThemeContext);
-  const themeClass = theme.toLowerCase().replace(" ", "-"); // Ex: "Zen mode" -> "zen-mode"
+  const themeClass = theme.toLowerCase().replace(" ", "-");
+  const [popupRecompense, setPopupRecompense] = useState(null);
+  const { userData, setUserData } = useUser();
+
 
 
   // 🔒 Bloquer le scroll global uniquement sur cette page
@@ -132,7 +142,20 @@ const updateTask = async (
         ...t,
         completed: updatedFromApi.completed
       } : t))
-      showNotification('✅ Tâche complétée !')
+      showNotification('✅ Tâche complétée !');
+
+      const res = await api.get("/user/profile");
+      const nouvelles = res.data.recompenses.filter(r =>
+        !(userData?.recompenses ?? []).some(old => old.type === r.type && old.valeur === r.valeur)
+      );
+      nouvelles.forEach(({ type, valeur }) => {
+        handleNouvelleRecompense(type, valeur);
+      });
+      setUserData(prev => ({
+        ...prev,
+        recompenses: res.data.recompenses
+      }));
+
       return
     }
 
@@ -161,6 +184,20 @@ const updateTask = async (
     } : t))
 
     showNotification('✏️ Tâche modifiée !')
+
+    if (completed === true) {
+      const res = await api.get("/user/profile");
+      const nouvelles = res.data.recompenses.filter(r =>
+        !(userData?.recompenses ?? []).some(old => old.type === r.type && old.valeur === r.valeur)
+      );
+      nouvelles.forEach(({ type, valeur }) => {
+        handleNouvelleRecompense(type, valeur);
+      });
+      setUserData(prev => ({
+        ...prev,
+        recompenses: res.data.recompenses
+      }));
+    }
   } catch (err) {
     console.error('Erreur updateTask', err)
     showNotification('❌ Erreur lors de la modification', 'error')
@@ -220,7 +257,21 @@ const updateTask = async (
       )
   
       setSelectedIds([])
-      showNotification('✅ Tâches complétées (API) !')
+      showNotification('✅ Tâches complétées (API) !');
+
+      const res = await api.get("/user/profile");
+      const nouvelles = res.data.recompenses.filter(r =>
+        !(userData?.recompenses ?? []).some(old => old.type === r.type && old.valeur === r.valeur)
+      );
+
+      nouvelles.forEach(({ type, valeur }) => {
+        handleNouvelleRecompense(type, valeur);
+      });
+
+      setUserData(prev => ({
+        ...prev,
+        recompenses: res.data.recompenses
+      }));
     } catch (err) {
       console.error('Erreur lors de la complétion multiple', err)
       showNotification('❌ Erreur lors de la complétion', 'error')
@@ -422,7 +473,30 @@ const updateTask = async (
     setSelectedIds(ids)
   }
 
+  const handleNouvelleRecompense = (type, valeur) => {
+  // 🎉 Affiche une notification toast
+  showNotification(`🎉 Récompense débloquée : ${type} x${valeur} !`);
+
+  // 🖼️ Affiche popup uniquement pour grosses milestones
+  if (valeur >= 50) {
+    const imageMap = {
+      'notesAjoutees-50': IMAGES.i50notesAdd,
+      'sessionsCompletees-50': IMAGES.i50sessionsComplete,
+      'sessionsCompletees-100': IMAGES.i100sessionsComplete,
+      'tachesCompletees-50': IMAGES.i50tachesComplete,
+      'tachesCompletees-100': IMAGES.i100tachesComplete,
+    };
+
+    const cle = `${type}-${valeur}`;
+    setPopupRecompense({
+      image: imageMap[cle],
+      description: `Bravo ! Tu as atteint ${valeur} ${type === 'tachesCompletees' ? 'tâches complétées' : type}.`,
+    });
+  }
+};
+
   return (
+    <ThemeWrapper>
   <div className={`tasks-page ${themeClass}`}>
       <div className="tasks-container">
         <div className="left-panel" style={{ position: 'relative' }}>
@@ -564,7 +638,9 @@ const updateTask = async (
           <TasksForm addTask={addTask} />
         </div>
       </div>
+      <RecompensePopup recompense={popupRecompense} onClose={() => setPopupRecompense(null)}/>
     </div>
+    </ThemeWrapper>
   )
 }
 

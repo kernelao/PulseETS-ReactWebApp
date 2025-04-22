@@ -7,6 +7,7 @@ import './sidebar.css'
 import { useAuth } from '../../context/AuthContext'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { ThemeContext } from "../../context/ThemeContext";
+import ThemeWrapper from '../../components/common/ThemeWrapper'
 
 const SidebarLayout = ({ data }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -21,6 +22,7 @@ const SidebarLayout = ({ data }) => {
   const themeClass = theme.toLowerCase().replace(" ", "-");
 
   return (
+    <ThemeWrapper>
     <IconContext.Provider
       value={{
         color: theme === "mode-jour" || theme === "mode-zen" ? "#000" : "#fff"
@@ -79,6 +81,7 @@ const SidebarLayout = ({ data }) => {
         </div>
       </div>
     </IconContext.Provider>
+    </ThemeWrapper>
   )
 }
 

@@ -3,24 +3,21 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { ThemeContext } from "../../context/ThemeContext";
 import "./CircleTimer.css";
 import alarmSoundFile from "./alarmepulse.mp3";
+import ThemeWrapper from "../../components/common/ThemeWrapper";
+import { useUser } from '../../context/UserContext';
+import IMAGES from '/src/assets/badges_recompenses';
 
-export default function CirclePom({ pomodoro, pauseCourte, pauseLongue }) {
+
+export default function CirclePom({ pomodoro, pauseCourte, pauseLongue, setPopupRecompense }) {
   const { theme } = useContext(ThemeContext);
   const themeClass = theme.toLowerCase().replace(" ", "-");
 
 // après avoir calculé themeClass…
-const primaryColor =
-  themeClass === "mode-nuit"
-    ? "#3345a7"
-    : themeClass === "mode-zen"
-      ? "#9cccb5"
-      : "#2f80ed";
 
-const secondaryColor =
-  themeClass === "mode-jour"
-    ? "#ffffff"
-    : "#000000";
 
+const [primaryColor, setPrimaryColor] = useState("#2f80ed");
+const [colorKey, setColorKey] = useState(0);
+    
 
   const [startTime, setStartTime] = useState(null);
   const [mode, setMode] = useState("pomodoro");
@@ -30,6 +27,8 @@ const secondaryColor =
   const [timerKey, setTimerKey] = useState(0);
   const [pomodoroCount, setPomodoroCount] = useState(0);
 
+  const { userData, setUserData } = useUser();
+
   const alarmSound = useRef(null);
   const alarmTimeoutRef = useRef(null);
 
@@ -38,6 +37,28 @@ const secondaryColor =
     pauseCourte: pauseCourte * 60,
     pauseLongue: pauseLongue * 60,
   };
+
+  const handleNouvelleRecompense = (type, valeur) => {
+    const imageMap = {
+      'sessionsCompletees-50': IMAGES.i50sessionsComplete,
+      'sessionsCompletees-100': IMAGES.i100sessionsComplete,
+      'bonusComplet-1000': IMAGES.iBonusComplet,
+    };
+  
+    const cle = `${type}-${valeur}`;
+    if (imageMap[cle]) {
+      setPopupRecompense({
+        image: imageMap[cle],
+        description:
+          cle === 'bonusComplet-1000'
+            ? "🎉 Tu as complété toutes les récompenses et gagné 1000 points bonus !"
+            : `Bravo ! Tu as complété ${valeur} sessions Pomodoro !`,
+      });
+      console.log("🎉 Popup déclenché pour :", cle); // <-- important pour debug
+    }
+  };
+  
+  
 
   useEffect(() => {
     alarmSound.current = new Audio(alarmSoundFile);
@@ -79,7 +100,7 @@ const secondaryColor =
   const sendSessionToAPI = async () => {
     const token = localStorage.getItem("token");
     const endedAt = new Date();
-    await fetch("http://localhost:8000/api/pomodoro-session", {
+    const response = await fetch("http://localhost:8000/api/pomodoro-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +108,7 @@ const secondaryColor =
       },
       body: JSON.stringify({
         startedAt: new Date(startTime.getTime() - new Date().getTimezoneOffset() * 60000).toISOString(),
-        endedAt:   new Date(endedAt.getTime()   - new Date().getTimezoneOffset() * 60000).toISOString(),
+        endedAt: new Date(endedAt.getTime() - new Date().getTimezoneOffset() * 60000).toISOString(),
         pomodoros_completes: pomodoroCount,
         pomodoroDuration: duration.pomodoro,
         shortBreak: duration.pauseCourte,
@@ -95,7 +116,27 @@ const secondaryColor =
         autoStart: auto,
       }),
     });
+  
+    const res = await fetch("http://localhost:8000/api/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    const data = await res.json();
+    const nouvelles = data.recompenses.filter(r =>
+      !(userData?.recompenses ?? []).some(old => old.type === r.type && old.valeur === r.valeur)
+    );
+    nouvelles.forEach(({ type, valeur }) => {
+      handleNouvelleRecompense(type, valeur);
+    });
+  
+    setUserData(prev => ({
+      ...prev,
+      recompenses: data.recompenses
+    }));
   };
+  
 
   const handleComplete = () => {
     playAlarm();
@@ -134,7 +175,7 @@ const secondaryColor =
   });
 
   return (
-
+    <ThemeWrapper>
     <div className={`all_timer_container ${themeClass}`}>
       <div className={`cercle_main ${themeClass}`}>
         <div className="btn_timer_container">
@@ -163,12 +204,12 @@ const secondaryColor =
 
         <div className="cercle_box">
           <CountdownCircleTimer
-            key={timerKey}
-            isPlaying={isPlaying}
+            key={`${timerKey}-${colorKey}`} // 👈 force aussi le re-render quand couleurs changent
             duration={duration[mode]}
-            colors={[primaryColor, secondaryColor]}
-            colorsTime={[duration[mode], 5]}
-            trailColor="#eee"
+            isPlaying={isPlaying}
+            colors={["var(--btn)", "var(--folder-hover)"]}
+            colorsTime={[duration[mode]]}
+            trailColor="var(--note-hover)"
             strokeWidth={8}
             onComplete={handleComplete}
           >
@@ -176,7 +217,7 @@ const secondaryColor =
               const m = Math.floor(remainingTime / 60);
               const s = remainingTime % 60;
               return (
-                <div style={{ fontSize: "32px", color: primaryColor }}>
+                <div style={{ fontSize: "32px", color: "var(--btn)" }}>
                   {`${m}:${String(s).padStart(2, "0")}`}
                 </div>
               );
@@ -208,5 +249,6 @@ const secondaryColor =
         </div>
       </div>
     </div>
+  </ThemeWrapper>
   );
 }
