@@ -200,14 +200,13 @@
 .notes {
   max-width: 300px;
   margin-left: 5px;
-  
 }
 
 .note-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--note);
+  background: var(--btn);
   color: var(--text);
   padding: 6px 8px;
   margin: 4px 0;
@@ -221,7 +220,7 @@
 }
 
 .note-item:hover {
-  background: var(--note-hover);
+  background: var(--btn-hover);
 }
 
 .note-item.active {
@@ -312,6 +311,7 @@
   font-size: 24px;
   margin-bottom: 10px;
   text-align: left;
+  color: var(--note);
 }
 
 .separator {
@@ -354,7 +354,7 @@ textarea {
   border-radius: 4px;
   resize: none;
   background: var(--textarea);
-  color: var(--text);
+  color: var(--note);
 }
 
 .undo-btn {
@@ -433,11 +433,13 @@ textarea {
   font-family: 'Quicksand', sans-serif;
   font-size: 30px;
   margin-bottom: 20px;
+  color: var(--note);
 }
 
 .welcome-page p {
   font-size: 16px;
   margin: 6px 0;
+  color: var(--note);
 }
 
 .welcome-image {
