@@ -7,6 +7,19 @@
   color: var(--text);
 }
 
+.app .add-category-btn,
+.app .add-note-btn,
+.app .add-category-input button,
+.app .add-note-input button {
+  background-color: var(--note);
+  color: var(--text);
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+
 /* Sidebar */
 .sidebar {
   width: 240px;
@@ -288,7 +301,7 @@
 .editor {
   flex: 1;
   padding: 20px;
-  background: var(--note);
+  background: white;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -433,22 +446,6 @@ textarea {
   max-width: 500px;
   height: auto;
 }
-
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); /* Opacité fixe, pas var car semi-transparence */
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
 
 .popup-box {
   background-color: var(--popup);

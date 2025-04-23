@@ -1,9 +1,14 @@
 .profile_container {
-  padding-top: 1rem;     
+  width: 60%; /* même que .recompenses_container */
+  margin: 0 auto;
+  padding-top: 3rem;
   padding-bottom: 2rem;
-  align-items: center; 
-  overflow: hidden;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* espace vertical harmonisé */
 }
+
 
 .profile_wrapper {
   height: 100vh;
@@ -33,11 +38,14 @@
   text-align: center;
 }
 
+
 .points-pulse-container p {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
   margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 1rem;
 }
 
 .h1Profile,
@@ -99,11 +107,13 @@
 }
 
 .recompenses_container {
-  max-height: 40vh; /* ou ajustable selon ton écran */
+  width: 50%;
+  max-height: 35vh;
   overflow-y: auto;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background-color: var(--bg);
+  margin: 2rem auto;
 }
 
 .profile_container .points-pulse-container p {
@@ -213,3 +223,99 @@
   animation: zoomIn 0.3s;
   color: var(--text);
 }
+
+.recompenses-section {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--note);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recompenses-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.badges-scroll-container {
+  max-height: 100%; /* occupe toute la hauteur dispo */
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding-right: 8px;
+}
+
+
+/* Scroll custom (Chrome/Webkit) */
+.badges-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+.badges-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.badges-scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.badge-item {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--note);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile_header_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 40%;
+  margin: 2rem auto;
+}
+
+.profile_avatar_block {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile_points_block {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.profile_security_block {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile_security_block .btnProfile {
+  width: 200px;
+  padding: 1rem;
+}
+

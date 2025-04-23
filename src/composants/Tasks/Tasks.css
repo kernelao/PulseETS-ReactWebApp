@@ -436,7 +436,7 @@ body {
 }
 
 .tag-search input {
-  background-color: var(--note);
+  background-color: white;
   border: 1px solid var(--border-muted);
   color: var(--text);
 }
