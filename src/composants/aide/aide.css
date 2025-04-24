@@ -298,7 +298,7 @@ select.aideInput,
 }
 
 .modal-close-btn {
-  background-color: var(--accent);
+  background-color: red;
 }
 
 .modal-close-btn:hover {

@@ -161,11 +161,13 @@ function Profile() {
     <ThemeWrapper>
       <div className={`profile_wrapper theme-${themeClass}`}>
         <div className={`profile_container mode-${themeClass}`}>
-          <h1 className="h1Profile">Profil</h1>
-          <div className="profile_image">
-            <img src={avatarImage} onClick={handleAvatarClick} alt="Image de profil" className="profile-img" />
-          </div>
-
+        <div className="profile_header_row">
+  <div className="profile_avatar_block">
+    <h1 className="h1Profile">Profil</h1>
+    <div className="profile_image">
+      <img src={avatarImage} onClick={handleAvatarClick} alt="Image de profil" className="profile-img" />
+    </div>
+  </div>
           {isAvatarPopupOpen && (
             <div className="popup-overlay" onClick={() => setIsAvatarPopupOpen(false)}>
               <div className="popup-box" onClick={(e) => e.stopPropagation()}>
@@ -188,18 +190,18 @@ function Profile() {
             </div>
           )}
 
-          <div className="points-pulse-container">
-            <h2 className="h2Profile">Points Pulse</h2>
-            <p className="rectProfile">Points actuels : {pointsPulse}</p>
-          </div>
+<div className="profile_points_block">
+    <h2 className="h2Profile">Points Pulse</h2>
+    <p className="rectProfile">Points actuels : {pointsPulse}</p>
+  </div>
 
-          <div className="securite_container">
-            <h2 className="h2Profile">Sécurité</h2>
-            <div className="modifier_section">
-              <button className="btnProfile" onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
-              <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
-            </div>
 
+          
+  <div className="profile_security_block">
+    <button className="btnProfile" onClick={() => setIsPasswordPopupOpen(true)}>Modifier mot de passe</button>
+    <button className="btnProfile" onClick={() => setIsEmailPopupOpen(true)}>Modifier courriel</button>
+  </div>
+</div>
             {isPasswordPopupOpen && (
               <div className="popup-overlay" onClick={() => setIsPasswordPopupOpen(false)}>
                 <div className="popup-box" onClick={(e) => e.stopPropagation()}>
@@ -236,13 +238,14 @@ function Profile() {
           </div>
 
           <div className="recompenses_container">
-            <h2 className="h2Profile">Récompenses</h2>
+          <h2 className="h2Profile">Récompenses</h2>
+          <div className="badges-scroll-container">
             <Recompenses recompenses={recompenses} />
           </div>
         </div>
-      </div>
-    </ThemeWrapper>
-  );
+      </div> 
+  </ThemeWrapper> 
+);
 }
 
 export default Profile;
