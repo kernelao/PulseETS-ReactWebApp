@@ -8,10 +8,8 @@ const TaskDetails = ({ task, onSave, onBack }) => {
             <h3>{task.title}</h3>
             <textarea
                 value={description}
-                onChange={(e) => {
-                    setDescription(e.target.value);
-                    onSave(task.id, e.target.value);
-                }}
+                onChange={(e) => setDescription(e.target.value)} 
+                onBlur={() => onSave(task.id, description)}     
                 placeholder="Ajoutez une description..."
             />
             <button onClick={onBack}>Retour</button>
