@@ -11,7 +11,8 @@ const TasksList = ({
     filter,
     showNotification,
     selectedIds,
-    toggleTaskSelection
+    toggleTaskSelection,
+    togglePinnedTask // ✅ Ajouté ici
 }) => {
     const [editingTask, setEditingTask] = useState(null);
     const [newTitle, setNewTitle] = useState("");
@@ -32,10 +33,6 @@ const TasksList = ({
             updateTask(editingTask.id, newTitle, newTag, newDate, null, newPriority);
             setEditingTask(null);
         }
-    };
-
-    const togglePinned = (task) => {
-        updateTask(task.id, task.title, task.tag, task.dueDate?.slice(0, 10), null, task.priority, !task.pinned);
     };
 
     const groupTasksByDay = (tasks) => {
@@ -111,8 +108,7 @@ const TasksList = ({
                 >
                     ✓
                 </button>
-                <button onClick={() => togglePinnedTask(task)}
-                >
+                <button onClick={() => togglePinnedTask(task)}>
                     {task.pinned ? "📍" : "📌"}
                 </button>
             </div>
