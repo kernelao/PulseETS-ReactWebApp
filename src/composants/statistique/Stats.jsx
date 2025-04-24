@@ -15,7 +15,6 @@ import { ThemeContext } from '../../context/ThemeContext';
 ChartJS.register(annotationPlugin);
 
 import './stats.css';
-import ThemeWrapper from '../../components/common/ThemeWrapper';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -100,7 +99,6 @@ const themeClass = theme.toLowerCase().replace(' ', '-');
   };
   
   return (
-    <ThemeWrapper>
     <div className="stats-wrapper">
       <div className="stats-container">
         <div className="stats-header">
@@ -132,7 +130,6 @@ const themeClass = theme.toLowerCase().replace(' ', '-');
         </div>
       </div>
     </div>
-    </ThemeWrapper>
   );
 };
 

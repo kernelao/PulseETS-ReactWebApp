@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from "../../context/ThemeContext";
+import ThemeWrapper from '../../components/common/ThemeWrapper';
 
 
 
@@ -15,9 +16,11 @@ const Greeting = ({ username }) => {
   };
 
   return (
+    <ThemeWrapper>
     <div className={`greeting ${themeClass}`}>
       <h2>{getGreeting()}, {username} 👋</h2>
     </div>
+    </ThemeWrapper>
   );
 };
 
