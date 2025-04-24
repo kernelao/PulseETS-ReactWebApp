@@ -7,13 +7,13 @@
 }
 .start_btn:active{
 
-    background-color: #D2E3C0;
+    background-color: var(--note);
 }
 
 .timer_btn{
     font-family:Arial, sans-serif;
     
-    background-color: #E0EDD4;
+    background-color: var(--btn);
     font-family: Arial, black serif;
     border-radius: 10px;
     width: 150px;
@@ -35,8 +35,8 @@
 }
 
 .animated_btn {
-    background-color: #10217f  ;
-    color: white;
+    background-color: var(--btn)  ;
+    color: var(--btn-text);
     padding: 12px 24px;
     font-size: 16px;
     border: none;
@@ -47,13 +47,13 @@
 }
   
   .animated_btn:hover {
-    background-color: #6979cf;
+    background-color: var(--btn);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
 }
   
   .animated_btn:active {
-    background-color: #6979cf;
+    background-color: var(--note);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     transform: scale(0.95);
 }
@@ -80,13 +80,13 @@
 }
 
 .cercle_main{
-    background-color:white;
+    background-color:var(--bg);
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 10px;   
     border-style: solid;
-    border-color: black;
+    border-color: var(--border);
     margin-left: 50px;
     margin-right: 50px;  
 }
@@ -102,7 +102,7 @@
 .cercle_main {
   border: none;
   border-radius: 12px;
-  background-color: white;
+  background-color: var(--bg);
   min-height: 100%;
   padding: 1.5rem;
   margin: 2rem auto;
@@ -139,15 +139,17 @@
   max-height: none;
   height: auto;
   overflow: hidden;
+  background-color: var(--bg);
 }
 
 .sliding-panel-wrapper {
+  background-color: var(--note);
   overflow: hidden;
 }
 
-.mode-nuit .cercle_main {
-  background-color: #171a38;
-  color:            #fff;
+.cercle_main {
+  background-color: var(--bg);
+  color:            var(--text);
 }
 
 .timer_btn,
@@ -161,44 +163,49 @@
   border: none !important;
 }
 
-   .all_timer_container.mode-zen .cercle_main {
-    background-color: #cfe4d9;
+.all_timer_container{
+  background-color: var(--note);
+}
+
+   .all_timer_container .cercle_main {
+    background-color: var(--bg);
   }
 
-.cercle_main.mode-jour,
-.all_timer_container.mode-jour .cercle_main {
-  background-color: whitesmoke; 
+.cercle_main,
+.all_timer_container .cercle_main {
+  background-color: var(--bg); 
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-   .all_timer_container.mode-zen button,
-   .all_timer_container.mode-zen .animated_btn,
-   .all_timer_container.mode-zen .start_btn,
-   .all_timer_container.mode-zen .timer_btn {
-     background-color: #9cccb5 !important;
-     border-color:     #9cccb5 !important;
-     color: #24332a           !important;
+   .all_timer_container button,
+   .all_timer_container .animated_btn,
+   .all_timer_container .start_btn,
+   .all_timer_container .timer_btn {
+     background-color: var(--btn) !important;
+     border-color:     var(--border) !important;
+     color: var(--btn-text)           !important;
    }
    
-   .all_timer_container.mode-zen button:hover,
-   .all_timer_container.mode-zen .animated_btn:hover {
-     background-color: #85b49d !important; 
+   .all_timer_container button:hover,
+   .all_timer_container .animated_btn:hover {
+     background-color: var(--btn-hover) !important; 
    }
    
-.all_timer_container.mode-jour .timer_btn,
-.all_timer_container.mode-jour .start_btn,
-.all_timer_container.mode-jour .animated_btn {
-  background-color: #a6d4ff !important;
-  color:            #000000 !important;
+.all_timer_container .timer_btn,
+.all_timer_container .start_btn,
+.all_timer_container .animated_btn {
+  background-color: var(--btn) !important;
+  color:            var(--btn-text) !important;
 }
 
-.sliding-panel-wrapper.mode-jour .add-btn,
-.sliding-panel-wrapper.mode-jour .menu-btn,
-.sliding-panel-wrapper.mode-jour .save-btn {
-  background-color: #a6d4ff !important;
-  color:            #000000 !important;
+.sliding-panel-wrapper .add-btn,
+.sliding-panel-wrapper .menu-btn,
+.sliding-panel-wrapper .save-btn {
+  background-color: var(--btn) !important;
+  color:            var(--btn-text) !important;
 }
-.sliding-panel-wrapper.mode-jour .chevron-toggle:hover {
-  color: #a0b8cc !important;
+.sliding-panel-wrapper .chevron-toggle:hover {
+  color: var(--btn-hover) !important;
 }
+

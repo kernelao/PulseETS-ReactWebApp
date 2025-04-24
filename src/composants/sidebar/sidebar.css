@@ -52,6 +52,7 @@
 }
 
 .nav-text {
+  color: var(--text);
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -73,9 +74,8 @@
   transition: transform 0.2s ease;
 }
 
-.nav-menu.mode-jour svg,
-.nav-menu.mode-zen svg {
-  color: #000 !important;
+.nav-menu svg {
+  color: var(--btn) !important;
 }
 
 
@@ -96,12 +96,13 @@
 }
 
 .nav-text a:hover {
-  background-color: #1a83ff;
+  background-color: var(--folder-hover);
   border-radius: 4px;
 }
 
 /* Contenu principal */
 .main-content {
+  background-color: var(--note);
   margin-left: 70px;
   transition: margin-left 350ms ease;
   width: 100%;
@@ -123,7 +124,7 @@
 }
 
 .logout-item a {
-  color: white;
+  color: var(--text);
 }
 
 .nav-menu-items-container {
@@ -144,8 +145,8 @@
   margin-bottom: 1rem;
 }
 
-.nav-menu.mode-jour {
-  background-color: #eef5f8;
+.nav-menu {
+  background-color: var(--note);
 }
 
 /*.nav-menu.mode-jour .nav-text a,
@@ -153,56 +154,28 @@
   color: #000;
 }*/
 
-.nav-menu.mode-nuit {
-  background-color: #0b0626;
-}
-
 /*.nav-menu.mode-nuit .nav-text a,
 .nav-menu.mode-nuit .logout-item a {
   color: #fff;
 }*/
-
-.nav-menu.mode-zen {
-  background-color: #9cccb5;
-}
 
 /*.nav-menu.mode-zen .nav-text a,
 .nav-menu.mode-zen .logout-item a {
   color: #000;
 }*/
 
-.logout-text.light-mode {
-  color: #000;
+.logout-text {
+  color: var(--text);
 }
 
-.logout-text.dark-mode,
-.logout-text.zen-mode {
-  color: #fff;
+.sidebar-navbar {
+  background-color: var(--note);
 }
 
-/* Appliquer le bon fond selon le thème */
-.sidebar-navbar.mode-jour {
-  background-color: #eef5f8;
-}
-
-.sidebar-navbar.mode-nuit {
-  background-color: #0b0626;
-}
-
-.sidebar-navbar.mode-zen {
-  background-color: #9cccb5;
-}
-
-/* Assure-toi que l’icône hérite bien de la couleur globale */
 .sidebar-navbar .menu-bars {
-  color: inherit;
+  color: var(--text);
 }
 
-.menu-icon.mode-nuit {
-  color: white !important;
-}
-
-.menu-icon.mode-jour,
-.menu-icon.mode-zen {
-  color: black !important;
+.menu-icon {
+  color: var(--text) !important;
 }

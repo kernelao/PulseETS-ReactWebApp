@@ -1,0 +1,240 @@
+:root {
+  --bg: #ffffff;
+  --text: #000;
+  --sidebar: #f0f0f0;
+  --border: #ccc;
+  --folder: #ddd;
+  --folder-hover: #ccc;
+  --note: #fff;
+  --note-hover: #f8f8f8;
+  --note-active: #e0e0e0;
+  --editor-bg: #fff;
+  --textarea: #fff;
+  --textarea-border: #ccc;
+  --btn: #ddd;
+  --btn-hover: #ccc;
+  --btn-text: #000;
+  --text-hover: #000;
+  --undo: #ccc;
+  --undo-text: #000;
+  --popup: #fff;
+  --hover: #eee;
+}
+
+/* ------------------- THÈMES PERSONNALISÉS ------------------- */
+
+/* Mode Nuit */
+.mode-nuit {
+  --bg: #0b0626;
+  --sidebar: #0b0626;
+  --border: #444;
+  --folder: #171a38;
+  --folder-hover: #2d2d4d;
+  --note: #171a38;
+  --note-hover: #242849;
+  --note-active: #39485c;
+  --editor-bg: #0b0626;
+  --textarea: #181818;
+  --textarea-border: #444;
+  --btn: #2a387f;
+  --btn-hover: #3c4b9f;
+  --btn-text: white;
+  --text: #e0e0e0;
+  --text-hover: white;
+  --undo: #444;
+  --undo-text: white;
+  --popup: #1f1f3d;
+  --hover: #2d2d2d;
+}
+
+/* Mode Zen */
+.mode-zen {
+  --bg: #cfe4d9;
+  --sidebar: #cfe4d9;
+  --border: #aacdbf;
+  --folder: #9cccb5;
+  --folder-hover: #77a08e;
+  --note: #9cccb5;
+  --note-hover: #d8f0e4;
+  --note-active: #9cccb5;
+  --editor-bg: #ffffff;
+  --textarea: #f0fef8;
+  --textarea-border: #b5dac9;
+  --btn: #77a08e;
+  --btn-hover: #9cccb5;
+  --btn-text: #1e1e1e;
+  --text: #1e1e1e;
+  --text-hover: #000;
+  --undo: #9cccb5;
+  --undo-text: #ffffff;
+  --popup: #ffffff;
+  --hover: #eeeeee;
+}
+
+/* Mode Jour */
+.mode-jour {
+  --bg: #eaf2fd;
+  --sidebar: #ebf5fa;
+  --border: #ccc;
+  --folder: #a6d4ff;
+  --folder-hover: #86c2f3;
+  --note: #ffffff;
+  --note-hover: #f1f7fe;
+  --note-active: #e1e8f3;
+  --editor-bg: whitesmoke;
+  --textarea: #fff;
+  --textarea-border: #ccc;
+  --btn: #a6d4ff;
+  --btn-hover: #86c2f3;
+  --btn-text: #000;
+  --text: #000;
+  --text-hover: #222;
+  --undo: #ddd;
+  --undo-text: #000;
+  --popup: #ffffff;
+  --hover: #dddddd8a;
+}
+
+/* Cyberpunk */
+.mode-cyberpunk {
+  --bg: #1a1a40;
+  --sidebar: #15152a;
+  --border: #3f3f70;
+  --folder: #7209b7;
+  --folder-hover: #9d4edd;
+  --note: #0f0f2d;
+  --note-hover: #3c096c;
+  --note-active: #5a189a;
+  --editor-bg: #1e1e2e;
+  --textarea: #3f0e5e;
+  --textarea-border: #5a189a;
+  --btn: #00ffff;
+  --btn-hover: #ff4d80;
+  --btn-text: #1a1a40;
+  --text: #ffffff;
+  --text-hover: #ffffff;
+  --undo: #ff0054;
+  --undo-text: #fff;
+  --popup: #2a003f;
+  --hover: #3c096c;
+}
+
+/* Steampunk */
+.mode-steampunk {
+  --bg: #5b4433;
+  --sidebar: #3e2f2f;
+  --border: #a17c5b;
+  --folder: #c9a66b;
+  --folder-hover: #d2b48c;
+  --note: #3e2f2f;
+  --note-hover: #eee8aa;
+  --note-active: #deb887;
+  --editor-bg: #fefae0;
+  --textarea: #fcf4d9;
+  --textarea-border: #d2b48c;
+  --btn: #c9a66b;
+  --btn-hover: #a17c5b;
+  --btn-text: #3e2f2f;
+  --text: #fff0d6;
+  --text-hover: #2e1f1f;
+  --undo: #5b4433;
+  --undo-text: #fff3e0;
+  --popup: #fcf4d9;
+  --hover: #d2b48c;
+}
+
+/* Space */
+.mode-space {
+  --bg: #000014;
+  --sidebar: #0d1b2a;
+  --border: #1b263b;
+  --folder: #415a77;
+  --folder-hover: #778da9;
+  --note: #1b263b;
+  --note-hover: #2b3e59;
+  --note-active: #415a77;
+  --editor-bg: #0d1b2a;
+  --textarea: #1b263b;
+  --textarea-border: #415a77;
+  --btn: #778da9;
+  --btn-hover: #a3bce2;
+  --btn-text: #ffffff;
+  --text: #e0e1dd;
+  --text-hover: #ffffff;
+  --undo: #778da9;
+  --undo-text: #ffffff;
+  --popup: #1b263b;
+  --hover: #2e3c50;
+}
+
+/* Neon Lights */
+.mode-neon {
+  --bg: #1f0236;
+  --sidebar: #1f0236;
+  --border: #444;
+  --folder: #ff00ff;
+  --folder-hover: #ff66cc;
+  --note: #3b0866;
+  --note-hover: #2a2a5a;
+  --note-active: #ff00ff;
+  --editor-bg: #0d0f1f;
+  --textarea: #1a1a40;
+  --textarea-border: #ff00ff;
+  --btn: #783578;
+  --btn-hover: #7058b6;
+  --btn-text: #ffffff;
+  --text: #ffffff;
+  --text-hover: #fff;
+  --undo: #ff00ff;
+  --undo-text: #fff;
+  --popup: #2a2a5a;
+  --hover: #ff66cc;
+}
+
+/* Vintage */
+.mode-vintage {
+  --bg: #f5e9d3;
+  --sidebar: #e0c9a6;
+  --border: #c8a97e;
+  --folder: #d4b483;
+  --folder-hover: #e1c699;
+  --note: #ffffff;
+  --note-hover: #fdf6e3;
+  --note-active: #d4b483;
+  --editor-bg: #fffaf0;
+  --textarea: #fef2d8;
+  --textarea-border: #c8a97e;
+  --btn: #e1c699;
+  --btn-hover: #d4b483;
+  --btn-text: #4b3e2b;
+  --text: #4b3e2b;
+  --text-hover: #3b2f22;
+  --undo: #d4b483;
+  --undo-text: #fff;
+  --popup: #fdf6e3;
+  --hover: #f1e1bc;
+}
+
+/* Minimalist */
+.mode-minimalist {
+  --bg: #ffffff;
+  --sidebar: #f7f7f7;
+  --border: #e0e0e0;
+  --folder: #dcdcdc;
+  --folder-hover: #eaeaea;
+  --note: #ffffff;
+  --note-hover: #f5f5f5;
+  --note-active: #dcdcdc;
+  --editor-bg: #fdfdfd;
+  --textarea: #fff;
+  --textarea-border: #ddd;
+  --btn: #dcdcdc;
+  --btn-hover: #bbbbbb;
+  --btn-text: #000;
+  --text: #000;
+  --text-hover: #333;
+  --undo: #ccc;
+  --undo-text: #000;
+  --popup: #ffffff;
+  --hover: #f5f5f5;
+}

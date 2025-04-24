@@ -6,6 +6,7 @@ import './dash.css';
 import { ThemeContext } from '../../context/ThemeContext';
 import { useOutletContext } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ThemeWrapper from '../../components/common/ThemeWrapper';
 
 const Dash = () => {
   const [username, setUsername] = useState('User');
@@ -44,12 +45,14 @@ const Dash = () => {
 
   return (
     
+    <ThemeWrapper>
     <div className={`dashboard-container ${themeClass}`}>
       <Greeting username={username} />
       <div className="stats-wrapper">
         <Stats />
       </div>
     </div>
+    </ThemeWrapper>
   );
 };
 

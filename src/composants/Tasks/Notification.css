@@ -2,8 +2,8 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--bg);
+    color: var(--text);
     padding: 12px 20px;
     border-radius: 6px;
     font-weight: bold;
@@ -13,7 +13,7 @@
   }
   
   .notification-popup.edit {
-    background-color: #ffa500;
+    background-color: var(--popup);
   }
   
   .notification-popup.delete {

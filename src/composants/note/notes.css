@@ -1,22 +1,25 @@
+
 .app {
   display: flex;
   height: 100vh;
   font-family: Arial, sans-serif;
-  background: #fff;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* Sidebar */
 .sidebar {
-  width: 240px; 
-  background: #d6e2c5;
+  width: 240px;
+  background: var(--sidebar);
   padding: 10px;
   overflow-y: auto;
-  border-right: 1px solid #dee9f857;
+  border-right: 1px solid var(--border);
 }
 
 .sidebar h2 {
   font-size: 16px;
   margin-bottom: 10px;
+  color: var(--text);
 }
 
 
@@ -27,16 +30,16 @@
 }
 
 .add-category-btn {
-  background: none;
+  background: var(--btn);
   border: none;
   font-size: 18px;
   cursor: pointer;
   padding: 5px;
-  color: #333;
+  color: var(--btn-text);
   margin-left: 60%;
 }
 .add-category-btn:hover {
-  color: #000;
+  background: var(--btn-hover);
 }
 
 .add-category-input {
@@ -54,6 +57,10 @@
 
 .add-category-input input {
   flex: 1;
+  padding: 6px;
+  font-size: 12px;
+  border: 1px solid var(--textarea-border);
+  border-radius: 3px;
   padding: 4px 8px;
   font-size: 13px;
   border: none;
@@ -63,22 +70,24 @@
 }
 
 .add-category-input button {
+  padding: 6px;
+  font-size: 12px;
+  background: var(--btn);
   width: 30px;
   height: 100%;
   background: none;
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: #333;
+  color: var(--btn-text);
 }
 .add-category-input button:hover {
-  background: #dddddd8a;
+  background: var(--btn-hover);
 }
 
 
 .folder {
   position: relative;
-
 }
 
 .folder-title {
@@ -88,12 +97,21 @@
   cursor: pointer;
   padding: 4px 8px;      
   border-radius: 4px;
-  background: #A6D4FF;
+  background: var(--btn);
+  margin-bottom: 3px;
+  font-size: 15px;
   margin-bottom: 2px;     
   font-size: 14px;        
   font-weight: bold;
+  color: var(--btn-text);
+}
+
+.folder-wrapper {
+  width: 100%;
+  max-width: 100%;
   height: 40px;           
 }
+
 
 .bienvenue-folder .folder-title {
   font-size: 15px;
@@ -102,7 +120,7 @@
 }
 
 .folder-title:hover {
-  background: #a6d4ffa1;
+  background: var(--folder-hover);
 }
 
 .folder-actions {
@@ -116,7 +134,7 @@
 .add-note-btn {
   background: none;
   border: none;
-  color: #333;
+  color: var(--btn-text);
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -129,7 +147,7 @@
 }
 .folder-options-btn:hover,
 .add-note-btn:hover {
-  background: #dddddd8a;
+  background: var(--hover);
 }
 
 .folder-options-menu {
@@ -137,7 +155,8 @@
   top: 20px;
   right: 0;
   z-index: 9999;
-  background: #fff;
+  background: var(--popup);
+  border: 1px solid var(--border);
   border: 1px solid #ccc;
   border-radius: 8px;
   display: flex;
@@ -155,14 +174,13 @@
   text-align: left;
   width: 100%;
   font-size: 13px;
-  color: #333;
   cursor: pointer;
+  color: var(--text);
   transition: background 0.2s ease;
 }
 
 .folder-options-menu button:hover {
-  background: #e2e1f2;
-  color: #111;
+  background: var(--hover);
 }
 
 
@@ -176,7 +194,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background: var(--note);
+  color: var(--text);
+  padding: 6px 8px;
+  margin: 4px 0;
   padding: 6px 6px;
   margin: 6px 0;
   border-radius: 4px;
@@ -187,11 +208,11 @@
 }
 
 .note-item:hover {
-  background: #d0e1f0c5;
+  background: var(--note-hover);
 }
 
 .note-item.active {
-  background: #cdddec;
+  background: var(--note-active);
   font-weight: bold;
 }
 
@@ -219,7 +240,7 @@
 .note-options-btn {
   background: none;
   border: none;
-  color: #333;
+  color: var(--text);
   cursor: pointer;
   width: 24px;
   height: 24px;
@@ -231,7 +252,7 @@
 }
 
 .note-options-btn:hover {
-  background: #ddd;
+  background: var(--hover);
 }
 
 .note-options-menu {
@@ -239,8 +260,8 @@
   right: 0;
   top: 100%;
   z-index: 999;
-  background: #fff;
-  border: 1px solid #ccc;
+  background: var(--popup);
+  border: 1px solid var(--border);
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -257,16 +278,18 @@
   width: 100%;
   font-size: 14px;
   cursor: pointer;
+  color: var(--text);
 }
 
 .note-options-menu button:hover {
-  background: #f0f0f0;
+  background: var(--hover);
 }
 
 .editor {
   flex: 1;
   padding: 20px;
-  background: #ffffff9d;
+  background: var(--note);
+  color: var(--text);
   display: flex;
   flex-direction: column;
 }
@@ -281,7 +304,7 @@
 .separator {
   border: none;
   height: 1px;
-  background: #ccc;
+  background: var(--border);
   margin: 10px 0;
 }
 
@@ -290,7 +313,7 @@ textarea {
   width: 100%;
   font-size: 14px;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
   resize: none;
 }
@@ -309,16 +332,29 @@ textarea {
   flex-direction: column;
 }
 
+textarea {
+  flex-grow: 1;
+  width: 100%;
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid var(--textarea-border);
+  border-radius: 4px;
+  resize: none;
+  background: var(--textarea);
+  color: var(--text);
+}
+
 .undo-btn {
   position: absolute;
   bottom: 8px;
   right: 8px;
   padding: 6px 10px;
   font-size: 14px;
-  background: #e0e0e0;
+  background: var(--undo);
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  color: var(--undo-text);
 }
 .undo-btn:disabled {
   background: #ccc;
@@ -341,6 +377,10 @@ textarea {
 
 .add-note-input input {
   flex: 1;
+  padding: 6px;
+  font-size: 12px;
+  border: 1px solid var(--textarea-border);
+  border-radius: 3px;
   padding: 4px 8px;
   font-size: 13px;
   border: none;
@@ -350,17 +390,19 @@ textarea {
 }
 
 .add-note-input button {
+  padding: 6px;
+  font-size: 12px;
+  background: var(--btn);
   width: 30px;
   height: 100%;
-  background: none;
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: #333;
+  color: var(--btn-text);
 }
 
 .add-note-input button:hover {
-  background: #dddddd8a;
+  background: var(--btn-hover);
 }
 
 
@@ -392,155 +434,66 @@ textarea {
   height: auto;
 }
 
-.app.mode-nuit {
-  background-color: #0b0626;
-  color: #e0e0e0;
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Opacité fixe, pas var car semi-transparence */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.app.mode-nuit .sidebar {
-  background-color: #0b0626;
-  border-right: 1px solid #444;
+
+
+
+.popup-box {
+  background-color: var(--popup);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  animation: fadeInPop 0.3s ease-in-out;
+  color: var(--text);
+}
+.popup-box img {
+  max-width: 100px;
+  margin-bottom: 1rem;
 }
 
-.app.mode-nuit .folder-title {
-  background-color: #171a38;
-  color: #fff;
+.popup-box p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
 }
 
-.app.mode-nuit .note-item {
-  background-color: #171a38;
-  color: #f0f0f0;
-}
-
-.app.mode-nuit .note-item.active {
-  background-color: #39485c;
-}
-
-.app.mode-nuit .editor {
-  background-color: #0b0626;
-  color: #fff;
-}
-
-.app.mode-nuit textarea {
-  background-color: #181818;
-  color: #ffffff;
-  border-color: #444;
-}
-
-.app.mode-nuit .undo-btn {
-  background-color: #444;
-  color: white;
-}
-
-.app.mode-jour {
-  background-color: #eaf2fd;
-  color: #000;
-}
-
-.app.mode-jour .sidebar {
-  background-color: #ebf5fa;
-  border-right: 1px solid #ccc;
-}
-
-.app.mode-jour .folder-title {
-  background-color: #a6d4ff;
-  color: #000;
-}
-
-.app.mode-jour .note-item {
-  background-color: #ffffff;
-  color: #000;
-}
-
-.app.mode-jour .note-item.active {
-  background-color: #e1e8f3;
-}
-
-.app.mode-jour .editor {
-  background-color: #fff;
-  color: #000;
-}
-
-.app.mode-jour textarea {
-  background-color: #fff;
-  color: #000;
-  border-color: #ccc;
-}
-
-.app.mode-jour .undo-btn {
-  background-color: #ddd;
-  color: #000;
-}
-.app.mode-jour .add-category-btn,
-.app.mode-jour .add-note-btn,
-.app.mode-jour .add-category-input button,
-.app.mode-jour .add-note-input button {
-  background-color: #a6d4ff;
-  color: #000;
+.popup-box button {
+  padding: 0.6rem 1.5rem;
+  background-color: var(--btn);
   border: none;
-  border-radius: 4px;
-  padding: 5px;
+  color: var(--btn-text);
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
 }
 
-.app.mode-jour .add-category-input button:hover,
-.app.mode-jour .add-note-input button:hover {
-  background-color: #a6d4ff;
+.popup-box button:hover {
+  background-color: var(--btn-hover);
 }
 
-.app.mode-zen {
-  background-color: #cfe4d9;
-  color: #1e1e1e;
-}
-
-.app.mode-zen .sidebar {
-  background-color: #cfe4d9;
-  border-right: 1px solid #aacdbf;
-}
-
-.app.mode-zen .folder-title {
-  background-color: #9cccb5;
-  color: #1e1e1e;
-}
-
-.app.mode-zen .note-item {
-  background-color: #ffffff;
-  color: #1e1e1e;
-}
-
-.app.mode-zen .note-item.active {
-  background-color: #9cccb5;
-}
-
-.app.mode-zen .editor {
-  background-color: #ffffff;
-  color: #1e1e1e;
-}
-
-.app.mode-zen textarea {
-  background-color: #f0fef8;
-  color: #1e1e1e;
-  border-color: #b5dac9;
-}
-
-.app.mode-zen .undo-btn {
-  background-color: #9cccb5;
-  color: #ffffff;
-}
-
-.app.mode-zen .add-category-btn,
-.app.mode-zen .add-note-btn,
-.app.mode-zen .add-category-input button,
-.app.mode-zen .add-note-input button {
-  background-color: #9cccb5;
-  color: #1e1e1e;
-  border: none;
-  border-radius: 4px;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.app.mode-zen .add-category-input button:hover,
-.app.mode-zen .add-note-input button:hover {
-  background-color: #77a08e;
+@keyframes fadeInPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

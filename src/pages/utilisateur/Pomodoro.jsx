@@ -1,6 +1,8 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';  // Pour récupérer les valeurs du context
 import TimerPom from "../../composants/timer/TimerPom";
+import ThemeWrapper from "../../components/common/ThemeWrapper";
+
 
 const Pomodoro = () => {
   // Récupérer les valeurs depuis le context passé par SidebarLayout
