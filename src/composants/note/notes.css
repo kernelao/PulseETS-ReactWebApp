@@ -355,7 +355,7 @@ textarea {
   border-radius: 4px;
   resize: none;
   background: var(--textarea);
-  color: black;
+  color: var(--text);
 }
 
 .undo-btn {

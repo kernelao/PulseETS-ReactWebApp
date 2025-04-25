@@ -262,21 +262,16 @@ function handleDeleteNote(folderName, noteId) {
 
 //categories
 function handleDeleteCategory(folderName) {
-  // Get all notes in that folder
   const notesToDelete = folders.find(f => f.name === folderName)?.notes || [];
 
-  // Confirm with user (optional)
   if (!window.confirm(`Supprimer la catégorie "${folderName}" et toutes ses notes ?`)) return;
 
-  // Delete each note via the API
   Promise.all(notesToDelete.map(note =>
     axios.delete(`/notes/${note.id}`)
   ))
     .then(() => {
-      // Remove the folder from frontend state
       setFolders(prev => prev.filter(f => f.name !== folderName));
 
-      // Clear selected note if it was part of the deleted folder
       if (selectedNote && notesToDelete.some(n => n.id === selectedNote.id)) {
         setSelectedNote(null);
       }
@@ -407,7 +402,7 @@ function handleEditNoteTitle(noteId, newTitle) {
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleEditCategoryName(folder.name, editedFolderName); // ✅ keep this here
+                      handleEditCategoryName(folder.name, editedFolderName);
                       setEditingFolderName(null);
                     }
                   }}
@@ -462,7 +457,7 @@ function handleEditNoteTitle(noteId, newTitle) {
                     <div
                       key={note.id}
                       className={"note-item " + (selectedNote?.id === note.id ? "active" : "")}
-                      onClick={() => handleNoteSelection(note)} // <-- ici aussi
+                      onClick={() => handleNoteSelection(note)}
 
                     >
                       {editingNoteId === note.id ? (

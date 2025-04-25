@@ -1,6 +1,7 @@
 .profile_container {
   width: 60%; /* même que .recompenses_container */
   margin: 0 auto;
+  max-width: 900px;
   padding-top: 3rem;
   padding-bottom: 2rem;
   display: flex;
@@ -109,6 +110,7 @@
 .recompenses_container {
   width: 50%;
   max-height: 35vh;
+  max-width: 700px;
   overflow-y: auto;
   padding: 1rem;
   border-radius: 12px;
@@ -285,6 +287,7 @@
   flex-wrap: wrap;
   gap: 2rem;
   width: 40%;
+  max-width: 900px;
   margin: 2rem auto;
 }
 
