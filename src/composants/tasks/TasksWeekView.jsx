@@ -12,7 +12,8 @@ const TasksWeekView = ({
     updateTag,
     showNotification,
     selectedIds,
-    toggleTaskSelection
+    toggleTaskSelection,
+    togglePinnedTask // ✅ Ajout ici
 }) => {
     const [editingTask, setEditingTask] = useState(null);
     const [newTitle, setNewTitle] = useState("");
@@ -40,10 +41,6 @@ const TasksWeekView = ({
         showNotification("✅ Tâche complétée !");
     };
 
-    const togglePin = (task) => {
-        updateTask(task.id, task.title, task.tag, task.dueDate?.slice(0, 10), task.completed, task.priority, !task.pinned);
-    };
-
     const today = new Date();
     const weekStart = startOfWeek(today, { weekStartsOn: 1 });
     const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
@@ -54,7 +51,6 @@ const TasksWeekView = ({
             return isSameDay(new Date(task.dueDate), day);
         });
 
-        // Tri : épinglées en haut
         const sortedTasks = [...dayTasks].sort((a, b) => (b.pinned === true) - (a.pinned === true));
 
         return {
@@ -91,7 +87,6 @@ const TasksWeekView = ({
                             </div>
 
                             <div className="task-buttons">
-                                {/* Badge de priorité */}
                                 {task.priority && (
                                     <span
                                         className={`priority-indicator ${
@@ -105,12 +100,10 @@ const TasksWeekView = ({
                                         style={{ alignSelf: "center" }}
                                     ></span>
                                 )}
-
                                 <button onClick={() => openEditModal(task)}>Modifier</button>
                                 <button onClick={() => deleteTask(task.id)}>Supprimer</button>
                                 <button style={{ backgroundColor: "#28a745" }} onClick={() => handleComplete(task)}>✓</button>
-                                <button onClick={() => togglePinnedTask(task)}
-                                >
+                                <button onClick={() => togglePinnedTask(task)}>
                                     {task.pinned ? "📍" : "📌"}
                                 </button>
                             </div>

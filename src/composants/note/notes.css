@@ -7,6 +7,19 @@
   color: var(--text);
 }
 
+.app .add-category-btn,
+.app .add-note-btn,
+.app .add-category-input button,
+.app .add-note-input button {
+  background-color: var(--note);
+  color: var(--text);
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+
 /* Sidebar */
 .sidebar {
   width: 240px;
@@ -187,14 +200,13 @@
 .notes {
   max-width: 300px;
   margin-left: 5px;
-  
 }
 
 .note-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--note);
+  background: var(--btn);
   color: var(--text);
   padding: 6px 8px;
   margin: 4px 0;
@@ -208,7 +220,7 @@
 }
 
 .note-item:hover {
-  background: var(--note-hover);
+  background: var(--btn-hover);
 }
 
 .note-item.active {
@@ -288,7 +300,7 @@
 .editor {
   flex: 1;
   padding: 20px;
-  background: var(--note);
+  background: white;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -299,6 +311,7 @@
   font-size: 24px;
   margin-bottom: 10px;
   text-align: left;
+  color: var(--note);
 }
 
 .separator {
@@ -341,7 +354,7 @@ textarea {
   border-radius: 4px;
   resize: none;
   background: var(--textarea);
-  color: var(--text);
+  color: var(--note);
 }
 
 .undo-btn {
@@ -420,11 +433,13 @@ textarea {
   font-family: 'Quicksand', sans-serif;
   font-size: 30px;
   margin-bottom: 20px;
+  color: var(--note);
 }
 
 .welcome-page p {
   font-size: 16px;
   margin: 6px 0;
+  color: var(--note);
 }
 
 .welcome-image {
@@ -433,22 +448,6 @@ textarea {
   max-width: 500px;
   height: auto;
 }
-
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); /* Opacité fixe, pas var car semi-transparence */
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
 
 .popup-box {
   background-color: var(--popup);

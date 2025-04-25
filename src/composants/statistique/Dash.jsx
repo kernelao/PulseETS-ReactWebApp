@@ -44,7 +44,6 @@ const Dash = () => {
   }, [token]);
 
   return (
-    
     <ThemeWrapper>
     <div className={`dashboard-container ${themeClass}`}>
       <Greeting username={username} />

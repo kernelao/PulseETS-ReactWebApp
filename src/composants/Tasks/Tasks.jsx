@@ -339,7 +339,7 @@ const updateTask = async (
       const updated = await updateTache(id, {
         titre: taskToUpdate.title,
         tag: taskToUpdate.tag,
-        dueDate: taskToUpdate.dueDate,
+        dueDate: taskToUpdate.dueDate?.slice(0, 10), // 🛠️ correction ici
         priority: taskToUpdate.priority,
         completed: taskToUpdate.completed,
         pinned: taskToUpdate.pinned,
@@ -353,9 +353,11 @@ const updateTask = async (
       showNotification('💾 Description enregistrée !');
     } catch (err) {
       console.error('Erreur sauvegarde description', err);
+      console.log("🔍 Erreur API:", err.response?.data);
       showNotification('❌ Erreur sauvegarde', 'error');
     }
   }
+  
   
   const getFilterTitle = () => {
     switch (filter) {
@@ -440,11 +442,11 @@ const updateTask = async (
       const updated = await updateTache(task.id, {
         titre: task.title,
         tag: task.tag,
-        dueDate: task.dueDate,
+        dueDate: task.dueDate?.slice(0, 10), // 🔄 conversion explicite au format "YYYY-MM-DD"
         priority: task.priority,
         completed: task.completed,
         pinned: !task.pinned,
-        description: task.description,
+        description: task.description
       });
   
       setTasks(tasks.map((t) =>
@@ -457,9 +459,11 @@ const updateTask = async (
       showNotification(updated.pinned ? '📍 Tâche épinglée !' : '📌 Tâche désépinglée !');
     } catch (err) {
       console.error('Erreur épinglage tâche', err);
+      console.log('🔍 Erreur API:', err.response?.data); // 👈 important pour diagnostiquer si ça rate encore
       showNotification('❌ Erreur lors de l’épinglage', 'error');
     }
   }
+  
   
 
   const toggleTaskSelection = (id) => {

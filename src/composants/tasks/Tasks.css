@@ -289,20 +289,11 @@
 }
 
 .task-view-title {
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.task-view-title {
   font-size: 24px;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--border); 
-  padding-bottom: 5px;
+  margin: 0;
 }
+
 
 .modal-overlay {
   position: fixed;
@@ -340,16 +331,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
   width: 100%;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #b6d9b6;
 }
+
 
 .task-view-title {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
   padding-bottom: 5px;
-  border-bottom: 2px solid var(--border);
   flex: 1;
 }
 
@@ -436,7 +429,7 @@ body {
 }
 
 .tag-search input {
-  background-color: var(--note);
+  background-color: white;
   border: 1px solid var(--border-muted);
   color: var(--text);
 }
