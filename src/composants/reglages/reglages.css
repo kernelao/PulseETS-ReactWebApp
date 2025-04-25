@@ -115,8 +115,9 @@
 .selectReglages {
   padding: 8px;
   border-radius: 8px;
-  border: 1px solid #e2e6d5;
-  background: #e2e6d5;
+  border: 1px solid var(--card-hover);
+  background: var(--card-hover);
+  color: var(--text-color);
   font-weight: bold;
   width: 100%;
   max-width: 200px;
@@ -132,8 +133,8 @@
 }
 
 .minuteurChoixReglages {
-  background: #e2e6d5;
-  border: 1px solid #e2e6d5;
+  background: var(--card-hover);
+  border: 1px solid var(--card-hover);
   font-weight: bold;
   padding: 0.3rem;
   border-radius: 8px;
