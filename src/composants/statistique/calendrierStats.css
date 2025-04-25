@@ -1,0 +1,50 @@
+/* calendrierStats.css */
+
+.calendar-stats-wrapper {
+    background-color: var(--bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .react-calendar {
+    width: 100%;
+    border: none;
+    font-family: inherit;
+    background-color: var(--bg);
+    color: var(--text);
+  }
+  
+  .react-calendar__tile {
+    height: 50px;
+    max-width: 100%;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .react-calendar__tile:hover {
+    background-color: var(--folder-hover);
+  }
+  
+  .react-calendar__navigation {
+    margin-bottom: 1rem;
+  }
+  
+  .react-calendar__navigation button {
+    background: none;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    background-color: var(--folder-hover);
+    border-radius: 6px;
+  }
+  

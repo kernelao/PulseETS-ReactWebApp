@@ -19,6 +19,7 @@
   --undo-text: #000;
   --popup: #fff;
   --hover: #eee;
+  
 }
 
 /* ------------------- THÈMES PERSONNALISÉS ------------------- */
@@ -78,7 +79,7 @@
   --border: #ccc;
   --folder: #a6d4ff;
   --folder-hover: #86c2f3;
-  --note: #ffffff;
+  --note: #fcf6f6;
   --note-hover: #f1f7fe;
   --note-active: #e1e8f3;
   --editor-bg: whitesmoke;

@@ -117,6 +117,7 @@
   font-size: 14px;        
   font-weight: bold;
   color: var(--btn-text);
+  height:35px;
 }
 
 .folder-wrapper {
@@ -311,7 +312,7 @@
   font-size: 24px;
   margin-bottom: 10px;
   text-align: left;
-  color: var(--note);
+  color: black;
 }
 
 .separator {
@@ -354,7 +355,7 @@ textarea {
   border-radius: 4px;
   resize: none;
   background: var(--textarea);
-  color: var(--note);
+  color: black;
 }
 
 .undo-btn {

@@ -14,7 +14,7 @@
 .stats-container {
   flex-basis: 80%;
   background: #fff;
-  padding: 24px; 
+  padding: 24px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(161, 16, 16, 0.06);
   overflow: hidden;
@@ -27,10 +27,9 @@
 .stats-header {
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 8px;
   position: relative;
-  color: var(--text);
 }
 
 .stats-header h3 {
@@ -42,35 +41,33 @@
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  gap: 10px;
 }
 
 .stats-header button {
-  width: 120px;              
+  width: 120px;
   text-align: center;
   padding: 6px 10px;
-  font-size: 13px;           
-  position: absolute;
-  top: 10;
-  right: 0;
-  background-color: #3345a7;
-  color: white;
+  font-size: 13px;
+  background-color: var(--btn);
+  color: var(--btn-text);
   border: none;
-  border-radius: 8px;        
+  border-radius: 8px;
   cursor: pointer;
   height: fit-content;
   line-height: 1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);   
-  transition: all 0.2s ease;                 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
 }
 
 .stats-header button:hover {
-  background-color: #8b95c7;
-  transform: translateY(-1px);              
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .stats-header button:active {
-  transform: translateY(1px);               
+  transform: translateY(1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -80,7 +77,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 25px;  
+  margin-top: 25px;
 }
 
 .summary-section h4 {
@@ -98,16 +95,12 @@
 }
 
 .summary-column > div {
-  background-color: #f5f8ff;
+  background-color: var(--bg);
   width: 130px;
   text-align: right;
   padding: 12px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.summary-column > div {
-  background-color: var(--bg);
 }
 
 .summary-column p {
@@ -120,14 +113,127 @@
 .summary-column span {
   font-size: 22px;
   font-weight: bold;
-  color: var(--btn);
+  color: var(--folder-hover);
 }
 
-/*couleur tableau stats*/
+/* couleurs */
 .stats-container {
   background-color: var(--bg);
 }
 
+.stats-header {
+  color: var(--text);
+}
+
 #voirOption {
-  background-color: var(--note);
+  background-color: var(--btn);
+  color: var(--btn-text);
+}
+
+#voirOption:hover {
+  background-color: var(--btn-hover);
+}
+
+/* 📅 Wrapper heatmap */
+/* ====================== HEATMAP ZONE ====================== */
+.heatmap-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--bg);
+  border-radius: 16px;
+}
+
+.react-calendar-heatmap {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+/* === SVG === */
+.react-calendar-heatmap svg {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
+/* === RECT = case === */
+.react-calendar-heatmap rect {
+  width: 10px !important;
+  height: 10px !important;
+  rx: 4px !important;
+  ry: 4px !important;
+  stroke: none !important;
+  transition: all 0.2s ease;
+}
+
+.react-calendar-heatmap rect:hover {
+  stroke: #333;
+  stroke-width: 1px;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+}
+
+/* === Texte des mois === */
+.react-calendar-heatmap text {
+  font-size: 13px !important;
+  fill: var(--text);
+}
+
+/* ====================== COLOR SCALE PASTEL ====================== */
+.color-empty {
+  background-color: #e0e0e0 !important;
+  fill: #e0e0e0 !important;
+}
+
+.color-scale-1 {
+  background-color: #e0f7e9 !important;
+  fill: #e0f7e9 !important;
+}
+.color-scale-2 {
+  background-color: #a0eac9 !important;
+  fill: #a0eac9 !important;
+}
+.color-scale-3 {
+  background-color: #52d1a2 !important;
+  fill: #52d1a2 !important;
+}
+.color-scale-4 {
+  background-color: #24a178 !important;
+  fill: #24a178 !important;
+}
+.color-scale-5 {
+  background-color: #117457 !important;
+  fill: #117457 !important;
+}
+
+/* ====================== LEGENDE ====================== */
+.heatmap-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+.color-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+/* ====================== TOOLTIP ====================== */
+.react-calendar-heatmap .react-tooltip {
+  background: white;
+  color: #333;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
